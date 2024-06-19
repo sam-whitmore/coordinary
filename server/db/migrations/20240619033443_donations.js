@@ -5,7 +5,7 @@
 export async function up(knex) {
   return knex.schema.createTable('donations', (table) => {
     table.integer('id').primary()
-    table.string('donor_auth0_id').notNullable()
+    table.string('donor_auth0_id').references('donors.auth0_id')
     table.boolean('anonymous').notNullable()
     table.datetime('datetime').notNullable()
     table.integer('register_id').references('registers.id')

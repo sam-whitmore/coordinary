@@ -3,6 +3,7 @@ export interface CharityData {
   categoryId: number
   phone: string
   email: string
+  location: string
 }
 
 export interface Charity extends CharityData {
@@ -16,4 +17,5 @@ export interface CharitySnakeCase {
   category_id: number
   phone: string
   email: string
+  location: string
 }

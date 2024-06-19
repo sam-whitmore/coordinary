@@ -9,6 +9,7 @@ export async function up(knex) {
     table.integer('category_id').references('charity_categories.id')
     table.string('email')
     table.string('phone')
+    table.string('location')
   })
   /**
    * @param { import("knex").Knex } knex

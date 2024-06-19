@@ -1,5 +1,6 @@
 export interface DonorData {
   auth0Id: string
+  email: string
 }
 
 export interface Donor extends DonorData {
@@ -9,4 +10,5 @@ export interface Donor extends DonorData {
 export interface DonorSnakeCase {
   id?: number
   auth0_id: string
+  email: string
 }
