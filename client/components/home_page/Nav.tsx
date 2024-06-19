@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
+import SignInButton from '../authentication/SignInButton' 
+import SignOutButton from '../authentication/SignOutButton'
 
 export default function Nav() {
-  // UPDATE NAV WITH LINKS
+  const { user } = useAuth0()
 
   return (
     <div className="border-box flex h-[10%] w-full justify-between border-4 border-orange-400">
@@ -23,7 +26,7 @@ export default function Nav() {
         </Link>
       </div>
       <div className="mx-4 my-auto p-2">
-        <button className="rtl text-2xl">Sign Up</button>
+        { user ? <SignOutButton /> : <SignInButton />}
       </div>
     </div>
   )
