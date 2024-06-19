@@ -8,15 +8,15 @@ const router = Router()
 router.get('/', async (req, res) => {
   try {
     const result = await db.getAllCharities()
-    res.json(results)
+    res.json(result)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ 'Something went wrong' })
+    res.status(500).json({ errorMessage: 'Something went wrong' })
   }
 })
 
 router.get('/:id', async (req, res, next) => {
-  const { id } = number(req.params.id)
+  const id = Number(req.params.id)
   try {
     const result = await db.getAllCharitiesById(id)
     res.json(result)
@@ -32,8 +32,8 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const { owner, name } = req.body
-    const id = await db.addCharities({ owner, name })
+    const { categoryId, name, phone, email } = req.body
+    const id = await db.addCharities({ categoryId, name, phone, email })
     res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)

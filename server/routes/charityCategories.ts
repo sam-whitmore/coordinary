@@ -11,13 +11,13 @@ router.get('/', async (req, res) => {
     res.json(result)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ 'Something went wrong' })
+    res.status(500).json({ errorMessage: 'Something went wrong' })
   }
 })
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const result = await db.getCategoryById(req.params.id)
+    const result = await db.getCategoryById(Number(req.params.id))
     res.json(result)
   } catch (err) {
     next(err)
@@ -31,8 +31,8 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const { owner, name } = req.body
-    const id = await db.addCategory({ owner, name })
+    const { category } = req.body
+    const id = await db.addCategory({ category })
     res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)
