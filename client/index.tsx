@@ -11,15 +11,12 @@ const queryClient = new QueryClient()
 
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
-    /**
-     * TODO: replace domain, clientId, and audience
-     */
     <Auth0Provider
-      domain=""
-      clientId=""
+      domain="whai-2024-sam.au.auth0.com"
+      clientId="G4AkCNuTeuBOaR4Gf97pI5uyxzPURyeY"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: '',
+        audience: 'https://coordinary/api',
       }}
     >
       <QueryClientProvider client={queryClient}>
