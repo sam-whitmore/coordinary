@@ -11,8 +11,7 @@ export async function up(knex) {
     table.float('price_in_NZD').notNullable()
     table.float('NZD_raised').notNullable()
   })
-  
-};
+}
 
 /**
  * @param { import("knex").Knex } knex
@@ -20,5 +19,4 @@ export async function up(knex) {
  */
 export async function down(knex) {
   return knex.schema.dropTable('items')
-  
-};
+}

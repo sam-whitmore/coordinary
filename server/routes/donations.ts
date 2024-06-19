@@ -11,17 +11,17 @@ router.get('/', async (req, res) => {
     res.json(result)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ 'Something went wrong' })
+    res.status(500).json({ errorMessage: 'Something went wrong' })
   }
 })
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const result = await db.getDonationById(req.params.id)
+    const result = await db.getDonationById(Number(req.params.id))
     res.json(result)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ 'Something went wrong' })
+    res.status(500).json({ errorMessage: 'Something went wrong' })
   }
 })
 
@@ -32,8 +32,22 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const { owner, name } = req.body
-    const id = await db.addDonation({ owner, name })
+    const {
+      donorAuth0Id,
+      itemId,
+      registerId,
+      anonymous,
+      datetime,
+      valueInNZD,
+    } = req.body
+    const id = await db.addDonation({
+      donorAuth0Id,
+      itemId,
+      registerId,
+      anonymous,
+      datetime,
+      valueInNZD,
+    })
     res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)

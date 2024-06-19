@@ -7,8 +7,7 @@ export async function up(knex) {
     table.integer('id').primary()
     table.string('auth0_id')
   })
-  
-};
+}
 
 /**
  * @param { import("knex").Knex } knex
@@ -16,5 +15,4 @@ export async function up(knex) {
  */
 export async function down(knex) {
   return knex.schema.dropTable('donors')
-  
-};
+}

@@ -8,8 +8,7 @@ export async function up(knex) {
     table.string('name').notNullable()
     table.integer('charity_id').references('charities.id')
   })
-  
-};
+}
 
 /**
  * @param { import("knex").Knex } knex
@@ -17,5 +16,4 @@ export async function up(knex) {
  */
 export async function down(knex) {
   return knex.schema.dropTable('registers')
-  
-};
+}
