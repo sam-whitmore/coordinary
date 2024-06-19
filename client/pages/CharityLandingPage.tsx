@@ -1,5 +1,5 @@
 import Sidebar from '../components/charity_landing_page/Sidebar'
-import Registries from '../components/charity_landing_page/Registries'
+import { Outlet } from 'react-router-dom'
 
 export default function CharityLandingPage() {
   return (
@@ -10,7 +10,7 @@ export default function CharityLandingPage() {
         </button>
         <Sidebar />
       </div>
-      <Registries />
+      <Outlet />
     </div>
   )
 }

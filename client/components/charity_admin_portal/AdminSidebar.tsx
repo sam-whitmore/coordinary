@@ -1,37 +1,31 @@
 import { Link } from 'react-router-dom'
 
-export default function Sidebar() {
+export default function AdminSidebar() {
   return (
-    <div className="border-box flex h-[90%] w-full flex-col border-4 border-green-400">
+    <div className="border-box flex h-full w-1/6 flex-col border-4 border-yellow-300">
       <Link
         to=""
         className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
       >
-        About Us
+        Admin Home
       </Link>
       <Link
-        to="posts"
+        to="dashboard"
         className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
       >
-        Our Work
-      </Link>
-      <Link
-        to="donate"
-        className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
-      >
-        Our Registries
+        Dashboard
       </Link>
       <Link
         to="playground"
         className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
       >
-        Charity Playground
+        Playground
       </Link>
       <Link
         to="sandbox"
         className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
       >
-        Charity Sandbox
+        Sandbox
       </Link>
     </div>
   )

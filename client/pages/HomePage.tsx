@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <div className="border-box border-4 border-red-400 h-screen w-screen">
       <Nav />
-      <div className="border-box h-4/5 w-full flex">
+      <div className="border-box border-4 border-orange-400 h-[90%] w-full flex">
         <HeroContainer />
         <CharitiesList />
       </div>
