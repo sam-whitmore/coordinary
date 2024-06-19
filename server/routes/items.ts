@@ -1,102 +1,113 @@
-import express, { Request, Response } from 'express'
+import { Router } from 'express'
+import checkJwt, { JwtRequest } from '../auth0'
+import { StatusCodes } from 'http-status-codes'
+import * as db from '../db/items'
 
+const router = Router()
 
-interface Item {
-  id: number,
-  name: string,
-  image: blob,
-  new: boolean,
-  price_in_NZD: notNull,
-  NZD_raised: notNull,
-}
+// Item interface
+// interface Item {
+//   id: number
+//   name: string
+//   image: Buffer // Blob data will be stored as a Buffer in Node.js
+//   new: boolean
+//   price_in_NZD: number
+//   NZD_raised: number
+// }
 
-const items: Item[]
-const router = express.Router()
-
-//Route to get all n id
-router.get('/', (req: Request, res: Response) => {
+// Route to get all items x
+router.get('/', async (req, res) => {
   try {
-    res.json(items);
+    const result = await db.getAllItems()
+    res.json(result)
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' })
+    console.log(error)
+    res.status(500).json({ errorMessage: 'Something went wrong' })
   }
 })
 
-
-
-//route for getting specific id?? to fix
-router.get('/:id', (req: Request, res: Response) => {
+// Route to get a specific item by ID x
+router.get('/:id', async (req, res) => {
   try {
-    const { id } = req.params;
-    const item = items.find(item => item.id === id)
-
-    if (!item) {
-      return res.status(404).json({ error: 'Item not found' })
+    const result = await db.getItemById(Number(req.params.id))
+    if (!result) {
+      return res.status(404).json({ errorMessage: 'Item not found' })
     }
-
-    res.json(item)
+    res.json(result)
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' })
+    console.log(error)
+    res.status(500).json({ errorMessage: 'Something went wrong' })
   }
 })
 
+// Route to create a new item x
+router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
 
-//to create
-router.post('/', (req: Request, res: Response) => {
   try {
-
-    //fix*
-    const { item[] } = req.body
-    const newItem: Item = { id:, name:, image:, price_in_NZD:, NZD_raised: }
-
-    items.push(newItem);
-    res.status(201).json(newItem)
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' })
+    const { name, image, new: isNew, price_in_NZD, NZD_raised } = req.body
+    const id = await db.addItem({
+      name,
+      image,
+      new: isNew,
+      price_in_NZD,
+      NZD_raised,
+    })
+    res
+      .setHeader('Location', `${req.baseUrl}/${id}`)
+      .sendStatus(StatusCodes.CREATED)
+  } catch (err) {
+    next(err)
   }
 })
 
+// Route to update an item by ID x
+router.put('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
 
-
-//to update
-router.put('/:id', (req: Request, res: Response) => {
   try {
-    const { id } = req.params
-    //fix*
-    const { item[] } = req.body
-    const item = items.find(item => item.id === id )
-
-    if (!item) {
-      return res.status(404).json({ error: 'Item not found' })
+    const { name, image, new: isNew, price_in_NZD, NZD_raised } = req.body
+    const id = Number(req.params.id)
+    const result = await db.updateItem({
+      id,
+      name,
+      image,
+      new: isNew,
+      price_in_NZD,
+      NZD_raised,
+    })
+    if (!result) {
+      return res.status(404).json({ errorMessage: 'Item not found' })
     }
-//?
-    item.name = name !== undefined ? name : item.name;
-    item.description = description !== undefined ? description : item.description;
-    item.price = price !== undefined ? price : item.price;
-
-    res.json(item)
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' })
+    res.sendStatus(StatusCodes.NO_CONTENT)
+  } catch (err) {
+    next(err)
   }
 })
 
+// Route to delete an item by ID x
+router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
 
-//delete by id
-router.delete('/:id', (req: Request, res: Response) => {
   try {
-    const { id } = req.params
-    const index = items.findIndex(item => item.id === id)
-
-    if (index === -1) {
-      return res.status(404).json({ error: 'Item not found' })
+    const id = Number(req.params.id)
+    const result = await db.deleteItem(id)
+    if (!result) {
+      return res.status(404).json({ errorMessage: 'Item not found' })
     }
-
-    const deletedItem = items.splice(index, 1)[0]
-    res.json(deletedItem)
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' })
+    res.sendStatus(StatusCodes.NO_CONTENT)
+  } catch (err) {
+    next(err)
   }
 })
 
 export default router
-
