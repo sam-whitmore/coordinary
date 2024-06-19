@@ -27,6 +27,12 @@ export default function AdminSidebar() {
       >
         Sandbox
       </Link>
+      <Link
+        to="../charity-name"
+        className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+      >
+        Go to Charity Landing Page
+      </Link>
     </div>
   )
 }

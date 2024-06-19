@@ -33,6 +33,12 @@ export default function Sidebar() {
       >
         Charity Sandbox
       </Link>
+      <Link
+        to="admin"
+        className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+      >
+        Go to Admin Portal
+      </Link>
     </div>
   )
 }

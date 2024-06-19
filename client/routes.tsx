@@ -36,12 +36,12 @@ const routes = createRoutesFromElements(
       <Route path="sandbox" element={<CharitySandbox />} />
       <Route path="contact" element={<CharityContact />} />
     </Route>
-    <Route path="admin" element={<CharityAdminPortal />}>
-      <Route index element={<AdminHome />} />
-      <Route path="dashboard" element={<AdminDashboard />} />
-      <Route path="playground" element={<AdminPlayground />} />
-      <Route path="sandbox" element={<AdminSandbox />} />
-    </Route>
+    <Route path="charity-name/admin" element={<CharityAdminPortal />}>
+        <Route index element={<AdminHome />} />
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="playground" element={<AdminPlayground />} />
+        <Route path="sandbox" element={<AdminSandbox />} />
+      </Route>
   </Route>,
 )
 
