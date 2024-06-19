@@ -5,7 +5,7 @@
 export async function up(knex) {
   return knex.schema.createTable('donors_charities', (table) => {
     table.integer('donor_id').references('donors.id').onDelete('CASCADE')
-    table.integer('charity_id').references('donors.id').onDelete('CASCADE')
+    table.integer('charity_id').references('charities.id').onDelete('CASCADE')
   })
 }
 

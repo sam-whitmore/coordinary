@@ -5,7 +5,7 @@ interface Item {
   id: number,
   name: string,
   image: blob,
-  new: boolean,
+  necdw: boolean,
   price_in_NZD: notNull,
   NZD_raised: notNull,
 }
