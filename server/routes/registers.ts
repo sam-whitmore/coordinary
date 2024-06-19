@@ -41,3 +41,5 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
     next(err)
   }
 })
+
+export default router
