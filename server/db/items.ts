@@ -2,11 +2,12 @@ import { ItemData, ItemSnakeCase } from '../../models/item'
 import db from './connection'
 
 // Pre-define snake_case to camelCase select statements for gets??
+// TODO: Change SQLite Columns for Items from New to Used
 const columns = [
   'id',
   'name',
   'image',
-  'used',
+  'new',
   'price_in_NZD as priceInNZD',
   'NZD_raised as NZDRaised',
 ]

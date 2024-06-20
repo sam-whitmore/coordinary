@@ -9,8 +9,9 @@ export async function getAllRegisters() {
   return result
 }
 
-export async function getRegisterById(id: number) {
-  const result = await db('registers').where({ id }).select(columns).first()
+// This fetches every register assigned to a charity.
+export async function getRegistersByCharityId(id: number) {
+  const result = await db('registers').where({ charity_id: id }).select(columns)
   return result
 }
 

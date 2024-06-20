@@ -19,3 +19,12 @@ export interface ItemSnakeCase {
   price_in_NZD: number
   NZD_raised: number
 }
+
+export interface ItemFromRegister {
+  register_id: number
+  items_id: number
+  image: File
+  new: boolean
+  priceInNZD: number
+  NZDRaised: number
+}

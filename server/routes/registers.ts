@@ -15,9 +15,9 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res) => {
   try {
-    const result = await db.getRegisterById(Number(req.params.id))
+    const result = await db.getRegistersByCharityId(Number(req.params.id))
     res.json(result)
   } catch (error) {
     console.log(error)
