@@ -28,6 +28,16 @@ export default function useRegisters() {
     })
   }
 
+  function useGetRegistersByCharityId(id: number) {
+    return useQuery({
+      queryKey: ['registers'],
+      queryFn: async () => {
+        const res = await request.get(`${rootURL}/${id}`)
+        return res.body as Register[]
+      }
+    })
+  }
+
   function useAddRegister() {
     const { getAccessTokenSilently } = useAuth0()
     const queryClient = useQueryClient()
@@ -73,7 +83,8 @@ export default function useRegisters() {
 
   return {
     add: useAddRegister().mutate,
-    allByRegister: useGetAllRegisters,
+    all: useGetAllRegisters,
+    allOfCharity: useGetRegistersByCharityId,
     del: useDeleteRegister().mutate,
   }
 }

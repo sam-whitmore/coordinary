@@ -3,10 +3,22 @@ import { useMutation } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Register, RegisterData } from '../../models/register'
+import { Item, ItemFromRegister } from '../../models/item'
 
-const rootURL = '/api/v1/items'
+const rootURL = '/api/v1/registers_items'
 
 export default function useRegisterItems() {
+
+  function useGetItemsByRegisterId(id: number) {
+    return useQuery({
+      queryKey: ['items'],
+      queryFn: async () => {
+        const res = await request.get(`${rootURL}/${id}`)
+        return res.body as ItemFromRegister[]
+      }
+    })
+  }
+
   function useGetAllRegisterItems() {
     const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
@@ -75,5 +87,6 @@ export default function useRegisterItems() {
     add: useAddRegisterItems().mutate,
     allByRegister: useGetAllRegisterItems,
     del: useDeleteRegisterItem().mutate,
+    byRegisterId: useGetItemsByRegisterId 
   }
 }
