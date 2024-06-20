@@ -7,7 +7,7 @@ export default function Sidebar() {
   const { user } = useAuth0()
 
   return (
-    <div className="relative border-box flex h-[90%] w-full flex-col border-4 border-green-300">
+    <div className="border-box relative flex h-[90%] w-full flex-col border-4 border-green-300">
       <div className="border-box flex h-auto w-full flex-col border-4 border-purple-300">
         <Link
           to=""
@@ -19,13 +19,19 @@ export default function Sidebar() {
           to="posts"
           className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
         >
-          Our Work
+          Our Impact
         </Link>
         <Link
           to="donate"
           className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
         >
           Our Registries
+        </Link>
+        <Link
+          to="contact"
+          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+        >
+          Contact Us
         </Link>
         <Link
           to="playground"
@@ -46,8 +52,8 @@ export default function Sidebar() {
           Go to Admin Portal
         </Link>
       </div>
-      <div className="absolute border-box border-4 border-sky-300 bottom-0 w-full text-center py-2">
-        { user ? <SignOutButton /> : <SignInButton />}
+      <div className="border-box absolute bottom-0 w-full border-4 border-sky-300 py-2 text-center">
+        {user ? <SignOutButton /> : <SignInButton />}
       </div>
     </div>
   )

@@ -32,7 +32,7 @@ import DonationHistory from './components/donor_admin_portal/DonationHistory.tsx
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route index element={<HomePage />} />
-    <Route path="charity-name" element={<CharityLandingPage />}>
+    <Route path=":charitySlug" element={<CharityLandingPage />}>
       <Route index element={<About />} />
       <Route path="posts" element={<CharityWall />} />
       <Route path="donate" element={<Registries />}>
@@ -48,6 +48,7 @@ const routes = createRoutesFromElements(
       <Route path="playground" element={<AdminPlayground />} />
       <Route path="sandbox" element={<AdminSandbox />} />
     </Route>
+<<<<<<< HEAD
     <Route path="donor/admin" element={<DonorAdminPortal />}>
       <Route index element={<DonorAdminHome />} />
       <Route path="dashboard" element={<DonorAdminDashboard />} />
@@ -55,6 +56,8 @@ const routes = createRoutesFromElements(
       <Route path="sandbox" element={<DonorAdminSandbox />} />
       <Route path="donation-history" element={<DonationHistory />} />
     </Route>
+=======
+>>>>>>> main
   </Route>,
 )
 
