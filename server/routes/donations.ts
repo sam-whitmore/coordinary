@@ -5,9 +5,23 @@ import * as db from '../db/donations.ts'
 
 const router = Router()
 
-router.get('/', async (req, res) => {
+// router.get('/', async (req, res) => {
+//   try {
+//     const result = await db.getAllDonations()
+//     res.json(result)
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).json({ errorMessage: 'Something went wrong' })
+//   }
+// })
+
+router.get('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
   try {
-    const result = await db.getAllDonations()
+    const result = await db.getDonationById(Number(req.params.id))
     res.json(result)
   } catch (error) {
     console.log(error)
@@ -15,13 +29,19 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+//GET /donor/:id - returns DonationWithJoinedData[] for a given donor
+router.get('/donor/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
   try {
-    const result = await db.getDonationById(Number(req.params.id))
+    const result = await db.getDonationsByDonor(Number(req.params.id))
     res.json(result)
   } catch (error) {
-    console.log(error)
+    console.error(error)
     res.status(500).json({ errorMessage: 'Something went wrong' })
+    next(error)
   }
 })
 

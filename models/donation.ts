@@ -22,3 +22,17 @@ export interface DonationSnakeCase {
   datetime: Date
   value_in_NZD: number
 }
+
+//for sane typing of donations coming up (with item/charity/register data joined)
+export interface DonationWithJoinedData {
+  id: number
+  anonymous: boolean
+  datetime: Date
+  valueInNZD: number
+  charityName: string
+  charitySlug: string
+  registerName: string
+  itemName: string
+  itemPriceNZD: number
+  itemID: number
+}

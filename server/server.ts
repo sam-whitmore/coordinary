@@ -5,6 +5,7 @@ import itemsRoutes from './routes/items.ts'
 import registerRoutes from './routes/registers.ts'
 import donationRoutes from './routes/donations.ts'
 import charityCategories from './routes/charityCategories.ts'
+import donorRoutes from './routes/donors.ts'
 
 const server = express()
 
@@ -15,6 +16,7 @@ server.use('/api/v1/items', itemsRoutes)
 server.use('/api/v1/registers', registerRoutes)
 server.use('/api/v1/donations', donationRoutes)
 server.use('/api/v1/charityCategories', charityCategories)
+server.use('/api/v1/donors', donorRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))

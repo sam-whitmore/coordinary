@@ -2,6 +2,8 @@ import { Router } from 'express'
 // import checkJwt, { JwtRequest } from '../auth0.ts'
 // import { StatusCodes } from 'http-status-codes'
 import * as db from '../db/charities.ts'
+import checkJwt, { JwtRequest } from '../auth0.ts'
+import { StatusCodes } from 'http-status-codes'
 
 const router = Router()
 
@@ -24,6 +26,40 @@ router.get('/:charitySlug', async (req, res, next) => {
     next(error)
   }
 })
+
+router.get('/donor/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
+  try {
+    const result = await db.getAllCharitiesByDonorFollowing(
+      Number(req.params.id),
+    )
+    res.json(result)
+  } catch (e) {
+    next(e)
+  }
+})
+
+router.delete(
+  '/donor/:id/:charityid',
+  checkJwt,
+  async (req: JwtRequest, res, next) => {
+    if (!req.auth?.sub) {
+      res.sendStatus(StatusCodes.UNAUTHORIZED)
+      return
+    }
+    try {
+      const charityID = Number(req.params.charityid)
+      const donorId = Number(req.params.id)
+      await db.deleteCharitiesByDonorFollowing(charityID, donorId)
+      res.sendStatus(204)
+    } catch (error) {
+      next(error)
+    }
+  },
+)
 
 // router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
 //   if (!req.auth?.sub) {
