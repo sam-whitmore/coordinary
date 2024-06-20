@@ -1,22 +1,22 @@
 import express from 'express'
 import * as Path from 'node:path'
-import fruitRoutes from './routes/fruits.ts'
 import charitiesRoutes from './routes/charities.ts'
 import itemsRoutes from './routes/items.ts'
 import registerRoutes from './routes/registers.ts'
 import donationRoutes from './routes/donations.ts'
 import charityCategories from './routes/charityCategories.ts'
+import donorRoutes from './routes/donors.ts'
 
 const server = express()
 
 server.use(express.json())
 
-server.use('/api/v1/fruits', fruitRoutes)
 server.use('/api/v1/charities', charitiesRoutes)
 server.use('/api/v1/items', itemsRoutes)
 server.use('/api/v1/registers', registerRoutes)
 server.use('/api/v1/donations', donationRoutes)
 server.use('/api/v1/charityCategories', charityCategories)
+server.use('/api/v1/donors', donorRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))

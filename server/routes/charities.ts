@@ -32,8 +32,14 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const { categoryId, name, phone, email } = req.body
-    const id = await db.addCharities({ categoryId, name, phone, email })
+    const { categoryId, name, phone, email, location } = req.body
+    const id = await db.addCharities({
+      categoryId,
+      name,
+      phone,
+      email,
+      location,
+    })
     res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)
