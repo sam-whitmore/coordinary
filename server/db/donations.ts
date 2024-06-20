@@ -36,18 +36,9 @@ export async function addDonation(data: DonationData) {
   return id
 }
 
-// export async function Donor(auth0_id: string){
-// const result = await db('donors')
-//  .join('donations', 'auth0_id', 'donations.donor_auth0_id')
-//  .where({ auth0_id})
-//  .select(
-//       columns,
-// 'donations.anonymous as anonymous',
-// 'donations.datetime as datetime',
-// 'donations.register_id as register_id',
-// 'donations.value_in_NZD as donation_value_in_NZD',
-// 'donations.item_id as donation_item_id',
-//        )
-//    return result
-
-// }
+export async function getDonationsByDonor(donor_id: number) {
+  return await db('donations')
+    .join('donors', 'donations.donor_auth0_id', 'donors.auth0_id')
+    .where({ 'donors.id': donor_id })
+    .select(['donations.id as id', ...columns.slice(1)])
+}

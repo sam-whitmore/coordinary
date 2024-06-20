@@ -6,7 +6,7 @@ const rootURL = new URL(`/api/v1`, document.baseURI).toString()
 export async function getCharitiesByDonorFollowing(token: string, id: number) {
   const res = await request
     .get(`${rootURL}/charities/donor/${id}`)
-    .set('Authorization', `Bearer: ${token}`)
+    .set('Authorization', `Bearer ${token}`)
   return res.body as Charity[]
 }
 
@@ -20,6 +20,6 @@ export async function donorUnfollowCharity({
   donorId: number
 }) {
   return await request
-    .delete(`${rootURL}/${donorId}/${charityId}/`)
+    .delete(`${rootURL}/charities/donor/${donorId}/${charityId}/`)
     .set('Authorization', `Bearer ${token}`)
 }

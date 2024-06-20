@@ -33,5 +33,13 @@ export async function seed(knex) {
       price_in_NZD: 7000.0,
       NZD_raised: 100.0,
     },
+    {
+      id: 5,
+      name: 'A second really nice watch',
+      image: null,
+      used: false,
+      price_in_NZD: 6000.0,
+      NZD_raised: 101.52,
+    },
   ])
 }

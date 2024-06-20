@@ -13,6 +13,7 @@ export async function getDonorByAuthId(auth0Id: string) {
     .where({ auth0_id: auth0Id })
     .select(columns)
     .first()
+
   return result
 }
 
@@ -26,17 +27,32 @@ export async function addDonor(data: DonorData) {
   return id
 }
 
-export async function getDonorWithDonations(auth0_id: string) {
+export async function editDonor(data: DonorData) {
+  const snakecase: DonorSnakeCase = {
+    auth0_id: data.auth0Id,
+    email: data.email,
+  }
+
   return await db('donors')
-    .join('donations', 'auth0_id', 'donations.donor_auth0_id')
-    .where({ auth0_id })
-    .select(
-      columns,
-      'donations.id as donation_id',
-      'donations.anonymous as anonymous',
-      'donations.datetime as datetime',
-      'donations.register_id as register_id',
-      'donations.value_in_NZD as donation_value_in_NZD',
-      'donations.item_id as donation_item_id',
-    )
+    .where({ auth0_id: data.auth0Id })
+    .first()
+    .update(snakecase)
 }
+
+// export async function getDonorWithDonations(auth0_id: string) {
+//   return await db('donors')
+//     .join('donations', 'auth0_id', 'donations.donor_auth0_id')
+//     .where({ auth0_id })
+//     .select(
+//       columns,
+//       'donors.id as id',
+//       ''
+
+//       'donations.id as donation_id',
+//       'donations.anonymous as anonymous',
+//       'donations.datetime as datetime',
+//       'donations.register_id as register_id',
+//       'donations.value_in_NZD as donation_value_in_NZD',
+//       'donations.item_id as donation_item_id',
+//     )
+// }

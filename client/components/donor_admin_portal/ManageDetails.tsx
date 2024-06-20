@@ -30,6 +30,7 @@ export default function DonorDetails(props: Props) {
               value={formState.email}
               onChange={handleChange}
             ></input>
+            <button>Submit</button>
           </form>
         </div>
       </div>

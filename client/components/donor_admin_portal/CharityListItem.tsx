@@ -19,7 +19,7 @@ export default function CharityListItem(props: Props) {
   }
 
   const handleUnfollow = () => {
-    props.useUnfollow(props.id)
+    props.useUnfollow({ id: props.id })
   }
 
   return (

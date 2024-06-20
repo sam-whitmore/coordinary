@@ -10,9 +10,10 @@ export default function ManageCharities(props: Props) {
   const { isLoading, isError, data, unfollow } = useFollowedCharities(
     props.userId,
   )
-  const { getAccessTokenSilently } = useAuth0()
+  const { user, getAccessTokenSilently } = useAuth0()
 
   const handleUnfollow = async ({ id }: { id: number }) => {
+    console.log(`unfollow requested, ${id}`)
     const token = await getAccessTokenSilently()
     await unfollow.mutateAsync({ token, charityId: id, donorId: props.userId })
   }

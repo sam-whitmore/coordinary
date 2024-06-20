@@ -35,10 +35,19 @@ export async function addCharities(data: CharityData) {
 
 export async function getAllCharitiesByDonorFollowing(id: number) {
   const result = await db('charities')
-    .join('donors_charities', 'id', 'donors_charities.charity_id')
-    .join('donors', 'donors_charities.donor_id', 'donors_id')
-    .where({ donors_id: id })
-    .select(columns)
+    .join('donors_charities', 'charities.id', 'donors_charities.charity_id')
+    .join('donors', 'donors_charities.donor_id', 'donors.id')
+    .select(
+      'charities.id as id',
+      'charities.name as name',
+      'charities.category_id as categoryId',
+      'charities.phone as phone',
+      'charities.email as email',
+      'charities.location as location',
+      'donors.id as donor_id',
+    )
+    .where({ donor_id: id })
+
   return result
 }
 
@@ -48,5 +57,6 @@ export async function deleteCharitiesByDonorFollowing(
 ) {
   return await db('donors_charities')
     .where({ donor_id: donorid, charity_id: charityid })
+    .first()
     .delete()
 }

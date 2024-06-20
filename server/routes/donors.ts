@@ -21,12 +21,10 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
 //GET current user
 router.get('/self', checkJwt, async (req: JwtRequest, res, next) => {
-  console.log('in the method')
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
     return
   }
-  console.log('passed auth')
   try {
     const result = await db.getDonorByAuthId(req.auth.sub)
     res.json(result)
@@ -59,8 +57,9 @@ router.patch('/', checkJwt, async (req: JwtRequest, res, next) => {
     return
   }
   try {
-    console.log('patching')
+    const { email } = req.body
     //TODO:patch etc
+    await db.editDonor({ email, auth0Id: req.auth.sub })
   } catch (err) {
     next(err)
   }

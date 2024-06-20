@@ -23,6 +23,11 @@ import AdminDashboard from './components/charity_admin_portal/AdminDashboard.tsx
 import AdminPlayground from './components/charity_admin_portal/AdminPlayground.tsx'
 import AdminSandbox from './components/charity_admin_portal/AdminSandbox.tsx'
 import DonorAdminPortal from './pages/DonorAdminPortal.tsx'
+import DonorAdminDashboard from './components/donor_admin_portal/DonorAdminDashboard.tsx'
+import DonorAdminPlayground from './components/donor_admin_portal/DonorAdminPlayground.tsx'
+import DonorAdminSandbox from './components/donor_admin_portal/DonorAdminSandbox.tsx'
+import DonorAdminHome from './components/donor_admin_portal/DonorAdminHome.tsx'
+import DonationHistory from './components/donor_admin_portal/DonationHistory.tsx'
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
@@ -43,7 +48,13 @@ const routes = createRoutesFromElements(
       <Route path="playground" element={<AdminPlayground />} />
       <Route path="sandbox" element={<AdminSandbox />} />
     </Route>
-    <Route path="donor/admin" element={<DonorAdminPortal />} />
+    <Route path="donor/admin" element={<DonorAdminPortal />}>
+      <Route index element={<DonorAdminHome />} />
+      <Route path="dashboard" element={<DonorAdminDashboard />} />
+      <Route path="playground" element={<DonorAdminPlayground />} />
+      <Route path="sandbox" element={<DonorAdminSandbox />} />
+      <Route path="donation-history" element={<DonationHistory />} />
+    </Route>
   </Route>,
 )
 

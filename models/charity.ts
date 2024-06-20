@@ -1,9 +1,9 @@
 export interface CharityData {
   name: string
   categoryId: number
-  phone: string
-  email: string
-  location: string
+  phone?: string
+  email?: string
+  location?: string
 }
 
 export interface Charity extends CharityData {
@@ -15,7 +15,7 @@ export interface CharitySnakeCase {
   id?: number
   name: string
   category_id: number
-  phone: string
-  email: string
-  location: string
+  phone?: string
+  email?: string
+  location?: string
 }
