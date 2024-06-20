@@ -55,14 +55,13 @@ export default function About() {
           And here is the beginning of one more paragraph, to nicely frame the
           emphatic statement, above.
         </p>
-        <h2 className="mb-2 mt-6 text-3xl">Our Impact</h2>
-        <p className="pb-2">
-          This section provides charities with an opportunity to spit some
-          hard-hitting faxx about their charity.
-        </p>
-        <p className="pb-2">
-          I wonder if this section should be removed, and we should instead prompt our potential donors to click on the Our Work section, located within the Sidebar... In fact, I believe we ought to do this, so I have renamed Our Work to Our Impact in anticipation of this.
-        </p>
+        <div className="pb-2 mx-auto w-1/2 border-4 border-pink-300 m-8">
+          TODO: create a CTA <em>component</em> that prompts our potential donors to
+          follow this charity and sign up to their mailing list!!! It could
+          begin with something along these lines: to follow our story as to
+          continues to unfold, subscribe to our emailing list here and follow us
+          on Coordinary!
+        </div>
       </div>
     </div>
   )
