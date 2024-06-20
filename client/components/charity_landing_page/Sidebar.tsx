@@ -19,7 +19,7 @@ export default function Sidebar() {
           to="posts"
           className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
         >
-          Our Work
+          Our Impact
         </Link>
         <Link
           to="donate"
