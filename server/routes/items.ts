@@ -5,17 +5,7 @@ import * as db from '../db/items'
 
 const router = Router()
 
-// Item interface
-// interface Item {
-//   id: number
-//   name: string
-//   image: Buffer // Blob data will be stored as a Buffer in Node.js
-//   new: boolean
-//   price_in_NZD: number
-//   NZD_raised: number
-// }
-
-// Route to get all items x
+// Route to get all items
 router.get('/', async (req, res) => {
   try {
     const result = await db.getAllItems()
@@ -26,10 +16,14 @@ router.get('/', async (req, res) => {
   }
 })
 
-// Route to get a specific item by ID x
+// Route to get a specific item by ID
 router.get('/:id', async (req, res) => {
   try {
-    const result = await db.getItemById(Number(req.params.id))
+    const id = parseInt(req.params.id, 10)
+    if (isNaN(id)) {
+      return res.status(400).json({ errorMessage: 'Invalid item ID' })
+    }
+    const result = await db.getItemById(id)
     if (!result) {
       return res.status(404).json({ errorMessage: 'Item not found' })
     }
@@ -40,7 +34,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// Route to create a new item x
+// Route to create a new item
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -48,14 +42,8 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const { name, image, new: isNew, price_in_NZD, NZD_raised } = req.body
-    const id = await db.addItem({
-      name,
-      image,
-      new: isNew,
-      price_in_NZD,
-      NZD_raised,
-    })
+    const { name, image, used, priceInNZD, NZDRaised } = req.body
+    const id = await db.addItem({ name, image, used, priceInNZD, NZDRaised })
     res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)
@@ -64,7 +52,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
-// Route to update an item by ID x
+// Route to update an item by ID
 router.put('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -72,15 +60,17 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const { name, image, new: isNew, price_in_NZD, NZD_raised } = req.body
-    const id = Number(req.params.id)
-    const result = await db.updateItem({
-      id,
+    const id = parseInt(req.params.id, 10)
+    if (isNaN(id)) {
+      return res.status(400).json({ errorMessage: 'Invalid item ID' })
+    }
+    const { name, image, used, priceInNZD, NZDRaised } = req.body
+    const result = await db.updateItem(id, {
       name,
       image,
-      new: isNew,
-      price_in_NZD,
-      NZD_raised,
+      used,
+      priceInNZD,
+      NZDRaised,
     })
     if (!result) {
       return res.status(404).json({ errorMessage: 'Item not found' })
@@ -91,7 +81,7 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
-// Route to delete an item by ID x
+// Route to delete an item by ID
 router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -99,7 +89,10 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const id = Number(req.params.id)
+    const id = parseInt(req.params.id, 10)
+    if (isNaN(id)) {
+      return res.status(400).json({ errorMessage: 'Invalid item ID' })
+    }
     const result = await db.deleteItem(id)
     if (!result) {
       return res.status(404).json({ errorMessage: 'Item not found' })
