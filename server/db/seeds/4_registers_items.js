@@ -5,5 +5,6 @@ export async function seed(knex) {
     { register_id: 2, items_id: 2 },
     { register_id: 1, items_id: 3 },
     { register_id: 3, items_id: 4 },
+    { register_id: 2, items_id: 5 },
   ])
 }

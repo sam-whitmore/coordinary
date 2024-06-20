@@ -8,13 +8,10 @@ const columns = [
   'phone',
   'email',
   'location',
+  'slug',
 ]
 
-const columnsTest = [
-  'id',
-  'name',
-  'category_id as categoryId'
-]
+const columnsTest = ['id', 'name', 'category_id as categoryId']
 
 export async function getAllCharities() {
   const result = await db('charities').select(columnsTest)
@@ -36,7 +33,37 @@ export async function addCharities(data: CharityData) {
     phone: data.phone,
     email: data.email,
     location: data.location,
+    slug: data.slug,
   }
   const [id] = await db('charities').insert(snakecase)
   return id
+}
+
+export async function getAllCharitiesByDonorFollowing(id: number) {
+  const result = await db('charities')
+    .join('donors_charities', 'charities.id', 'donors_charities.charity_id')
+    .join('donors', 'donors_charities.donor_id', 'donors.id')
+    .select(
+      'charities.id as id',
+      'charities.name as name',
+      'charities.category_id as categoryId',
+      'charities.phone as phone',
+      'charities.email as email',
+      'charities.location as location',
+      'charities.slug as slug',
+      'donors.id as donor_id',
+    )
+    .where({ donor_id: id })
+
+  return result
+}
+
+export async function deleteCharitiesByDonorFollowing(
+  charityid: number,
+  donorid: number,
+) {
+  return await db('donors_charities')
+    .where({ donor_id: donorid, charity_id: charityid })
+    .first()
+    .delete()
 }

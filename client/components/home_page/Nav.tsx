@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import SignInButton from '../authentication/SignInButton' 
+import SignInButton from '../authentication/SignInButton'
 import SignOutButton from '../authentication/SignOutButton'
 
 export default function Nav() {
@@ -26,7 +26,14 @@ export default function Nav() {
         </Link>
       </div>
       <div className="mx-4 my-auto p-2">
-        { user ? <SignOutButton /> : <SignInButton />}
+        {user ? (
+          <div>
+            <Link to="donor/admin">User Admin Portal</Link>
+            <SignOutButton />
+          </div>
+        ) : (
+          <SignInButton />
+        )}
       </div>
     </div>
   )
