@@ -12,16 +12,16 @@ export default function Nav() {
         <button className="text-2xl">Coordinary.org</button>
       </div>
       <div className="flex justify-center">
-        <Link to="charity-name" className="my-auto px-4">
+        <Link to="coordinary" className="my-auto px-4">
           About Us
         </Link>
-        <Link to="charity-name/posts" className="my-auto px-4">
+        <Link to="coordinary/posts" className="my-auto px-4">
           Our Posts
         </Link>
-        <Link to="charity-name/donate" className="my-auto px-4">
+        <Link to="coordinary/donate" className="my-auto px-4">
           Our Register
         </Link>
-        <Link to="charity-name/contact" className="my-auto px-4">
+        <Link to="coordinary/contact" className="my-auto px-4">
           Contact Us
         </Link>
       </div>

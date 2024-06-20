@@ -10,13 +10,21 @@ const columns = [
   'location',
 ]
 
+const columnsTest = [
+  'id',
+  'name',
+  'category_id as categoryId'
+]
+
 export async function getAllCharities() {
-  const result = await db('charities').select(columns)
+  const result = await db('charities').select(columnsTest)
   return result
 }
 
-export async function getAllCharitiesById(id: number) {
-  const result = await db('charities').where({ id }).select(columns).first()
+// TODO: Insert 'slug' column within the charities table within the SQLite database.
+
+export async function getCharityBySlug(slug: string) {
+  const result = await db('charities').where({ slug }).select(columns).first()
   return result
 }
 

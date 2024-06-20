@@ -1,13 +1,22 @@
+import { useParams } from "react-router-dom"
+import useCharities from "../../hooks/useCharities"
+
 // TODO: the background image is flowing above the scroll bar on the side of the window because it's div is currently set to 'fixed.' bg-fixed can remain as it is; the initial fixed should probably be updated at some stage... non-urgent.
 // TODO: Add Contents Component that allows users to quickly jump to each section of this page, fixed to the top-right side of the text-based section.
 
+// TODO: Remind the lads tomorrow to include a charitySlug within the database, as well as the phone, email, and catagory?.
+
 export default function About() {
+
+  const { charitySlug } = useParams()
+  const charity = useCharities(charitySlug)
+
   return (
     <div className="border-box relative h-full w-5/6 overflow-y-scroll border-4 border-sky-400">
       <div className="border-box fixed h-1/2 w-full bg-[url('https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-fixed object-cover"></div>
       <div className="border-box fixed h-1/2 w-full bg-gradient-to-b from-transparent from-80% to-white"></div>
       <div className="absolute left-0 top-[45%] mx-[5%] h-auto w-[90%] rounded-2xl bg-slate-100 p-6 shadow-lg">
-        <h1 className="mb-4 text-5xl font-medium">About charity-name</h1>
+        <h1 className="mb-4 text-5xl font-medium capitalize">About {charity.name}</h1>
         <h2 className="mb-2 mt-6 text-3xl">Our Vision</h2>
         <p>
           <em>*insert vision statement here (with passed-props)*</em>

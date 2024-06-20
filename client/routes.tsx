@@ -26,7 +26,7 @@ import AdminSandbox from './components/charity_admin_portal/AdminSandbox.tsx'
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route index element={<HomePage />} />
-    <Route path="charity-name" element={<CharityLandingPage />}>
+    <Route path=":charitySlug" element={<CharityLandingPage />}>
       <Route index element={<About />} />
       <Route path="posts" element={<CharityWall />} />
       <Route path="donate" element={<Registries />}>
@@ -37,11 +37,11 @@ const routes = createRoutesFromElements(
       <Route path="contact" element={<CharityContact />} />
     </Route>
     <Route path="charity-name/admin" element={<CharityAdminPortal />}>
-        <Route index element={<AdminHome />} />
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="playground" element={<AdminPlayground />} />
-        <Route path="sandbox" element={<AdminSandbox />} />
-      </Route>
+      <Route index element={<AdminHome />} />
+      <Route path="dashboard" element={<AdminDashboard />} />
+      <Route path="playground" element={<AdminPlayground />} />
+      <Route path="sandbox" element={<AdminSandbox />} />
+    </Route>
   </Route>,
 )
 
