@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { Donation } from '../../models/donation'
+import { Donation, DonationWithJoinedData } from '../../models/donation'
 
 const rootURL = new URL(`/api/v1`, document.baseURI).toString()
 
@@ -14,5 +14,5 @@ export async function getDonorHistory({
     .get(`${rootURL}/donations/donor/${id}`)
     .set('Authorization', `Bearer ${token}`)
 
-  return result.body as Donation[]
+  return result.body as DonationWithJoinedData[]
 }

@@ -7,7 +7,7 @@ export default function AdminSidebar() {
   const { user } = useAuth0()
 
   return (
-    <div className="relative border-box flex h-full w-1/6 flex-col border-4 border-yellow-300">
+    <div className="border-box relative flex h-full w-1/6 flex-col border-4 border-yellow-300">
       <div className="border-box flex h-auto w-full flex-col border-4 border-purple-300">
         <Link
           to=""
@@ -40,8 +40,8 @@ export default function AdminSidebar() {
           Go to Charity Landing Page
         </Link>
       </div>
-      <div className="absolute border-box border-4 border-sky-300 bottom-0 w-full text-center py-2">
-        { user ? <SignOutButton /> : <SignInButton />}
+      <div className="border-box absolute bottom-0 w-full border-4 border-sky-300 py-2 text-center">
+        {user ? <SignOutButton /> : <SignInButton />}
       </div>
     </div>
   )

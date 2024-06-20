@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Charity } from '../../../models/charity'
+import { Link } from 'react-router-dom'
 
 interface Props extends Charity {
   useUnfollow: (_) => void
@@ -22,17 +23,37 @@ export default function CharityListItem(props: Props) {
     props.useUnfollow({ id: props.id })
   }
 
+  const handleCancelUnfollow = () => {
+    setSelectedForUnfollowing(() => false)
+  }
+
   return (
-    <>
-      <p>{props.name}</p>
-      <br />
-      <button onClick={handleSelectForUnfollowing}>Unfollow</button>
-      <button
-        className={`${selectedForUnfollowing ? '' : 'hidden'}`}
-        onClick={handleUnfollow}
-      >
-        Confirm Unfollow
-      </button>
-    </>
+    <div className="grid grid-cols-2 gap-2">
+      <div>
+        <Link to={`../../../${props.slug}`} className="text-xl">
+          {props.name}
+        </Link>
+      </div>
+      <div>
+        <button
+          className={`mx-5 ${selectedForUnfollowing ? 'hidden' : ''}`}
+          onClick={handleSelectForUnfollowing}
+        >
+          Unfollow
+        </button>
+        <button
+          className={`${selectedForUnfollowing ? '' : 'hidden'}`}
+          onClick={handleUnfollow}
+        >
+          Confirm Unfollow
+        </button>
+        <button
+          className={`mx-5 ${selectedForUnfollowing ? '' : 'hidden'}`}
+          onClick={handleCancelUnfollow}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
   )
 }

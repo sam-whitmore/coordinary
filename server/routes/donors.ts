@@ -60,6 +60,7 @@ router.patch('/', checkJwt, async (req: JwtRequest, res, next) => {
     const { email } = req.body
     //TODO:patch etc
     await db.editDonor({ email, auth0Id: req.auth.sub })
+    res.sendStatus(201)
   } catch (err) {
     next(err)
   }

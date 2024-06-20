@@ -8,13 +8,10 @@ const columns = [
   'phone',
   'email',
   'location',
+  'slug',
 ]
 
-const columnsTest = [
-  'id',
-  'name',
-  'category_id as categoryId'
-]
+const columnsTest = ['id', 'name', 'category_id as categoryId']
 
 export async function getAllCharities() {
   const result = await db('charities').select(columnsTest)
@@ -36,6 +33,7 @@ export async function addCharities(data: CharityData) {
     phone: data.phone,
     email: data.email,
     location: data.location,
+    slug: data.slug,
   }
   const [id] = await db('charities').insert(snakecase)
   return id
@@ -52,6 +50,7 @@ export async function getAllCharitiesByDonorFollowing(id: number) {
       'charities.phone as phone',
       'charities.email as email',
       'charities.location as location',
+      'charities.slug as slug',
       'donors.id as donor_id',
     )
     .where({ donor_id: id })

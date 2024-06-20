@@ -4,6 +4,7 @@ export interface CharityData {
   phone?: string
   email?: string
   location?: string
+  slug: string
 }
 
 export interface Charity extends CharityData {
@@ -18,4 +19,5 @@ export interface CharitySnakeCase {
   phone?: string
   email?: string
   location?: string
+  slug: string
 }

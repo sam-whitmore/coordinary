@@ -29,6 +29,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
+//GET /donor/:id - returns DonationWithJoinedData[] for a given donor
 router.get('/donor/:id', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -40,6 +41,7 @@ router.get('/donor/:id', checkJwt, async (req: JwtRequest, res, next) => {
   } catch (error) {
     console.error(error)
     res.status(500).json({ errorMessage: 'Something went wrong' })
+    next(error)
   }
 })
 
