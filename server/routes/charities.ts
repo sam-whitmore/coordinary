@@ -48,4 +48,37 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
+//GET /donor/:id - gets charities that a given donor is 'following'
+router.get('/donor/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
+
+  const id = Number(req.params.id)
+  try {
+    const result = await db.getAllCharitiesByDonorFollowing(id)
+    res.json(result)
+  } catch (error) {
+    next(error)
+  }
+})
+//DELETE /donor/:donorid/:charityid - removes a given charity from a given donor's 'following' list
+router.delete(
+  '/donor/:donorid/:charityid',
+  checkJwt,
+  async (req: JwtRequest, res, next) => {
+    try {
+      const charityid = Number(req.params.charityid)
+      const donorid = Number(req.params.donorid)
+      await db.deleteCharitiesByDonorFollowing(charityid, donorid)
+      res.sendStatus(204)
+    } catch (error) {
+      next(error)
+    }
+  },
+)
+
+//:donorid :charityid (in the body?)
+
 export default router

@@ -19,12 +19,14 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
-router.get('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+//GET current user
+router.get('/self', checkJwt, async (req: JwtRequest, res, next) => {
+  console.log('in the method')
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
     return
   }
-
+  console.log('passed auth')
   try {
     const result = await db.getDonorByAuthId(req.auth.sub)
     res.json(result)
@@ -46,6 +48,19 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
     res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.patch('/', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
+  try {
+    console.log('patching')
+    //TODO:patch etc
   } catch (err) {
     next(err)
   }

@@ -5,26 +5,26 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
-import * as API from '../apis/donors.ts'
+import * as API from '../apis/charities.ts'
 
-export default function useActiveDonor() {
+export default function useFollowedCharities(id: number) {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0()
   const query = useQuery({
-    queryKey: ['donor'],
+    queryKey: ['followedCharities', id],
     queryFn: async () => {
       const token = await getAccessTokenSilently()
-      return await API.getActiveDonor(token)
+      return await API.getCharitiesByDonorFollowing(token, id)
     },
     enabled: !!isAuthenticated,
   })
 
   return {
     ...query,
-    edit: useEditDonor(),
+    unfollow: useUnfollowCharity(),
   }
 }
 
-export function useDonorMutation<TData = unknown, TVariables = unknown>(
+export function useCharityMutation<TData = unknown, TVariables = unknown>(
   mutationFn: MutationFunction<TData, TVariables>,
 ) {
   const queryClient = useQueryClient()
@@ -32,13 +32,13 @@ export function useDonorMutation<TData = unknown, TVariables = unknown>(
   const mutation = useMutation({
     mutationFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['donor'] })
+      queryClient.invalidateQueries({ queryKey: ['followedCharities'] })
     },
   })
 
   return mutation
 }
 
-export function useEditDonor() {
-  return useDonorMutation(API.editActiveDonor)
+export function useUnfollowCharity() {
+  return useCharityMutation(API.donorUnfollowCharity)
 }
