@@ -1,7 +1,5 @@
-import { useAuth0 } from '@auth0/auth0-react'
 import useActiveDonor from '../../hooks/useDonors'
 import DonationHistory from './DonationHistory'
-import { DonorData } from '../../../models/donor'
 
 export default function DonorAdminHistoryContainer() {
   const { isLoading, isError, data } = useActiveDonor()

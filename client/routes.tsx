@@ -49,7 +49,6 @@ const routes = createRoutesFromElements(
     </Route>
     <Route path="donor/admin" element={<DonorAdminPortal />}>
       <Route index element={<DonorAdminDashboard />} />
-      {/* <Route path="dashboard" element={<DonorAdminDashboard />} /> */}
       <Route path="donation-history" element={<DonorAdminHistoryContainer />} />
       <Route path="followed-charities" element={<DonorManageFollowed />} />
     </Route>

@@ -10,7 +10,7 @@ export async function up(knex) {
     table.string('email')
     table.string('phone')
     table.string('location')
-    table.string('slug')
+    table.string('slug').unique()
   })
   /**
    * @param { import("knex").Knex } knex
