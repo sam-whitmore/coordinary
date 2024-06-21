@@ -20,11 +20,13 @@ import CharityContact from './components/charity_landing_page/CharityContact.tsx
 import CharityAdminPortal from './pages/CharityAdminPortal.tsx'
 import AdminHome from './components/charity_admin_portal/AdminHome.tsx'
 import AdminDashboard from './components/charity_admin_portal/AdminDashboard.tsx'
+import CharityAdminRegisters from './components/charity_admin_portal/CharityAdminRegisters.tsx'
 import AdminPlayground from './components/charity_admin_portal/AdminPlayground.tsx'
 import AdminSandbox from './components/charity_admin_portal/AdminSandbox.tsx'
+
+// Donor Admin Portal
 import DonorAdminPortal from './pages/DonorAdminPortal.tsx'
 import DonorAdminDashboard from './components/donor_admin_portal/DonorAdminDashboard.tsx'
-import DonorAdminHome from './components/donor_admin_portal/DonorAdminHome.tsx'
 import DonorAdminHistoryContainer from './components/donor_admin_portal/DonorAdminHistoryContainer.tsx'
 import DonorManageFollowed from './components/donor_admin_portal/DonorManageFollowed.tsx'
 
@@ -41,9 +43,10 @@ const routes = createRoutesFromElements(
       <Route path="sandbox" element={<CharitySandbox />} />
       <Route path="contact" element={<CharityContact />} />
     </Route>
-    <Route path="charity-name/admin" element={<CharityAdminPortal />}>
+    <Route path=":charitySlug/admin" element={<CharityAdminPortal />}>
       <Route index element={<AdminHome />} />
       <Route path="dashboard" element={<AdminDashboard />} />
+      <Route path="registers" element={<CharityAdminRegisters />} />
       <Route path="playground" element={<AdminPlayground />} />
       <Route path="sandbox" element={<AdminSandbox />} />
     </Route>

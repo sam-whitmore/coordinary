@@ -4,6 +4,7 @@ export interface ItemData {
   used: boolean
   priceInNZD: number
   NZDRaised: number
+  notes?: string
 }
 
 export interface Item extends ItemData {
@@ -18,13 +19,15 @@ export interface ItemSnakeCase {
   used: boolean
   price_in_NZD: number
   NZD_raised: number
+  notes?: string
 }
 
 export interface ItemFromRegister {
   register_id: number
   items_id: number
+  name: string
   image: File
-  new: boolean
+  used: boolean
   priceInNZD: number
   NZDRaised: number
 }

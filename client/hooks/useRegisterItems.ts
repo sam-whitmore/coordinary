@@ -11,7 +11,7 @@ export default function useRegisterItems() {
 
   function useGetItemsByRegisterId(id: number) {
     return useQuery({
-      queryKey: ['items'],
+      queryKey: ['items', id],
       queryFn: async () => {
         const res = await request.get(`${rootURL}/${id}`)
         return res.body as ItemFromRegister[]

@@ -11,6 +11,8 @@ export async function up(knex) {
     table.string('phone')
     table.string('location')
     table.string('slug').unique()
+    table.string('auth0_id')
+    table.integer('default_register_id') //the default register that a charity will show
   })
   /**
    * @param { import("knex").Knex } knex
