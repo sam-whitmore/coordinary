@@ -23,6 +23,7 @@ export interface ItemSnakeCase {
 export interface ItemFromRegister {
   register_id: number
   items_id: number
+  name: string
   image: File
   new: boolean
   priceInNZD: number
