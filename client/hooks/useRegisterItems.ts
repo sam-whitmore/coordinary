@@ -3,57 +3,31 @@ import { useMutation } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Register, RegisterData } from '../../models/register'
-import { Item, ItemFromRegister } from '../../models/item'
+import { Item, ItemData, ItemFromRegister } from '../../models/item'
 
 const rootURL = '/api/v1/registers_items'
 
 export default function useRegisterItems() {
-
   function useGetItemsByRegisterId(id: number) {
     return useQuery({
       queryKey: ['items', id],
       queryFn: async () => {
         const res = await request.get(`${rootURL}/${id}`)
         return res.body as ItemFromRegister[]
-      }
-    })
-  }
-
-  function useGetAllRegisterItems() {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
-
-    return useQuery({
-      queryKey: ['registerItems'],
-      queryFn: async () => {
-        const token = await getAccessTokenSilently()
-        if (!token) {
-          throw new Error(`Not logged in`)
-        }
-
-        const res = await request
-          .get(`${rootURL}`)
-          .auth(token, { type: 'bearer' })
-
-        return res.body as Register[]
       },
-      enabled: isAuthenticated,
     })
   }
 
-  function useAddRegisterItems() {
+  function useAddItemToRegister(register_id: number) {
     const { getAccessTokenSilently } = useAuth0()
     const queryClient = useQueryClient()
 
     return useMutation({
-      mutationFn: async (register: RegisterData) => {
+      mutationFn: async (item: ItemData) => {
         const token = await getAccessTokenSilently()
-        const authorizedResponse = {
-          ...register,
-          user_auth0_sub: token,
-        }
         const res = await request
-          .post(`${rootURL}`)
-          .send(authorizedResponse)
+          .post(`${rootURL}/${register_id}`)
+          .send(item)
           .auth(token, { type: 'bearer' })
 
         return res.body
@@ -84,9 +58,8 @@ export default function useRegisterItems() {
   }
 
   return {
-    add: useAddRegisterItems().mutate,
-    allByRegister: useGetAllRegisterItems,
+    addToRegister: useAddItemToRegister,
     del: useDeleteRegisterItem().mutate,
-    byRegisterId: useGetItemsByRegisterId 
+    byRegisterId: useGetItemsByRegisterId,
   }
 }

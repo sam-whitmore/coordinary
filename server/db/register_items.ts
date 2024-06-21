@@ -1,3 +1,4 @@
+import { ItemData } from '../../models/item.ts'
 import db from './connection.ts'
 
 // Pre-define snake_case to camelCase select statements for gets??
@@ -28,4 +29,9 @@ export async function getItemsByRegisterId(id: number) {
     .join('items', 'items.id', 'registers_items.items_id')
     .select(joinColumns)
   return result
+}
+
+// TODO: HAVE BEGUN CREATING THIS DB FUNCTION; HAVE ALREADY CREATED EVERY FUNCTION ABOVE THIS (ABOVE BEING THE FRONT-END)
+export async function addItemToRegister(item: ItemData, register_id: number) {
+  // await { db('items'). } 
 }
