@@ -14,6 +14,7 @@ const columns = [
 const joinColumns = [
   'registers.id as register_id',
   'items.id as items_id',
+  'items.name as name',
   'items.image as image',
   'items.used as used',
   'items.price_in_NZD as priceInNZD',
