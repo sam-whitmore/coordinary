@@ -1,11 +1,15 @@
-import useRegisters from "../../hooks/useRegisters"
+import useRegisters from '../../hooks/useRegisters'
 
-import RegistriesNav from "./registries/RegistriesNav"
-import Registry from "./registries/Registry"
+import RegistriesNav from './registries/RegistriesNav'
+import Registry from './registries/Registry'
 
 export default function Registries() {
-
-  const { data: registers, isPending, isError, error } = useRegisters().allOfCharity(2)
+  const {
+    data: registers,
+    isPending,
+    isError,
+    error,
+  } = useRegisters().allOfCharity(2)
 
   if (isPending) {
     ;<div>Loading...</div>
@@ -17,10 +21,8 @@ export default function Registries() {
 
   if (!registers) return <p>Error: no regsiters found</p>
 
-  console.log(registers)
-
   return (
-    <div className="w-5/6 h-full border-box border-4 border-sky-400">
+    <div className="border-box h-full w-5/6 border-4 border-sky-400">
       <RegistriesNav {...registers} />
       <Registry />
     </div>

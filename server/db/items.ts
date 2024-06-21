@@ -7,7 +7,7 @@ const columns = [
   'id',
   'name',
   'image',
-  'new',
+  'used',
   'price_in_NZD as priceInNZD',
   'NZD_raised as NZDRaised',
 ]
