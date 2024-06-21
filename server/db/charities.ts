@@ -18,8 +18,6 @@ export async function getAllCharities() {
   return result
 }
 
-// TODO: Insert 'slug' column within the charities table within the SQLite database.
-
 export async function getCharityBySlug(slug: string) {
   const result = await db('charities').where({ slug }).select(columns).first()
   return result

@@ -8,8 +8,19 @@ import useCharities from "../../hooks/useCharities"
 
 export default function About() {
 
-  const { charitySlug } = useParams()
-  const charity = useCharities(charitySlug)
+  const { charitySlug } = useParams() 
+  const { data: charity, isPending, isError, error } = useCharities().get(charitySlug)
+
+  if (isPending) {
+    return (
+      <p>Loading...</p>
+    )
+  }
+  if (isError) {
+    return (
+      <p>{error.message}</p>
+    )
+  }
 
   return (
     <div className="border-box relative h-full w-5/6 overflow-y-scroll border-4 border-sky-400">

@@ -19,7 +19,7 @@ const joinColumns = [
   'items.used as used',
   'items.price_in_NZD as priceInNZD',
   'items.NZD_raised as NZDRaised',
-  'items.name as name',
+  'items.name as name'
 ]
 
 // This fetches every register assigned to a charity.

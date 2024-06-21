@@ -5,6 +5,7 @@ export interface CharityData {
   email?: string
   location?: string
   slug: string
+  defaultRegisterId:number
 }
 
 export interface Charity extends CharityData {
@@ -20,4 +21,5 @@ export interface CharitySnakeCase {
   email?: string
   location?: string
   slug: string
+  default_register_id:number
 }

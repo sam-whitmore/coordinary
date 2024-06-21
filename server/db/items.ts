@@ -10,6 +10,7 @@ const columns = [
   'used',
   'price_in_NZD as priceInNZD',
   'NZD_raised as NZDRaised',
+  'notes as notes'
 ]
 
 // Function to get all items

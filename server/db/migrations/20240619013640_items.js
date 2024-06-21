@@ -10,6 +10,7 @@ export async function up(knex) {
     table.boolean('used').notNullable()
     table.float('price_in_NZD').notNullable()
     table.float('NZD_raised').notNullable()
+    table.string('notes')
   })
 }
 
