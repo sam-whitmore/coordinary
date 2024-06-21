@@ -18,22 +18,28 @@ export default function useRegisterItems() {
     })
   }
 
-  function useAddItemToRegister(register_id: number) {
+  function useAddItemToRegister() {
     const { getAccessTokenSilently } = useAuth0()
     const queryClient = useQueryClient()
 
     return useMutation({
-      mutationFn: async (item: ItemData) => {
+      mutationFn: async ({
+        item,
+        register_id,
+      }: {
+        item: ItemData
+        register_id: number
+      }) => {
         const token = await getAccessTokenSilently()
         const res = await request
           .post(`${rootURL}/${register_id}`)
-          .send(item)
           .auth(token, { type: 'bearer' })
+          .send(item)
 
         return res.body
       },
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['registerItems'] })
+        queryClient.invalidateQueries({ queryKey: ['items'] })
       },
     })
   }
@@ -52,13 +58,13 @@ export default function useRegisterItems() {
         return res.body
       },
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['registerItems'] })
+        queryClient.invalidateQueries({ queryKey: ['items'] })
       },
     })
   }
 
   return {
-    addToRegister: useAddItemToRegister,
+    addToRegister: useAddItemToRegister(),
     del: useDeleteRegisterItem().mutate,
     byRegisterId: useGetItemsByRegisterId,
   }
