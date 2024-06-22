@@ -37,6 +37,13 @@ export default function CharityAdminRegisters() {
   if (isError) {
     return <p>{error.message}</p>
   }
+  //this useEffect should run once, after this component is rendered, and we're "past" the isPending/isError state
+  //presumably if we're neither pending nor error, we should be 
+  useEffect(() => {
+    if(!!charity){
+      setSelectedRegister(charity.defaultRegisterId)
+    }
+  })
 
   return (
     <div className="border-box h-full w-5/6 border-4 border-green-400">

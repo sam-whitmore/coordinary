@@ -5,7 +5,7 @@ export default function SignOutButton() {
 
   return (
     <button
-      className="rtl text-2xl text-primary font-wix-display"
+      className="rtl text-xl text-primary font-display hover:underline underline-offset-[3px] mx-2"
       onClick={() =>
         logout({ logoutParams: { returnTo: window.location.origin } })
       }
