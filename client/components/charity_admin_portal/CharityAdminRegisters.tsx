@@ -12,14 +12,12 @@ export default function CharityAdminRegisters() {
     data: charity,
     isPending,
     isError,
+    isLoading,
     error,
   } = useCharities().get(charitySlug ?? 'coordinary')
   const hooks = useRegisterItems()
   const onRegisterSelected = (registerId: number) => {
-    console.log(charity?.defaultRegisterId)
-    console.log(registerId)
     setSelectedRegister(registerId)
-    console.log(registerId)
   }
 
   const handleClick = () => {
@@ -41,11 +39,11 @@ export default function CharityAdminRegisters() {
     }
   }, [selectedRegister, charity, isError, isPending])
 
-  if (isPending) {
+  if (isLoading) {
     return <p>Loading...</p>
   }
-  if (isError) {
-    return <p>{error.message}</p>
+  if (isError || !charity) {
+    return <p>{error?.message}</p>
   }
 
   return (

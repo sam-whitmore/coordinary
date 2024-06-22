@@ -2,7 +2,7 @@ import request from 'superagent'
 import { useMutation } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Register, RegisterData } from '../../models/register'
+import { Register, RegisterData, RegisterFromSlug } from '../../models/register'
 
 const rootURL = '/api/v1/registers'
 
@@ -33,8 +33,8 @@ export default function useRegisters() {
       queryKey: ['registers'],
       queryFn: async () => {
         const res = await request.get(`${rootURL}/${slug}`)
-        return res.body as Register[]
-      }
+        return res.body as RegisterFromSlug[]
+      },
     })
   }
 

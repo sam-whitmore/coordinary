@@ -4,7 +4,7 @@ export async function seed(knex) {
     {
       id: 1,
       name: "Kid's Shoes",
-      image: null,
+      image: 'kidsshoes.png',
       used: false,
       price_in_NZD: 30.0,
       NZD_raised: 0,
@@ -12,7 +12,7 @@ export async function seed(knex) {
     {
       id: 2,
       name: 'Server Fees',
-      image: null,
+      image: 'server.png',
       used: false,
       price_in_NZD: 100.0,
       NZD_raised: 3.5,
@@ -20,7 +20,7 @@ export async function seed(knex) {
     {
       id: 3,
       name: 'Crate of Beans',
-      image: null,
+      image: 'beans.png',
       used: true,
       price_in_NZD: 20.0,
       NZD_raised: 19.99,
@@ -28,7 +28,7 @@ export async function seed(knex) {
     {
       id: 4,
       name: 'A really nice watch',
-      image: null,
+      image: 'rolex.png',
       used: false,
       price_in_NZD: 7000.0,
       NZD_raised: 100.0,
@@ -36,7 +36,7 @@ export async function seed(knex) {
     {
       id: 5,
       name: 'A second really nice watch',
-      image: null,
+      image: 'rolex.png',
       used: false,
       price_in_NZD: 6000.0,
       NZD_raised: 101.52,

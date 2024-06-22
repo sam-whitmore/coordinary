@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0'
 import { StatusCodes } from 'http-status-codes'
+import * as fs from 'fs'
+import * as path from 'path'
 import * as db from '../db/items'
 
 const router = Router()
@@ -53,7 +55,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
 })
 
 // Route to update an item by ID
-router.put('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
     return
@@ -64,13 +66,14 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res, next) => {
     if (isNaN(id)) {
       return res.status(400).json({ errorMessage: 'Invalid item ID' })
     }
-    const { name, image, used, priceInNZD, NZDRaised } = req.body
+    const { name, used, priceInNZD, NZDRaised, image, notes } = req.body
     const result = await db.updateItem(id, {
       name,
       image,
       used,
       priceInNZD,
       NZDRaised,
+      notes,
     })
     if (!result) {
       return res.status(404).json({ errorMessage: 'Item not found' })

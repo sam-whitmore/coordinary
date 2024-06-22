@@ -45,9 +45,11 @@ export async function updateItem(id: number, data: ItemData) {
     name: data.name,
     image: data.image,
     used: data.used,
-    price_in_NZD: data.priceInNZD,
+    price_in_NZD: Number(data.priceInNZD),
     NZD_raised: data.NZDRaised,
+    notes: data.notes,
   }
+  console.log(snakeCase)
   const result = await db('items').where({ id }).update(snakeCase)
   return result
 }

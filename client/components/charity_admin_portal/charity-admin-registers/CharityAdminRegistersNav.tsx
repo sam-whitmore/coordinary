@@ -11,14 +11,14 @@ export default function CharityAdminRegistersNav(props: Props) {
     isPending,
     isError,
     error,
-  } = useRegisters().allOfCharity(props.id)
+  } = useRegisters().allOfCharity(props.slug)
 
   const handleClick = (id: number) => {
     props.onRegisterSelected(id)
   }
 
   if (isPending) {
-    ;<div>Loading...</div>
+    return <div>Loading...</div>
   }
 
   if (isError) {
@@ -27,16 +27,18 @@ export default function CharityAdminRegistersNav(props: Props) {
 
   if (!registers) return <p>Error: no registers found</p>
 
+  console.log(registers)
+
   return (
     <div className="border-box flex h-[10%] w-full border-4 border-purple-500">
       {Object.values(registers).map((register) => {
         return (
           <button
-            key={register.id}
+            key={register.registerId}
             className="mx-4"
-            onClick={() => handleClick(register.id)}
+            onClick={() => handleClick(register.registerId)}
           >
-            {register.name}
+            {register.registerName}
           </button>
         )
       })}

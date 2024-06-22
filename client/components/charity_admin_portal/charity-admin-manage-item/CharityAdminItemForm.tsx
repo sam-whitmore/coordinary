@@ -4,43 +4,61 @@ import { ChangeEvent } from 'react'
 
 interface Props extends ItemData {
   id?: number
-  onSubmit: (_) => void
+  onSubmit: (a: ItemData, b?: number) => void
+  onRequestImageUpload: (b: File) => { image: string }
 }
 
 export default function CharityAdminItemForm(props: Props) {
+  // console.log(props)
   const [formState, setFormState] = useState({
-    name: props.name ?? '',
-    // image: props.image,
-    used: props.used ?? false,
-    priceInNZD: props.priceInNZD ?? 0,
-    NZDRaised: props.NZDRaised ?? 0,
+    id: props.id,
+    name: props.name,
+    image: props.image,
+    used: props.used,
+    priceInNZD: props.priceInNZD,
+    NZDRaised: props.NZDRaised,
     notes: props.notes ?? '',
   })
-  const [image, setImage] = useState(props.image)
+  const [image, setImage] = useState<File | string>(`/uploads/${props.image}`)
+  const [ticked, setTicked] = useState(props.used)
 
-  const handleSubmit = (evt: FormEvent) => {
+  const handleSubmit = async (evt: FormEvent) => {
     evt.preventDefault()
-    props.onSubmit(formState)
+    if (typeof image !== 'string') {
+      const res = await props.onRequestImageUpload(image)
+      setFormState((prev) => ({ ...prev, image: res.image }))
+      props.onSubmit(
+        { ...formState, image: res.image, used: ticked },
+        formState.id,
+      )
+    } else {
+      props.onSubmit({ ...formState, used: ticked }, formState.id)
+    }
   }
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target
-    setFormState((prev) => ({ ...prev, [name]: value }))
+    if (name === 'used') {
+      setTicked((prev) => !prev)
+    } else {
+      setFormState((prev) => ({ ...prev, [name]: value }))
+    }
   }
 
   const handleRemoveImage = () => {
-    // setFormState((prev) => ({ ...prev, image: undefined }))
-    URL.revokeObjectURL(image)
-    setImage(() => undefined)
+    if (typeof image === 'string') {
+      URL.revokeObjectURL(image)
+    }
+    setFormState((prev) => ({ ...prev, image: undefined }))
   }
 
-  const handleImageChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    // setFormState((prev) => ({
-    //   ...prev,
-    //   image: evt.target.files ? evt.target.files[0] : undefined,
-    // }))
-    URL.revokeObjectURL(image)
-    setImage(evt.target.files[0])
+  const handleImageChange = async (evt: ChangeEvent<HTMLInputElement>) => {
+    if (evt.target?.files && evt.target.files[0]) {
+      if (typeof image === 'string') {
+        URL.revokeObjectURL(image)
+      }
+      setImage(() => evt.target.files[0])
+    }
   }
 
   return (
@@ -51,7 +69,9 @@ export default function CharityAdminItemForm(props: Props) {
             <img
               alt="not found"
               width={'250px'}
-              src={URL.createObjectURL(image)}
+              src={
+                typeof image === 'string' ? image : URL.createObjectURL(image)
+              }
             />
             <button onClick={handleRemoveImage}>Remove Image</button>
           </div>
@@ -71,15 +91,16 @@ export default function CharityAdminItemForm(props: Props) {
           name="used"
           id="used"
           type="checkbox"
-          checked={formState.used}
+          checked={ticked}
           onChange={handleChange}
         ></input>
         <label htmlFor="priceInNZD">{`Target (NZD$)`}</label>
         <input
           name="priceInNZD"
-          id="nzd-price"
+          id="priceInNZD"
           type="number"
           onChange={handleChange}
+          value={formState.priceInNZD}
         ></input>
         <label htmlFor="notes">Notes</label>
         <input

@@ -6,7 +6,7 @@ export async function up(knex) {
   return knex.schema.createTable('items', (table) => {
     table.integer('id').primary()
     table.string('name').notNullable()
-    table.blob('image') //a blob is a sort of catch-all... if we want users to be able to upload images, we'll need to use a blob (and probably some mild witchcraft)
+    table.string('image')
     table.boolean('used').notNullable()
     table.float('price_in_NZD').notNullable()
     table.float('NZD_raised').notNullable()
