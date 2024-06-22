@@ -1,15 +1,19 @@
-import useRegisters from "../../../hooks/useRegisters"
-import { Charity } from "../../../../models/charity"
+import useRegisters from '../../../hooks/useRegisters'
+import { Charity } from '../../../../models/charity'
 
 interface Props extends Charity {
-  onRegisterSelected: (_:number) => void
+  onRegisterSelected: (_: number) => void
 }
 
 export default function CharityAdminRegistersNav(props: Props) {
+  const {
+    data: registers,
+    isPending,
+    isError,
+    error,
+  } = useRegisters().allOfCharity(props.id)
 
-  const { data: registers, isPending, isError, error } = useRegisters().allOfCharity(props.id) 
-
-  const handleClick = (id:number) => {
+  const handleClick = (id: number) => {
     props.onRegisterSelected(id)
   }
 
@@ -24,8 +28,18 @@ export default function CharityAdminRegistersNav(props: Props) {
   if (!registers) return <p>Error: no registers found</p>
 
   return (
-    <div className="w-full h-[10%] border-box border-4 border-purple-500 flex">
-      {Object.values(registers).map((register) => { return <button key={register.id} className="mx-4" onClick={() => handleClick(register.id)}>{register.name}</button>})}
+    <div className="border-box flex h-[10%] w-full border-4 border-purple-500">
+      {Object.values(registers).map((register) => {
+        return (
+          <button
+            key={register.id}
+            className="mx-4"
+            onClick={() => handleClick(register.id)}
+          >
+            {register.name}
+          </button>
+        )
+      })}
     </div>
   )
 }

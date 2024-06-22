@@ -10,7 +10,7 @@ const columns = [
   'used',
   'price_in_NZD as priceInNZD',
   'NZD_raised as NZDRaised',
-  'notes as notes'
+  'notes as notes',
 ]
 
 // Function to get all items
@@ -26,7 +26,7 @@ export async function getItemById(id: number) {
 }
 
 // Function to add a new item
-export async function addItem(data: Omit<ItemData, 'id'>) {
+export async function addItem(data: ItemData) {
   // Prevents typos when switching to snake_case
   const snakeCase: ItemSnakeCase = {
     name: data.name,
@@ -56,4 +56,13 @@ export async function updateItem(id: number, data: ItemData) {
 export async function deleteItem(id: number) {
   const result = await db('items').where({ id }).del()
   return result
+}
+
+export async function addItemToRegister(item: ItemData, register_id: number) {
+  const id = await addItem(item)
+
+  return await db('registers_items').insert({
+    register_id: register_id,
+    items_id: id,
+  })
 }

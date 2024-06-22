@@ -15,7 +15,7 @@ export interface Item extends ItemData {
 export interface ItemSnakeCase {
   id?: number
   name: string
-  image: File
+  image?: File
   used: boolean
   price_in_NZD: number
   NZD_raised: number
