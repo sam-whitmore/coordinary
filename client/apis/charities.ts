@@ -23,3 +23,14 @@ export async function donorUnfollowCharity({
     .delete(`${rootURL}/charities/donor/${donorId}/${charityId}/`)
     .set('Authorization', `Bearer ${token}`)
 }
+
+export async function addCharity(
+  token: string,
+  newCharity: CharityData,
+): Promise<Charity> {
+  const res = await request
+    .post(`${rootURL}/charities`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(newCharity)
+  return res.body
+}

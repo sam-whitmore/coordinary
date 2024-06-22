@@ -36,5 +36,6 @@ export default function ItemCard(item: ItemFromRegister) {
           </button>
         </div>
       </div>
+    </div>
   )
 }

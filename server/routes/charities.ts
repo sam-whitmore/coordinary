@@ -61,21 +61,47 @@ router.delete(
   },
 )
 
-// router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
-//   if (!req.auth?.sub) {
-//     res.sendStatus(StatusCodes.UNAUTHORIZED)
-//     return
-//   }
+router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
 
-//   try {
-//     const { categoryId, name, phone, email } = req.body
-//     const id = await db.addCharities({ categoryId, name, phone, email })
-//     res
-//       .setHeader('Location', `${req.baseUrl}/${id}`)
-//       .sendStatus(StatusCodes.CREATED)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+  try {
+    const {
+      categoryId,
+      name,
+      phone,
+      email,
+      location,
+      slug,
+      defaultRegisterId,
+    } = req.body
+
+    if (!categoryId || !name || !slug) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: 'Missing required fields' })
+    }
+
+    const charityData = {
+      categoryId,
+      name,
+      phone,
+      email,
+      location,
+      slug,
+      auth0Id: req.auth.sub,
+      defaultRegisterId: defaultRegisterId || null,
+    }
+
+    const id = await db.addCharities(charityData)
+    res
+      .setHeader('Location', `${req.baseUrl}/${id}`)
+      .sendStatus(StatusCodes.CREATED)
+  } catch (err) {
+    next(err)
+  }
+})
 
 export default router
