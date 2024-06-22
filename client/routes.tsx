@@ -30,6 +30,7 @@ import DonorAdminPortal from './pages/DonorAdminPortal.tsx'
 import DonorAdminDashboard from './components/donor_admin_portal/DonorAdminDashboard.tsx'
 import DonorAdminHistoryContainer from './components/donor_admin_portal/DonorAdminHistoryContainer.tsx'
 import DonorManageFollowed from './components/donor_admin_portal/DonorManageFollowed.tsx'
+import DonorRegistration from './components/donor_admin_portal/DonorRegistration.tsx'
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
@@ -54,6 +55,7 @@ const routes = createRoutesFromElements(
     </Route>
     <Route path="donor/admin" element={<DonorAdminPortal />}>
       <Route index element={<DonorAdminDashboard />} />
+      <Route path="registration-admin" element={<DonorRegistration />} />
       <Route path="donation-history" element={<DonorAdminHistoryContainer />} />
       <Route path="followed-charities" element={<DonorManageFollowed />} />
     </Route>

@@ -1,8 +1,8 @@
 import useRegisters from "../../hooks/useRegisters"
 import { useParams } from "react-router-dom"
 
-import RegistriesNav from "./registries/RegistriesNav"
-import Registry from "./registries/Registry"
+import RegistriesNav from './registries/RegistriesNav'
+import Registry from './registries/Registry'
 
 export default function Registries() {
   const { charitySlug } = useParams() 
