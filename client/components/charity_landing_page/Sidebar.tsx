@@ -28,6 +28,12 @@ export default function Sidebar() {
           Our Registries
         </Link>
         <Link
+          to="donors"
+          className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
+        >
+          Our Donors
+        </Link>
+        <Link
           to="contact"
           className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
         >
