@@ -23,3 +23,16 @@ export async function editActiveDonor({
     .set('Authorization', `Bearer ${token}`)
     .send(data)
 }
+
+export async function addDonor({
+  token,
+  data,
+}: {
+  token: string
+  data: DonorData
+}) {
+  return await request
+    .post(`${rootURL}/donors`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(data)
+}
