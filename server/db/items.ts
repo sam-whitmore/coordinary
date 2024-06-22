@@ -49,14 +49,14 @@ export async function updateItem(id: number, data: ItemData) {
     NZD_raised: data.NZDRaised,
     notes: data.notes,
   }
-  console.log(snakeCase)
   const result = await db('items').where({ id }).update(snakeCase)
   return result
 }
 
 // Function to delete an item by ID
 export async function deleteItem(id: number) {
-  const result = await db('items').where({ id }).del()
+  console.log(id)
+  const result = await db('items').where({ id }).delete()
   return result
 }
 

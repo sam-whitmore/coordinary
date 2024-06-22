@@ -9,12 +9,6 @@ export default function DonorAdminSidebar() {
   return (
     <div className="border-box relative flex h-full w-1/6 flex-col border-4 border-yellow-300">
       <div className="border-box flex h-auto w-full flex-col border-4 border-purple-300">
-        {/* <Link
-          to=""
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
-        >
-          Admin Home
-        </Link> */}
         <Link
           to=""
           className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"

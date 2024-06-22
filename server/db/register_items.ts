@@ -38,3 +38,14 @@ export async function getItemsByRegisterId(id: number) {
 //   //added this in items.ts - we sadly have to add an item, and then add a register_item (just due to how sql works),
 //   //so I thought it made sense to use the existing addItem function, added that change in the server routes too.
 // }
+
+export async function addRegisterItem(itemId: number, registerId: number) {
+  await db('registers_items').insert({
+    items_id: itemId,
+    register_id: registerId,
+  })
+}
+
+export async function removeItemFromRegister(itemId: number) {
+  return await db('registers_items').delete().where({ items_id: itemId })
+}

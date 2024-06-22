@@ -10,7 +10,7 @@ const rootURL = '/api/v1/registers_items'
 export default function useRegisterItems() {
   function useGetItemsByRegisterId(id: number) {
     return useQuery({
-      queryKey: ['items', id],
+      queryKey: ['register', id],
       queryFn: async () => {
         const res = await request.get(`${rootURL}/${id}`)
         return res.body as ItemFromRegister[]
@@ -58,14 +58,14 @@ export default function useRegisterItems() {
         return res.body
       },
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['items'] })
+        queryClient.invalidateQueries({ queryKey: ['register'] })
       },
     })
   }
 
   return {
     addToRegister: useAddItemToRegister(),
-    del: useDeleteRegisterItem().mutate,
+    del: useDeleteRegisterItem(),
     byRegisterId: useGetItemsByRegisterId,
   }
 }

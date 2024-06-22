@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as db from '../db/items'
+import * as registerItemsDB from '../db/register_items'
 
 const router = Router()
 
@@ -44,8 +45,9 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const { name, image, used, priceInNZD, NZDRaised } = req.body
-    const id = await db.addItem({ name, image, used, priceInNZD, NZDRaised })
+    const { item, registerid } = req.body
+    const id = await db.addItem(item)
+    await registerItemsDB.addRegisterItem(id, registerid)
     res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)
@@ -84,7 +86,8 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
-// Route to delete an item by ID
+// Route to delete an item by ID. NB: this won't work currently due to FK constraint.
+//Should be okay to leave alone - can't think of a time we'd actually call this route
 router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)

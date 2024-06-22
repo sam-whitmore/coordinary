@@ -27,8 +27,6 @@ export default function CharityAdminRegistersNav(props: Props) {
 
   if (!registers) return <p>Error: no registers found</p>
 
-  console.log(registers)
-
   return (
     <div className="border-box flex h-[10%] w-full border-4 border-purple-500">
       {Object.values(registers).map((register) => {

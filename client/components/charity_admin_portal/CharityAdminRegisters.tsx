@@ -42,7 +42,7 @@ export default function CharityAdminRegisters() {
   if (isLoading) {
     return <p>Loading...</p>
   }
-  if (isError || !charity) {
+  if (isError || !charity || selectedRegister === 0) {
     return <p>{error?.message}</p>
   }
 
@@ -50,7 +50,6 @@ export default function CharityAdminRegisters() {
     <div className="border-box h-full w-5/6 border-4 border-green-400">
       <CharityAdminRegistersNav {...{ ...charity, onRegisterSelected }} />
       <CharityAdminRegister {...{ id: selectedRegister }} />
-      <button onClick={handleClick}>Add Dummy Item</button>
     </div>
   )
 }

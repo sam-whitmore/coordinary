@@ -16,9 +16,6 @@ export async function editItem({
     .patch(`${rootURL}/items/${id}`)
     .set('Authorization', `Bearer ${token}`)
     .send(item)
-  // .type('form')
-  // .field('data', JSON.stringify({ item }))
-  // .attach('image', `${item.image}`)
 }
 
 export async function deleteItem({ token, id }: { token: string; id: number }) {
@@ -30,30 +27,28 @@ export async function deleteItem({ token, id }: { token: string; id: number }) {
 export async function addItem({
   token,
   item,
+  registerid,
 }: {
   token: string
   item: ItemData
+  registerid: number
 }) {
   return await request
     .post(`${rootURL}/items`)
     .set('Authorization', `Bearer ${token}`)
-    .send(item)
+    .send({ item, registerid })
 }
 //uploads an image to the server, returning a URI in form {image:'this is a uri string'}
 export async function uploadImage({
   token,
-  // item,
-  // id,
   image,
 }: {
   token: string
   image
-}) {
+}): Promise<{ image: string }> {
   return await request
     .post(`${rootURL}/upload`)
     .set('Authorization', `Bearer ${token}`)
-    // .field('data', JSON.stringify({ ...item, id }))
     .attach('image', image)
     .then((res) => res.body)
-  // .set('Content-Type', 'multipart/form-data')
 }

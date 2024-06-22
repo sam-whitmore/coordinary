@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import CharityAdminItemForm from './CharityAdminItemForm'
 import useItems from '../../../hooks/useItems'
-import { Item, ItemData } from '../../../../models/item'
+import { ItemData } from '../../../../models/item'
 import { useAuth0 } from '@auth0/auth0-react'
 
 export default function CharityAdminEditItem() {
@@ -28,7 +28,7 @@ export default function CharityAdminEditItem() {
   if (isError || !data?.name) {
     return <p>Something went wrong!</p>
   }
-  console.log(data)
+
   return (
     <div>
       <CharityAdminItemForm

@@ -5,11 +5,14 @@ export default function ItemCard(item: ItemFromRegister) {
 
   return (
     <div className="rounded-2xl border border-black text-center shadow-xl">
-      <img
-        className="mx-auto mb-4 mt-4 rounded-full border border-black"
-        src="https://placehold.co/125x125"
-        alt={item.name}
-      ></img>
+      <div className="h-125 box-border">
+        <img
+          className="mx-auto mb-4 mt-4 rounded-full border border-black"
+          src={`/uploads/${item.image}`}
+          width={'125px'}
+          alt={item.name}
+        ></img>
+      </div>
       <h1 className="text-2xl">
         {item.name}{' '}
         <span className="text-sm">{item.used === 1 ? '(Used)' : ''}</span>

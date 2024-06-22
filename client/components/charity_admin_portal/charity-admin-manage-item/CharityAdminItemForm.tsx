@@ -5,11 +5,10 @@ import { ChangeEvent } from 'react'
 interface Props extends ItemData {
   id?: number
   onSubmit: (a: ItemData, b?: number) => void
-  onRequestImageUpload: (b: File) => { image: string }
+  onRequestImageUpload: (b: File) => Promise<{ image: string }>
 }
 
 export default function CharityAdminItemForm(props: Props) {
-  // console.log(props)
   const [formState, setFormState] = useState({
     id: props.id,
     name: props.name,

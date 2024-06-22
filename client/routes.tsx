@@ -20,8 +20,6 @@ import CharityAdminPortal from './pages/CharityAdminPortal.tsx'
 import AdminHome from './components/charity_admin_portal/AdminHome.tsx'
 import AdminDashboard from './components/charity_admin_portal/AdminDashboard.tsx'
 import CharityAdminRegisters from './components/charity_admin_portal/CharityAdminRegisters.tsx'
-import AdminPlayground from './components/charity_admin_portal/AdminPlayground.tsx'
-import AdminSandbox from './components/charity_admin_portal/AdminSandbox.tsx'
 import CharityForm from './components/charity_admin_portal/AdminCharityRegistration.tsx'
 
 // Donor Admin Portal
@@ -31,6 +29,7 @@ import DonorAdminHistoryContainer from './components/donor_admin_portal/DonorAdm
 import DonorManageFollowed from './components/donor_admin_portal/DonorManageFollowed.tsx'
 import DonorRegistration from './components/donor_admin_portal/DonorRegistration.tsx'
 import CharityAdminEditItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminEditItem.tsx'
+import CharityAdminAddItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminAddItem.tsx'
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
@@ -48,8 +47,6 @@ const routes = createRoutesFromElements(
       <Route index element={<AdminHome />} />
       <Route path="dashboard" element={<AdminDashboard />} />
       <Route path="registers" element={<CharityAdminRegisters />} />
-      <Route path="playground" element={<AdminPlayground />} />
-      <Route path="sandbox" element={<AdminSandbox />} />
       <Route path="registration" element={<CharityForm />} />
     </Route>
     <Route path="donor/admin" element={<DonorAdminPortal />}>
@@ -58,7 +55,11 @@ const routes = createRoutesFromElements(
       <Route path="donation-history" element={<DonorAdminHistoryContainer />} />
       <Route path="followed-charities" element={<DonorManageFollowed />} />
     </Route>
-    <Route path="items/:id/edit" element={<CharityAdminEditItem />} />
+    <Route path="items/edit/:id" element={<CharityAdminEditItem />} />
+    <Route
+      path="items/add-to-register/:registerid"
+      element={<CharityAdminAddItem />}
+    />
   </Route>,
 )
 
