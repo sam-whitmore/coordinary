@@ -1,59 +1,45 @@
 import { Link } from 'react-router-dom'
-import { useAuth0 } from '@auth0/auth0-react'
-import SignInButton from '../authentication/SignInButton'
-import SignOutButton from '../authentication/SignOutButton'
 
 export default function Sidebar() {
-  const { user } = useAuth0()
-
   return (
-    <div className="border-box relative flex h-[90%] w-full flex-col border-4 border-green-300">
-      <div className="border-box flex h-auto w-full flex-col border-4 border-purple-300">
+    <div className="relative flex h-auto w-[10%] flex-col flex-grow border-r-2 border-secondary hover:border-primary">
+      <div className="flex h-auto w-full flex-col">
         <Link
           to=""
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+          className="text-secondary hover:text-primary p-2 border-b-2 border-secondary hover:border-primary"
         >
           About Us
         </Link>
         <Link
           to="posts"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+          className="text-secondary hover:text-primary p-2 border-b-2 border-secondary hover:border-primary"
         >
           Our Impact
         </Link>
         <Link
           to="donate"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+          className="text-secondary hover:text-primary p-2 border-b-2 border-secondary hover:border-primary"
         >
           Our Registries
         </Link>
         <Link
+          to="donors"
+          className="text-secondary hover:text-primary p-2 border-b-2 border-secondary hover:border-primary"
+        >
+          Our Donors
+        </Link>
+        <Link
           to="contact"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+          className="text-secondary hover:text-primary p-2 border-b-2 border-secondary hover:border-primary"
         >
           Contact Us
         </Link>
         <Link
-          to="playground"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
-        >
-          Charity Playground
-        </Link>
-        <Link
-          to="sandbox"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
-        >
-          Charity Sandbox
-        </Link>
-        <Link
           to="admin"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+          className="text-secondary hover:text-primary p-2 border-b-2 border-secondary hover:border-primary"
         >
           Go to Admin Portal
         </Link>
-      </div>
-      <div className="border-box absolute bottom-0 w-full border-4 border-sky-300 py-2 text-center">
-        {user ? <SignOutButton /> : <SignInButton />}
       </div>
     </div>
   )

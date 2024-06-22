@@ -4,9 +4,9 @@ import { Charity } from "../../../../models/charity"
 export default function CharitySummary(charity: Charity) {
 
   return (
-    <div className="w-full h-36 border-box border-4 border-sky-400">
-      <Link to={(charity.name).toLowerCase()}>{charity.name}</Link>
-      <h3>Charity Location</h3>
+    <div className="w-full h-auto my-4 px-8 text-right">
+      <Link to={charity.slug} className="font-display text-lg text-secondary hover:text-primary">{charity.name}</Link>
+      <h3 className="italic text-sm font-thin">Insert Charity Description; Location; Contact; Summary here...</h3>
     </div>
   )
 }

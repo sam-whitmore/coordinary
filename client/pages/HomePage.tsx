@@ -1,12 +1,10 @@
-import Nav from "../components/home_page/Nav"
-import HeroContainer from "../components/home_page/HeroContainer"
-import CharitiesList from "../components/home_page/CharitiesList"
+import HeroContainer from '../components/home_page/HeroContainer'
+import CharitiesList from '../components/home_page/CharitiesList'
 
 export default function HomePage() {
   return (
-    <div className="border-box border-4 border-red-400 h-screen w-screen">
-      <Nav />
-      <div className="border-box border-4 border-orange-400 h-[90%] w-full flex">
+    <div className="h-[90%] w-screen">
+      <div className="flex h-full w-full">
         <HeroContainer />
         <CharitiesList />
       </div>

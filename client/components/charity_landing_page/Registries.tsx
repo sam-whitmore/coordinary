@@ -1,30 +1,33 @@
-import useRegisters from '../../hooks/useRegisters'
+import useRegisters from "../../hooks/useRegisters"
+import { useParams } from "react-router-dom"
 
 import RegistriesNav from './registries/RegistriesNav'
 import Registry from './registries/Registry'
 
 export default function Registries() {
-  const {
-    data: registers,
-    isPending,
-    isError,
-    error,
-  } = useRegisters().allOfCharity(2)
+  const { charitySlug } = useParams() 
+  const { data: registers, isPending, isError, error } = useRegisters().allOfCharity(charitySlug as string)
+
+  if (!registers) return <p>Error: no registers found</p>
 
   if (isPending) {
-    ;<div>Loading...</div>
+    return (
+      <p>Loading...</p>
+    )
   }
-
   if (isError) {
-    return <p>{error.message}</p>
+    return (
+      <p>{error.message}</p>
+    )
   }
-
-  if (!registers) return <p>Error: no regsiters found</p>
 
   return (
-    <div className="border-box h-full w-5/6 border-4 border-sky-400">
-      <RegistriesNav {...registers} />
-      <Registry />
+    <div className="relative h-full w-[90%] overflow-y-scroll">
+      <div className="h-auto w-auto rounded-2xl p-6">
+        <h1 className="mb-4 text-6xl font-medium font-display text-secondary capitalize">Our <span className="text-primary font-semibold">Registries</span></h1>
+        <RegistriesNav {...registers} />
+        <Registry />
+      </div>
     </div>
   )
 }

@@ -13,3 +13,9 @@ export interface RegisterSnakeCase {
   name: string
   charity_id: number
 }
+
+export interface RegisterFromSlug {
+  charityId: number
+  registerId: number
+  registerName: string
+}

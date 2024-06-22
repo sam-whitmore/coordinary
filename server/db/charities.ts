@@ -11,10 +11,8 @@ const columns = [
   'slug',
 ]
 
-const columnsTest = ['id', 'name', 'category_id as categoryId']
-
 export async function getAllCharities() {
-  const result = await db('charities').select(columnsTest)
+  const result = await db('charities').select(columns)
   return result
 }
 
