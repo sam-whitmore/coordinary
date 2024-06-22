@@ -60,7 +60,6 @@ export async function deleteItem(id: number) {
 
 export async function addItemToRegister(item: ItemData, register_id: number) {
   const id = await addItem(item)
-
   return await db('registers_items').insert({
     register_id: register_id,
     items_id: id,

@@ -16,10 +16,7 @@ export default function CharityAdminRegisters() {
   } = useCharities().get(charitySlug ?? 'coordinary')
   const hooks = useRegisterItems()
   const onRegisterSelected = (registerId: number) => {
-    // console.log('changed target register')
-    // console.log(selectedRegister)
     setSelectedRegister(registerId)
-    // console.log(selectedRegister)
   }
 
   const handleClick = () => {
