@@ -1,53 +1,100 @@
-import { useParams } from "react-router-dom"
-import useCharities from "../../hooks/useCharities"
-
-// TODO: the background image is flowing above the scroll bar on the side of the window because it's div is currently set to 'fixed.' bg-fixed can remain as it is; the initial fixed should probably be updated at some stage... non-urgent.
-// TODO: Add Contents Component that allows users to quickly jump to each section of this page, fixed to the top-right side of the text-based section.
+import { useParams } from 'react-router-dom'
+import useCharities from '../../hooks/useCharities'
+import DonorProvider from '../../utility/DonorProvider'
+import FollowCharityButton from '../../utility/FollowCharityButton'
 
 export default function About() {
-
-  const { charitySlug } = useParams() 
-  const { data: charity, isPending, isError, error } = useCharities().get(charitySlug as string)
+  const { charitySlug } = useParams()
+  const {
+    data: charity,
+    isPending,
+    isError,
+    error,
+  } = useCharities().get(charitySlug as string)
 
   if (isPending) {
-    return (
-      <p>Loading...</p>
-    )
+    return <p>Loading...</p>
   }
+
   if (isError) {
-    return (
-      <p>{error.message}</p>
-    )
+    return <p>{error.message}</p>
   }
+
+  if (!charity) {
+    return <p>Error: Charity not found.</p>
+  }
+
+  console.log('Charity:', charity)
 
   return (
     <div className="relative h-full w-[90%] overflow-y-scroll">
-      <div className="w-auto h-auto bg-background p-6 overflow-y-scroll">
-        <h1 className="mb-4 text-6xl font-medium font-display text-secondary capitalize">About <span className="text-primary font-semibold">{charity.name}</span></h1>
-        <h2 className="mb-2 mt-6 text-3xl font-medium font-display text-secondary">Our Vision</h2>
+      <div className="h-auto w-auto overflow-y-scroll bg-background p-6">
+        <section className="flex items-center">
+          <h1 className="mb-4 font-display text-6xl font-medium capitalize text-secondary">
+            About{' '}
+            <span className="font-semibold text-primary">{charity.name}</span>
+          </h1>
+          <DonorProvider>
+            {(donor) =>
+              donor && (
+                <div className="ml-4">
+                  <FollowCharityButton
+                    donorId={donor.id}
+                    charityId={charity.id}
+                  />
+                </div>
+              )
+            }
+          </DonorProvider>
+        </section>
+        <h2 className="mb-2 mt-6 font-display text-3xl font-medium text-secondary">
+          Our Vision
+        </h2>
         <p>
           <em>*insert vision statement here (with passed-props)*</em>
         </p>
-        <h2 className="mb-2 mt-6 text-3xl font-medium font-display text-secondary">Our Mission</h2>
+        <h2 className="mb-2 mt-6 font-display text-3xl font-medium text-secondary">
+          Our Mission
+        </h2>
         <p>
           <em>*insert mission statement here (with passed-props)*</em>
         </p>
-        <h2 className="mb-2 mt-6 text-3xl font-medium font-display text-secondary">Our Values</h2>
+        <h2 className="mb-2 mt-6 font-display text-3xl font-medium text-secondary">
+          Our Values
+        </h2>
         <div className="my-4 flex justify-center p-4">
-          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">Effort</span>|
-          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">Integrity</span>|
-          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">Kindness</span>|
-          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">Generosity</span>|
-          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">Humility</span>
+          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">
+            Effort
+          </span>
+          |
+          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">
+            Integrity
+          </span>
+          |
+          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">
+            Kindness
+          </span>
+          |
+          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">
+            Generosity
+          </span>
+          |
+          <span className="mx-auto text-2xl font-medium text-secondary hover:text-primary">
+            Humility
+          </span>
         </div>
-        <h2 className="mb-2 mt-6 text-3xl font-medium font-display text-secondary">Our Services</h2>
+        <h2 className="mb-2 mt-6 font-display text-3xl font-medium text-secondary">
+          Our Services
+        </h2>
         <p>
           <em>
             *insert a summary statement re: the services each charity provides,
             here (with passed-props)*
           </em>
         </p>
-        <h2 className="mb-2 mt-6 text-3xl font-medium font-display text-secondary">Our Story</h2>
+        <h2 className="mb-2 mt-6 font-display text-3xl font-medium text-secondary">
+          Our Story
+        </h2>
         <p className="pb-2">
           This page provides charities with an opportunity to tell their story
           and showcase some impressive statistics; chances are, this will also
@@ -64,19 +111,19 @@ export default function About() {
           Here is another paragraph for the sake of demonstrating the scroll
           effect; the content was not quite long enough for this to be evident.
         </p>
-        <h3 className="my-6 text-center text-2xl font-semibold font-display text-secondary">
+        <h3 className="my-6 text-center font-display text-2xl font-semibold text-secondary">
           <em>Emphatic Statistic or Quote goes here!</em>
         </h3>
         <p className="pb-2">
           And here is the beginning of one more paragraph, to nicely frame the
           emphatic statement, above.
         </p>
-        <div className="pb-2 mx-auto w-1/2 m-8">
-          TODO: create a CTA <em>component</em> that prompts our potential donors to
-          follow this charity and sign up to their mailing list!!! It could
-          begin with something along these lines: to follow our story as to
-          continues to unfold, subscribe to our emailing list here and follow us
-          on Coordinary!
+        <div className="m-8 mx-auto w-1/2 pb-2">
+          TODO: create a CTA <em>component</em> that prompts our potential
+          donors to follow this charity and sign up to their mailing list!!! It
+          could begin with something along these lines: to follow our story as
+          to continues to unfold, subscribe to our emailing list here and follow
+          us on Coordinary!
         </div>
       </div>
     </div>
