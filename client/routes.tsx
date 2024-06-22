@@ -23,6 +23,7 @@ import AdminDashboard from './components/charity_admin_portal/AdminDashboard.tsx
 import CharityAdminRegisters from './components/charity_admin_portal/CharityAdminRegisters.tsx'
 import AdminPlayground from './components/charity_admin_portal/AdminPlayground.tsx'
 import AdminSandbox from './components/charity_admin_portal/AdminSandbox.tsx'
+import CharityForm from './components/charity_admin_portal/AdminCharityRegistration.tsx'
 
 // Donor Admin Portal
 import DonorAdminPortal from './pages/DonorAdminPortal.tsx'
@@ -49,6 +50,7 @@ const routes = createRoutesFromElements(
       <Route path="registers" element={<CharityAdminRegisters />} />
       <Route path="playground" element={<AdminPlayground />} />
       <Route path="sandbox" element={<AdminSandbox />} />
+      <Route path="registration" element={<CharityForm />} />
     </Route>
     <Route path="donor/admin" element={<DonorAdminPortal />}>
       <Route index element={<DonorAdminDashboard />} />
