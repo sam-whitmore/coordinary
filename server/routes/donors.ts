@@ -42,17 +42,23 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   try {
     const { email } = req.body
 
+    if (!email) {
+      res.status(StatusCodes.BAD_REQUEST).json({ message: 'Email is required' })
+      return
+    }
+
     const id = await db.addDonor({ email, auth0Id: req.auth.sub })
     res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)
   } catch (err) {
-    next(err)
+    console.error('Error in addDonor route:', err) // Log the error details
   }
 })
 
 router.patch('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
+    a
     res.sendStatus(StatusCodes.UNAUTHORIZED)
     return
   }
