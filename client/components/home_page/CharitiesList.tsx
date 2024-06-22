@@ -10,7 +10,7 @@ export default function CharitiesList() {
   if (isError) return console.error(`Error: ${error.message}`)
   if (!charities) return console.error(`Error: No charities found.`)
   return (
-    <div className="w-1/4 h-full border-box overflow-y-scroll border-4 border-green-400">
+    <div className="w-1/4 h-full overflow-y-scroll">
       {charities.map((charity) => {return <CharitySummary key={charity.id} {...charity} />})}
     </div>
   )

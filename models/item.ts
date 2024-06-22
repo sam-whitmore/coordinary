@@ -1,6 +1,6 @@
 export interface ItemData {
   name: string
-  image: File //pretty sure we need to treat this as a file, but we'll see for sure in testing!
+  image?: File //pretty sure we need to treat this as a file, but we'll see for sure in testing!
   used: boolean
   priceInNZD: number
   NZDRaised: number
@@ -26,7 +26,7 @@ export interface ItemFromRegister {
   register_id: number
   items_id: number
   name: string
-  image: File
+  image?: File
   used: boolean
   priceInNZD: number
   NZDRaised: number

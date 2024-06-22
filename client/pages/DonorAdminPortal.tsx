@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 export default function DonorAdminPortal() {
   return (
-    <div className="border-box h-screen w-screen border-4 border-red-400">
+    <div className="h-screen w-screen">
       <DonorAdminNav />
       <div className="flex h-[90%] w-full">
         <DonorAdminSidebar />

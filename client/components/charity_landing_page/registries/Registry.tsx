@@ -16,8 +16,8 @@ export default function Registry() {
   console.log(items)
   
   return (
-    <div className="border-box h-[90%] w-full border-4 border-pink-400">
-      <h1>Registry</h1>
+    <div className="h-[90%] w-full">
+      <h1 className="text-2xl font-medium font-wix-display text-primary">Registry</h1>
       <p>
         This component contains the currently selected gift; donation register.
       </p>

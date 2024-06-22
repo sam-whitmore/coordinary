@@ -5,7 +5,7 @@ export default function SignOutButton() {
 
   return (
     <button
-      className="rtl text-2xl"
+      className="rtl text-2xl text-primary font-wix-display"
       onClick={() =>
         logout({ logoutParams: { returnTo: window.location.origin } })
       }

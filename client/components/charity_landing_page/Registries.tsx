@@ -20,7 +20,7 @@ export default function Registries() {
   console.log(registers)
 
   return (
-    <div className="w-5/6 h-full border-box border-4 border-sky-400">
+    <div className="w-5/6 h-full">
       <RegistriesNav {...registers} />
       <Registry />
     </div>

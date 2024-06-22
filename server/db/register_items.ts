@@ -33,5 +33,7 @@ export async function getItemsByRegisterId(id: number) {
 
 // TODO: HAVE BEGUN CREATING THIS DB FUNCTION; HAVE ALREADY CREATED EVERY FUNCTION ABOVE THIS (ABOVE BEING THE FRONT-END)
 export async function addItemToRegister(item: ItemData, register_id: number) {
-  // await { db('items'). } 
+  const itemInput = db('items').returning('id').insert(item)
+  console.log(itemInput)
+  console.log(register_id)
 }
