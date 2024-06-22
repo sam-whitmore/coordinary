@@ -1,4 +1,4 @@
-import SignOutButton from '../../authentication/SignOutButton'
+import SignOutButton from '../authentication/SignOutButton'
 import { Link } from 'react-router-dom'
 import { User } from '@auth0/auth0-react'
 
