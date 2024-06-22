@@ -5,7 +5,7 @@ export default function CharitySummary(charity: Charity) {
 
   return (
     <div className="w-full h-auto my-4 px-8 text-right">
-      <Link to={(charity.name).toLowerCase()} className="font-display text-lg">{charity.name}</Link>
+      <Link to={charity.slug} className="font-display text-lg text-secondary hover:text-primary">{charity.name}</Link>
       <h3 className="italic text-sm font-thin">Insert Charity Description; Location; Contact; Summary here...</h3>
     </div>
   )

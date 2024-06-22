@@ -18,13 +18,18 @@ export async function getDonorByAuthId(auth0Id: string) {
 }
 
 export async function addDonor(data: DonorData) {
-  // prevents typos when switching to snakecase
-  const snakecase: DonorSnakeCase = {
-    auth0_id: data.auth0Id,
-    email: data.email,
+  try {
+    // prevents typos when switching to snakecase
+    const snakecase: DonorSnakeCase = {
+      auth0_id: data.auth0Id,
+      email: data.email,
+    }
+
+    const [id] = await db('donors').insert(snakecase).returning('id')
+    return id
+  } catch (error) {
+    throw new Error()
   }
-  const [id] = await db('donors').insert(snakecase)
-  return id
 }
 
 export async function editDonor(data: DonorData) {

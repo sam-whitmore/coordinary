@@ -15,6 +15,7 @@ import Registries from './components/charity_landing_page/Registries.tsx'
 import CharityPlayground from './components/charity_landing_page/CharityPlayground.tsx'
 import CharitySandbox from './components/charity_landing_page/CharitySandbox.tsx'
 import CharityContact from './components/charity_landing_page/CharityContact.tsx'
+import OurDonors from './components/charity_landing_page/OurDonors.tsx'
 
 // Charity Admin Portal
 import CharityAdminPortal from './pages/CharityAdminPortal.tsx'
@@ -29,6 +30,7 @@ import DonorAdminPortal from './pages/DonorAdminPortal.tsx'
 import DonorAdminDashboard from './components/donor_admin_portal/DonorAdminDashboard.tsx'
 import DonorAdminHistoryContainer from './components/donor_admin_portal/DonorAdminHistoryContainer.tsx'
 import DonorManageFollowed from './components/donor_admin_portal/DonorManageFollowed.tsx'
+import DonorRegistration from './components/donor_admin_portal/DonorRegistration.tsx'
 import CharityAdminEditItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminEditItem.tsx'
 
 const routes = createRoutesFromElements(
@@ -40,6 +42,7 @@ const routes = createRoutesFromElements(
       <Route path="donate" element={<Registries />}>
         <Route index element={<Registry />} />
       </Route>
+      <Route path="donors" element={<OurDonors />} />
       <Route path="playground" element={<CharityPlayground />} />
       <Route path="sandbox" element={<CharitySandbox />} />
       <Route path="contact" element={<CharityContact />} />
@@ -53,6 +56,7 @@ const routes = createRoutesFromElements(
     </Route>
     <Route path="donor/admin" element={<DonorAdminPortal />}>
       <Route index element={<DonorAdminDashboard />} />
+      <Route path="registration-admin" element={<DonorRegistration />} />
       <Route path="donation-history" element={<DonorAdminHistoryContainer />} />
       <Route path="followed-charities" element={<DonorManageFollowed />} />
     </Route>

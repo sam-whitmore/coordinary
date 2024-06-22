@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom"
 import useCharities from "../../hooks/useCharities"
 
-export default function CharityPlayground() {
+// TODO: the background image is flowing above the scroll bar on the side of the window because it's div is currently set to 'fixed.' bg-fixed can remain as it is; the initial fixed should probably be updated at some stage... non-urgent.
+// TODO: Add Contents Component that allows users to quickly jump to each section of this page, fixed to the top-right side of the text-based section.
+
+export default function OurDonors() {
 
   const { charitySlug } = useParams() 
   const { data: charity, isPending, isError, error } = useCharities().get(charitySlug as string)

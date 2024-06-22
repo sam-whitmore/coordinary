@@ -11,43 +11,49 @@ export default function Sidebar() {
       <div className="flex h-auto w-full flex-col">
         <Link
           to=""
-          className="mb-2 bg-slate-50 p-2 shadow-md"
+          className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
         >
           About Us
         </Link>
         <Link
           to="posts"
-          className="mb-2 bg-slate-50 p-2 shadow-md"
+          className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
         >
           Our Impact
         </Link>
         <Link
           to="donate"
-          className="mb-2 bg-slate-50 p-2 shadow-md"
+          className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
         >
           Our Registries
         </Link>
         <Link
+          to="donors"
+          className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
+        >
+          Our Donors
+        </Link>
+        <Link
           to="contact"
-          className="mb-2 bg-slate-50 p-2 shadow-md"
+          className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
         >
           Contact Us
         </Link>
         <Link
           to="playground"
-          className="mb-2 bg-slate-50 p-2 shadow-md"
+          className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
         >
           Charity Playground
         </Link>
         <Link
           to="sandbox"
-          className="mb-2 bg-slate-50 p-2 shadow-md"
+          className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
         >
           Charity Sandbox
         </Link>
         <Link
           to="admin"
-          className="mb-2 bg-slate-50 p-2 shadow-md"
+          className="mb-2 text-secondary hover:text-primary p-2 shadow-md"
         >
           Go to Admin Portal
         </Link>

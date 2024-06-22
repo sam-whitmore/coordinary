@@ -21,6 +21,7 @@ export default function useActiveDonor() {
   return {
     ...query,
     edit: useEditDonor(),
+    add: useAddDonor,
   }
 }
 
@@ -41,4 +42,8 @@ export function useDonorMutation<TData = unknown, TVariables = unknown>(
 
 export function useEditDonor() {
   return useDonorMutation(API.editActiveDonor)
+}
+
+export function useAddDonor() {
+  return useDonorMutation(API.addDonor)
 }
