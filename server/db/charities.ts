@@ -33,7 +33,7 @@ export async function addCharities(data: CharityData) {
     slug: data.slug,
     default_register_id: data.defaultRegisterId,
   }
-  const [id] = await db('charities').insert(snakecase)
+  const [id] = await db('charities').insert(snakecase).returning('id')
   return id
 }
 

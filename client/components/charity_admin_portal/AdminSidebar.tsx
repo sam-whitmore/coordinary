@@ -28,22 +28,10 @@ export default function AdminSidebar() {
           Registers
         </Link>
         <Link
-          to="playground"
+          to={`../../`}
           className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
         >
-          Playground
-        </Link>
-        <Link
-          to="sandbox"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
-        >
-          Sandbox
-        </Link>
-        <Link
-          to="../charity-name"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
-        >
-          Go to Charity Landing Page
+          Go to Charity Landing Page (broken; needs slug to link)
         </Link>
       </div>
       <div className="border-box absolute bottom-0 w-full border-4 border-sky-300 py-2 text-center">

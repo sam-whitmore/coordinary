@@ -16,12 +16,15 @@ export default function Registry() {
   console.log(items)
 
   return (
-    <div className="h-[90%] w-full">
-      <h1 className="text-2xl font-medium font-display text-primary">Registry</h1>
-      <p>
-        This component contains the currently selected gift; donation register.
-      </p>
-      {items.map((item) => { return <ItemCard key={item.items_id} {...item} />})}
+    <div className="h-full w-full">
+      <h1 className="font-display text-2xl font-medium text-primary">
+        Registry
+      </h1>
+      <div className="mt-4 grid h-3/4 grid-cols-4 gap-4">
+        {items.map((item) => {
+          return <ItemCard key={item.items_id} {...item} />
+        })}
+      </div>
     </div>
   )
 }
