@@ -15,6 +15,7 @@ import Registries from './components/charity_landing_page/Registries.tsx'
 import CharityPlayground from './components/charity_landing_page/CharityPlayground.tsx'
 import CharitySandbox from './components/charity_landing_page/CharitySandbox.tsx'
 import CharityContact from './components/charity_landing_page/CharityContact.tsx'
+import OurDonors from './components/charity_landing_page/OurDonors.tsx'
 
 // Charity Admin Portal
 import CharityAdminPortal from './pages/CharityAdminPortal.tsx'
@@ -40,6 +41,7 @@ const routes = createRoutesFromElements(
       <Route path="donate" element={<Registries />}>
         <Route index element={<Registry />} />
       </Route>
+      <Route path="donors" element={<OurDonors />} />
       <Route path="playground" element={<CharityPlayground />} />
       <Route path="sandbox" element={<CharitySandbox />} />
       <Route path="contact" element={<CharityContact />} />

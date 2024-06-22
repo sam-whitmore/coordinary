@@ -4,9 +4,9 @@ import CharitiesList from "../components/home_page/CharitiesList"
 
 export default function HomePage() {
   return (
-    <div className="border-box border-4 border-red-400 h-screen w-screen">
+    <div className="h-screen w-screen">
       <Nav />
-      <div className="border-box border-4 border-orange-400 h-[90%] w-full flex">
+      <div className="h-[90%] w-full flex">
         <HeroContainer />
         <CharitiesList />
       </div>

@@ -24,7 +24,7 @@ export default function CharityAdminPortal() {
   }
 
   return (
-    <div className="w-screen h-screen border-box border-4 border-red-400">
+    <div className="w-screen h-screen">
       <AdminNav />
       <div className="w-full h-[90%] flex">
         <AdminSidebar />

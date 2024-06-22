@@ -1,12 +1,29 @@
 import Sidebar from '../components/charity_landing_page/Sidebar'
 import { Outlet } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import useCharities from '../hooks/useCharities'
 
 export default function CharityLandingPage() {
+
+  const {charitySlug} = useParams()
+  const { data: charity, isPending, isError, error } = useCharities().get(charitySlug as string) 
+
+  if (isPending) {
+    return (
+      <p>Loading...</p>
+    )
+  }
+  if (isError) {
+    return (
+      <p>{error.message}</p>
+    )
+  }
+
   return (
-    <div className="border-box flex h-screen w-screen border-4 border-red-400">
-      <div className="border-box border-4 border-orange-400 h-full w-1/6">
-        <button className="border-box h-[10%] w-full border-4 border-yellow-300">
-          LOGO
+    <div className="flex h-screen w-screen">
+      <div className="h-full w-1/6">
+        <button className="h-[10%] w-full text-3xl font-medium font-wix-display text-primary">
+          {charity.name}
         </button>
         <Sidebar />
       </div>

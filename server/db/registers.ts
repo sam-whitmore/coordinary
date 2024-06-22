@@ -4,14 +4,20 @@ import db from './connection.ts'
 //pre-define snakecase to 'actual' select statements for gets (saves duplication of work if there are changes)
 const columns = ['id', 'name', 'charity_id as charityId']
 
+const joinColumns = [
+  'charities.id as charityId',
+  'registers.id as registerId',
+  'registers.name as registerName'
+]
+
 export async function getAllRegisters() {
   const result = await db('registers').select(columns)
   return result
 }
 
 // This fetches every register assigned to a charity.
-export async function getRegistersByCharityId(id: number) {
-  const result = await db('registers').where({ charity_id: id }).select(columns)
+export async function getRegistersByCharitySlug(slug: string) {
+  const result = await db('charities').where({ slug }).join('registers', 'registers.charity_id', 'charities.id').select(joinColumns)
   return result
 }
 
