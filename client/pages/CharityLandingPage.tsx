@@ -20,13 +20,8 @@ export default function CharityLandingPage() {
   }
 
   return (
-    <div className="flex h-screen w-screen">
-      <div className="h-full w-1/6">
-        <button className="h-[10%] w-full text-3xl font-medium font-wix-display text-primary">
-          {charity.name}
-        </button>
-        <Sidebar />
-      </div>
+    <div className="flex h-[90%] w-screen">
+      <Sidebar />
       <Outlet />
     </div>
   )

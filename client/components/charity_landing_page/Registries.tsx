@@ -18,7 +18,6 @@ export default function Registries() {
   if (isPending) {
     return <p>Loading...</p>
   }
-
   if (isError) {
     return <p>{error.message}</p>
   }
