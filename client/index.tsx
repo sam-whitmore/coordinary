@@ -12,7 +12,7 @@ const queryClient = new QueryClient()
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
     <Auth0Provider
-      domain="whai-2024-sam.au.auth0.com"
+      domain="https://whai-2024-sam.au.auth0.com"
       clientId="G4AkCNuTeuBOaR4Gf97pI5uyxzPURyeY"
       authorizationParams={{
         redirect_uri: window.location.origin,

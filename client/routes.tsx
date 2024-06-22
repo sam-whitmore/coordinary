@@ -29,6 +29,7 @@ import DonorAdminPortal from './pages/DonorAdminPortal.tsx'
 import DonorAdminDashboard from './components/donor_admin_portal/DonorAdminDashboard.tsx'
 import DonorAdminHistoryContainer from './components/donor_admin_portal/DonorAdminHistoryContainer.tsx'
 import DonorManageFollowed from './components/donor_admin_portal/DonorManageFollowed.tsx'
+import CharityAdminEditItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminEditItem.tsx'
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
@@ -55,6 +56,7 @@ const routes = createRoutesFromElements(
       <Route path="donation-history" element={<DonorAdminHistoryContainer />} />
       <Route path="followed-charities" element={<DonorManageFollowed />} />
     </Route>
+    <Route path="items/:id/edit" element={<CharityAdminEditItem />} />
   </Route>,
 )
 

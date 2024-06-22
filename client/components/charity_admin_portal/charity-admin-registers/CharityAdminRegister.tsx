@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import useRegisterItems from '../../../hooks/useRegisterItems'
 
 interface Props {
@@ -19,7 +20,12 @@ export default function CharityAdminRegister(register: Props) {
   return (
     <div className="border-box h-[90%] w-full border-4 border-pink-400">
       {items.map((item) => {
-        return <p key={item.items_id}>{item.name}</p>
+        return (
+          <div key={item.items_id}>
+            <p>{item.name}</p>
+            <Link to={`../../items/${item.items_id}/edit`}>Edit Item</Link>
+          </div>
+        )
       })}
     </div>
   )

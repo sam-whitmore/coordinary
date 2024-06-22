@@ -9,12 +9,11 @@ const columns = [
   'email',
   'location',
   'slug',
+  'default_register_id as defaultRegisterId',
 ]
 
-const columnsTest = ['id', 'name', 'category_id as categoryId']
-
 export async function getAllCharities() {
-  const result = await db('charities').select(columnsTest)
+  const result = await db('charities').select(columns)
   return result
 }
 
@@ -32,6 +31,7 @@ export async function addCharities(data: CharityData) {
     email: data.email,
     location: data.location,
     slug: data.slug,
+    default_register_id: data.defaultRegisterId,
   }
   const [id] = await db('charities').insert(snakecase)
   return id
