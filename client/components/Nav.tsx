@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import SignInButton from '../authentication/SignInButton'
+import SignInButton from './authentication/SignInButton'
 import ProfileCard from './nav/ProfileCard'
 
 export default function Nav() {
   const { user } = useAuth0()
 
   return (
-    <div className="flex h-[10%] max-h-[80px] min-h-[60px] w-full justify-between border-b-2 border-secondary">
+    <div className="flex h-[10%] max-h-[80px] min-h-[60px] w-full justify-between border-b-2 border-secondary hover:border-primary">
       <div className="mx-2 my-auto p-2">
         <Link
           to="/"
