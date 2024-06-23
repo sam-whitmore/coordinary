@@ -4,7 +4,7 @@ export default function ItemCard(item: ItemFromRegister) {
   const progressBarWidth: string = `${((item.NZDRaised / item.priceInNZD) * 100).toFixed(2)}%`
 
   return (
-    <div className="rounded-2xl border border-black text-center shadow-xl">
+    <div className="h-[90%] rounded-2xl border border-black text-center shadow-xl">
       <img
         className="mx-auto mb-4 mt-4 rounded-full border border-black"
         src="https://placehold.co/125x125"
@@ -30,10 +30,7 @@ export default function ItemCard(item: ItemFromRegister) {
           perferendis nam placeat consequuntur sit impedit quaerat, vero maiores
           id accusamus.
         </div>
-        <div className="mt-6 flex justify-between">
-          <button className="rounded border border-black px-4 py-2 text-blue-500 hover:bg-blue-700">
-            More Info
-          </button>
+        <div className="mt-6">
           <button className="rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
             Donate
           </button>
