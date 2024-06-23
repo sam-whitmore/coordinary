@@ -42,3 +42,7 @@ export function useCharityMutation<TData = unknown, TVariables = unknown>(
 export function useUnfollowCharity() {
   return useCharityMutation(API.donorUnfollowCharity)
 }
+
+export function useFollowCharity() {
+  return useCharityMutation(API.donorFollowCharity)
+}

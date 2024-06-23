@@ -34,3 +34,19 @@ export async function addCharity(
     .send(newCharity)
   return res.body
 }
+
+export async function donorFollowCharity({
+  token,
+  charityId,
+  donorId,
+}: {
+  token: string
+  charityId: number
+  donorId: number
+}) {
+  const res = await request
+    .post(`${rootURL}/charities/donor/${donorId}/follow`)
+    .set('Authorization', `Bearer ${token}`)
+    .send({ charityId })
+  return res.body
+}
