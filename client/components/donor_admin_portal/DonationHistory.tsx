@@ -44,34 +44,52 @@ export default function DonationHistory(props: Props) {
           <DonationFilter onPeriodChange={setPeriod} />
           <DateFilter onDateChange={setDate} />
         </div>
-        <div className="grid grid-cols-7 gap-2 border-b-2 border-secondary p-2 text-secondary hover:border-primary hover:text-primary">
-          <div>Donation Value</div>
-          <div>Item</div>
-          <div>Item Value</div>
-          <div>Register</div>
-          <div>Charity</div>
-          <div>Date</div>
-          <div>Anonymous?</div>
-        </div>
-        <ul>
-          {data.map((donation) => (
-            <li key={`donation: ${donation.id}`}>
-              <div className="grid grid-cols-7 gap-2 border-t-2">
-                <div>${donation.valueInNZD}</div>
-                <div>{donation.itemName}</div>
-                <div>{donation.itemPriceNZD}</div>
-                <div>{donation.registerName}</div>
-                <div>
-                  <Link to={`../../../${donation.charitySlug}`}>
-                    {donation.charityName}
-                  </Link>
-                </div>
-                <div>{new Date(donation.datetime).toLocaleDateString()}</div>
-                <div>{donation.anonymous ? 'Yes' : 'No'}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {data.length === 0 ? (
+          <div className="rounded-lg bg-white p-8 text-center shadow-md">
+            <p className="text-lg text-secondary">
+              Uh oh, it seems you havent made any donations yet.
+            </p>
+            <Link
+              to="/"
+              className="hover:text-primary-dark text-primary underline"
+            >
+              Lets make your first donation
+            </Link>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-7 gap-2 border-b-2 border-secondary p-2 text-secondary hover:border-primary hover:text-primary">
+              <div>Donation Value</div>
+              <div>Item</div>
+              <div>Item Value</div>
+              <div>Register</div>
+              <div>Charity</div>
+              <div>Date</div>
+              <div>Anonymous?</div>
+            </div>
+            <ul>
+              {data.map((donation) => (
+                <li key={`donation: ${donation.id}`}>
+                  <div className="grid grid-cols-7 gap-2 border-t-2">
+                    <div>${donation.valueInNZD}</div>
+                    <div>{donation.itemName}</div>
+                    <div>{donation.itemPriceNZD}</div>
+                    <div>{donation.registerName}</div>
+                    <div>
+                      <Link to={`../../../${donation.charitySlug}`}>
+                        {donation.charityName}
+                      </Link>
+                    </div>
+                    <div>
+                      {new Date(donation.datetime).toLocaleDateString()}
+                    </div>
+                    <div>{donation.anonymous ? 'Yes' : 'No'}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </section>
     </>
   )
