@@ -104,4 +104,31 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
+router.post(
+  '/donor/:id/follow',
+  checkJwt,
+  async (req: JwtRequest, res, next) => {
+    if (!req.auth?.sub) {
+      res.sendStatus(StatusCodes.UNAUTHORIZED)
+      return
+    }
+
+    const donorId = Number(req.params.id)
+    const { charityId } = req.body
+
+    if (!charityId) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: 'Missing charityId' })
+    }
+
+    try {
+      await db.addCharityByDonorFollowing(charityId, donorId)
+      res.sendStatus(StatusCodes.CREATED)
+    } catch (err) {
+      next(err)
+    }
+  },
+)
+
 export default router

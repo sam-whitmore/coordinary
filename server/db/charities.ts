@@ -65,3 +65,13 @@ export async function deleteCharitiesByDonorFollowing(
     .first()
     .delete()
 }
+
+export async function addCharityByDonorFollowing(
+  charityId: number,
+  donorId: number,
+) {
+  return await db('donors_charities').insert({
+    donor_id: donorId,
+    charity_id: charityId,
+  })
+}
