@@ -11,6 +11,7 @@ export interface ItemData {
 
 export interface Item extends ItemData {
   id: number
+  date: Date //this isn't on ItemData deliberately - it's something the server rather than user manages.
 }
 
 //for use with knex. Makes adding/updating data less prone to typos.
@@ -23,7 +24,8 @@ export interface ItemSnakeCase {
   NZD_raised: number
   notes?: string
   description: string
-  creatorCharitySlug: string
+  creator_charity_slug: string
+  date?: Date
 }
 
 export interface ItemFromRegister {
@@ -37,4 +39,5 @@ export interface ItemFromRegister {
   description: string
   creatorCharitySlug: string
   notes?: string
+  date: Date
 }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ItemFromRegister } from '../../../../models/item'
+import dateMath from '../../../timeHelper'
 
 interface Props extends ItemFromRegister {
   requestDelete: (id: number) => void
@@ -10,7 +11,7 @@ export default function AdminItemCard(item: Props) {
   return (
     <div className="h-[90%] rounded-2xl border border-black text-center shadow-xl hover:border-secondary">
       <img
-        className="mx-auto mb-4 mt-4 rounded-full border border-black"
+        className="mx-auto mb-4 mt-4 h-[125px] rounded-full border border-black"
         src={`/uploads/${item.image}`}
         width={'125px'}
         alt={item.name}
@@ -18,6 +19,10 @@ export default function AdminItemCard(item: Props) {
       <h1 className="text-2xl">
         {item.name} <span className="text-sm">{item.used ? '(Used)' : ''}</span>
       </h1>
+      <div className="text-center text-sm">
+        Listed {`${dateMath(item.date)}`}
+      </div>
+      <br />
       <div className="text-center">{progressBarWidth} Funded!</div>
       <div className="mx-auto mt-2 h-6 w-3/4 rounded-2xl bg-gray-300 shadow-xl">
         <div

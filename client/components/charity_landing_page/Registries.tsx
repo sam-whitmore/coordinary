@@ -1,20 +1,28 @@
 import useRegisters from '../../hooks/useRegisters'
-import { useParams } from 'react-router-dom'
-
+import { useParams, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import RegistriesNav from './registries/RegistriesNav'
 import Registry from './registries/Registry'
+import useCharities from '../../hooks/useCharities'
 
 export default function Registries() {
   const { charitySlug } = useParams()
+  const { data: charity } = useCharities().get(charitySlug as string)
   const {
     data: registers,
     isPending,
     isError,
     error,
   } = useRegisters().allOfCharity(charitySlug as string)
+  const nav = useNavigate()
+
+  useEffect(() => {
+    if (!!charity && !!charity.defaultRegisterId) {
+      nav(`${charity.defaultRegisterId}`)
+    }
+  }, [charity, nav])
 
   if (!registers) return <p>Error: no registers found</p>
-  console.log(registers)
 
   if (isPending) {
     return <p>Loading...</p>

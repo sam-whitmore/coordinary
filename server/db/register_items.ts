@@ -12,6 +12,7 @@ const joinColumns = [
   'items.notes as notes',
   'registers.active as registers.active',
   'items.description as description',
+  'items.date as date',
 ]
 
 // This fetches every active register assigned to a charity.
