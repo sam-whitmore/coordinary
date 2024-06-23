@@ -17,3 +17,19 @@ export default function useDonationsByDonor(id: number) {
     ...query,
   }
 }
+
+export function useFilteredDonationsByDonor(id: number, period: string) {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const query = useQuery({
+    queryKey: ['donordonations', id, period],
+    queryFn: async () => {
+      const token = await getAccessTokenSilently()
+      return await API.getDonorHistoryWithPeriod({ token, id, period })
+    },
+    enabled: !!isAuthenticated,
+  })
+
+  return {
+    ...query,
+  }
+}

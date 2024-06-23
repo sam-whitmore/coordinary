@@ -1,10 +1,21 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useDonationsByDonor from '../../hooks/useDonations'
+import { useFilteredDonationsByDonor } from '../../hooks/useDonations'
+import DonationFilter from './DonationToPdf/FilterDonationsByPeriod'
+
 interface Props {
   id: number
 }
+
 export default function DonationHistory(props: Props) {
-  const { isLoading, isError, data } = useDonationsByDonor(props.id)
+  const [period, setPeriod] = useState('all')
+
+  const allTimeQuery = useDonationsByDonor(props.id)
+  const filteredQuery = useFilteredDonationsByDonor(props.id, period)
+
+  const { isLoading, isError, data } =
+    period === 'all' ? allTimeQuery : filteredQuery
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -16,7 +27,6 @@ export default function DonationHistory(props: Props) {
 
   return (
     <>
-      {/* Titles for the history grid */}
       <section className="relative h-full w-[90%] overflow-y-scroll">
         <div className="h-auto w-auto overflow-y-scroll bg-background p-6">
           <div className="flex items-center">
@@ -28,6 +38,9 @@ export default function DonationHistory(props: Props) {
             </h1>
           </div>
         </div>
+        <span>
+          <DonationFilter onPeriodChange={setPeriod} />
+        </span>
         <div className="grid grid-cols-7 gap-2 border-b-2 border-secondary p-2 text-secondary hover:border-primary hover:text-primary">
           <div>Donation Value</div>
           <div>Item</div>
@@ -56,9 +69,7 @@ export default function DonationHistory(props: Props) {
                       .toLocaleDateString()
                       .toString()}
                   </div>
-                  <div>{`
-                  ${donation.anonymous ? 'Yes' : 'No'}
-                  `}</div>
+                  <div>{donation.anonymous ? 'Yes' : 'No'}</div>
                 </div>
               </li>
             )
