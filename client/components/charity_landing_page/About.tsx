@@ -39,8 +39,10 @@ export default function About() {
               donor && (
                 <div className="ml-4">
                   <FollowCharityButton
-                    donorId={donor.id}
-                    charityId={charity.id}
+                    {...{
+                      donorId: donor.id,
+                      charityId: charity.id,
+                    }}
                   />
                 </div>
               )

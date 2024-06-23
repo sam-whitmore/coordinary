@@ -11,6 +11,7 @@ const columns = [
   'price_in_NZD as priceInNZD',
   'NZD_raised as NZDRaised',
   'notes as notes',
+  'date as date',
 ]
 
 // Function to get all items
@@ -35,7 +36,8 @@ export async function addItem(data: ItemData) {
     price_in_NZD: data.priceInNZD,
     NZD_raised: data.NZDRaised,
     description: data.description,
-    creatorCharitySlug: data.creatorCharitySlug,
+    creator_charity_slug: data.creatorCharitySlug,
+    date: new Date(),
   }
   const [id] = await db('items').insert(snakeCase)
   return id
@@ -51,7 +53,7 @@ export async function updateItem(id: number, data: ItemData) {
     NZD_raised: data.NZDRaised,
     notes: data.notes,
     description: data.description,
-    creatorCharitySlug: data.creatorCharitySlug,
+    creator_charity_slug: data.creatorCharitySlug,
   }
   const result = await db('items').where({ id }).update(snakeCase)
   return result

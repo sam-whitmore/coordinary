@@ -11,6 +11,7 @@ export async function up(knex) {
     table.float('price_in_NZD').notNullable()
     table.float('NZD_raised').notNullable()
     table.string('description')
+    table.dateTime('date')
     table.string('notes')
     table.string('creator_charity_slug') //Makes sense to use it to filter notes visibility/editing permissions
   })
