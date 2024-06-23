@@ -8,6 +8,7 @@ export async function seed(knex) {
       used: false,
       price_in_NZD: 30.0,
       NZD_raised: 0,
+      description: 'Perfect for keeping little feet clean and dry',
     },
     {
       id: 2,
@@ -16,6 +17,8 @@ export async function seed(knex) {
       used: false,
       price_in_NZD: 100.0,
       NZD_raised: 3.5,
+      description:
+        "Hosting costs aren't free! Contributing to our operational expenses helps Coordinary keep the lights on.",
     },
     {
       id: 3,
@@ -24,6 +27,7 @@ export async function seed(knex) {
       used: true,
       price_in_NZD: 20.0,
       NZD_raised: 19.99,
+      description: 'A delicious crate of beans, lightly used.',
     },
     {
       id: 4,
@@ -32,6 +36,8 @@ export async function seed(knex) {
       used: false,
       price_in_NZD: 7000.0,
       NZD_raised: 100.0,
+      description:
+        "He's already got a couple, but apparently he really needs this one too",
     },
     {
       id: 5,
@@ -40,6 +46,7 @@ export async function seed(knex) {
       used: false,
       price_in_NZD: 6000.0,
       NZD_raised: 101.52,
+      description: 'If Greedy Greg is getting watches, maybe we need one?',
     },
   ])
 }

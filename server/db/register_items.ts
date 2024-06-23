@@ -1,16 +1,5 @@
 import db from './connection.ts'
 
-// Pre-define snake_case to camelCase select statements for gets??
-// TODO: Change SQLite Columns for Items from New to Used
-// const columns = [
-//   'id',
-//   'name',
-//   'image',
-//   'used',
-//   'price_in_NZD as priceInNZD',
-//   'NZD_raised as NZDRaised',
-// ]
-
 const joinColumns = [
   'registers.id as register_id',
   'items.id as items_id',
@@ -22,6 +11,7 @@ const joinColumns = [
   'items.name as name',
   'items.notes as notes',
   'registers.active as registers.active',
+  'items.description as description',
 ]
 
 // This fetches every active register assigned to a charity.
@@ -33,12 +23,6 @@ export async function getItemsByRegisterId(id: number) {
     .select(joinColumns)
   return result
 }
-
-// TODO: HAVE BEGUN CREATING THIS DB FUNCTION; HAVE ALREADY CREATED EVERY FUNCTION ABOVE THIS (ABOVE BEING THE FRONT-END)
-// export async function addItemToRegister(item: ItemData, register_id: number) {
-//   //added this in items.ts - we sadly have to add an item, and then add a register_item (just due to how sql works),
-//   //so I thought it made sense to use the existing addItem function, added that change in the server routes too.
-// }
 
 export async function addRegisterItem(itemId: number, registerId: number) {
   await db('registers_items').insert({

@@ -42,7 +42,7 @@ const routes = createRoutesFromElements(
       <Route index element={<About />} />
       <Route path="posts" element={<OurImpact />} />
       <Route path="donate" element={<Registries />}>
-        <Route index element={<Registry />} />
+        <Route path=":registerid" element={<Registry />} />
       </Route>
       <Route path="donors" element={<OurDonors />} />
       <Route path="contact" element={<CharityContact />} />
@@ -72,7 +72,7 @@ const routes = createRoutesFromElements(
       <Route path="donation-history" element={<DonorAdminHistoryContainer />} />
       <Route path="followed-charities" element={<DonorManageFollowed />} />
     </Route>
-  </Route>
+  </Route>,
 )
 
 export default routes

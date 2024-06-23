@@ -1,19 +1,19 @@
+import { useParams } from 'react-router-dom'
 import useRegisterItems from '../../../hooks/useRegisterItems'
 import ItemCard from './registry/ItemCard'
 
 export default function Registry() {
+  const { registerid } = useParams()
   const {
     data: items,
     isPending,
     isError,
     error,
-  } = useRegisterItems().byRegisterId(1)
+  } = useRegisterItems().byRegisterId(Number(registerid))
 
-  if (isPending) console.log('awaiting item data...')
+  if (isPending) return <div>Loading...</div>
   if (isError) return <div>{error.message}</div>
   if (!items) return <div>{'No items found'}</div>
-
-  console.log(items)
 
   return (
     <div className="h-3/4 w-full">

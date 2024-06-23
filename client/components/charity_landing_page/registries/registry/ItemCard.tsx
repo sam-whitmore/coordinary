@@ -3,6 +3,8 @@ import { ItemFromRegister } from '../../../../../models/item'
 export default function ItemCard(item: ItemFromRegister) {
   const progressBarWidth: string = `${((item.NZDRaised / item.priceInNZD) * 100).toFixed(2)}%`
 
+  console.log(item)
+
   return (
     <div className="h-[90%] rounded-2xl border border-black text-center shadow-xl">
       <div className="h-125 box-border">
@@ -26,12 +28,7 @@ export default function ItemCard(item: ItemFromRegister) {
           <span>$0</span>
           <span>${item.priceInNZD}</span>
         </div>
-        <div className="mt-4 text-justify text-sm">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae
-          totam nostrum tenetur ad voluptate ratione fugit magni nisi possimus
-          perferendis nam placeat consequuntur sit impedit quaerat, vero maiores
-          id accusamus.
-        </div>
+        <div className="mt-4 text-justify text-sm">{item.description}</div>
         <div className="mt-6">
           <button className="rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
             Donate
