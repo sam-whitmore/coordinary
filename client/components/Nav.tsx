@@ -50,7 +50,6 @@ export default function Nav() {
           </div>
         </div>
       </section>
-
       <div>
         <Breadcrumbs />
       </div>
