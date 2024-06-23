@@ -14,8 +14,7 @@ export default function ItemCard(item: ItemFromRegister) {
         ></img>
       </div>
       <h1 className="text-2xl">
-        {item.name}{' '}
-        <span className="text-sm">{item.used === 1 ? '(Used)' : ''}</span>
+        {item.name} <span className="text-sm">{item.used ? '(Used)' : ''}</span>
       </h1>
       <div className="text-center">{progressBarWidth} Funded!</div>
       <div className="mx-auto mt-2 h-6 w-3/4 rounded-2xl bg-gray-300 shadow-xl">

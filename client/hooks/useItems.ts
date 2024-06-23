@@ -5,17 +5,8 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 import request from 'superagent'
-import { ItemData } from '../../models/item'
 import * as API from '../apis/items.ts'
-
-interface Item {
-  id: number
-  name: string
-  image: string
-  used: boolean
-  priceInNZD: number
-  NZDRaised: number
-}
+import { Item } from '../../models/item.ts'
 
 const rootURL = '/api/v1/items'
 

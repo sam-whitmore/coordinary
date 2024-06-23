@@ -5,11 +5,11 @@ import { ItemData } from '../../../../models/item'
 import { useAuth0 } from '@auth0/auth0-react'
 
 export default function CharityAdminAddItem() {
-  const { registerid } = useParams()
+  const { registerid, charitySlug } = useParams()
   const { getAccessTokenSilently } = useAuth0()
   const { useAddItem, useUploadImage } = useItems(Number(registerid))
-  // const { data, isLoading, isError } = useGetItemById
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmit = async (item: ItemData, id?: number) => {
     const token = await getAccessTokenSilently()
     await useAddItem.mutateAsync({
@@ -36,6 +36,8 @@ export default function CharityAdminAddItem() {
             priceInNZD: 0,
             NZDRaised: 0,
             notes: '',
+            creatorCharitySlug: charitySlug as string,
+            description: '',
           },
           onSubmit: handleSubmit,
           onRequestImageUpload: handleUpload,

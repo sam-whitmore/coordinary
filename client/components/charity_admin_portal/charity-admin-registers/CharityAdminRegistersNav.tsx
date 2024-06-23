@@ -1,9 +1,8 @@
 import useRegisters from '../../../hooks/useRegisters'
 import { Charity } from '../../../../models/charity'
+import { Link, useParams } from 'react-router-dom'
 
-interface Props extends Charity {
-  onRegisterSelected: (_: number) => void
-}
+interface Props extends Charity {}
 
 export default function CharityAdminRegistersNav(props: Props) {
   const {
@@ -13,9 +12,7 @@ export default function CharityAdminRegistersNav(props: Props) {
     error,
   } = useRegisters().allOfCharity(props.slug)
 
-  const handleClick = (id: number) => {
-    props.onRegisterSelected(id)
-  }
+  const { registerid } = useParams()
 
   if (isPending) {
     return <div>Loading...</div>
@@ -28,16 +25,16 @@ export default function CharityAdminRegistersNav(props: Props) {
   if (!registers) return <p>Error: no registers found</p>
 
   return (
-    <div className="border-box flex h-[10%] w-full border-4 border-purple-500">
+    <div className="border-box flex h-[8%] w-full border-4 border-purple-500">
       {Object.values(registers).map((register) => {
         return (
-          <button
+          <Link
+            to={`${register.registerId}`}
+            className={`mx-2 rounded-2xl ${register.registerId == Number(registerid) ? 'border-black' : 'border-accent'} border-2  px-2 align-baseline text-text hover:bg-accent`}
             key={register.registerId}
-            className="mx-4"
-            onClick={() => handleClick(register.registerId)}
           >
-            {register.registerName}
-          </button>
+            <div className="text-center align-baseline">{register.name}</div>
+          </Link>
         )
       })}
     </div>

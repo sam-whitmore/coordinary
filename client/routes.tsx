@@ -21,6 +21,12 @@ import AdminHome from './components/charity_admin_portal/AdminHome.tsx'
 import AdminDashboard from './components/charity_admin_portal/AdminDashboard.tsx'
 import CharityAdminRegisters from './components/charity_admin_portal/CharityAdminRegisters.tsx'
 import CharityForm from './components/charity_admin_portal/AdminCharityRegistration.tsx'
+import CharityAdminEditItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminEditItem.tsx'
+import CharityAdminAddItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminAddItem.tsx'
+import CharityAdminRegister from './components/charity_admin_portal/charity-admin-registers/CharityAdminRegister.tsx'
+import CharityAdminManageRegisters from './components/charity_admin_portal/CharityAdminManageRegisters.tsx'
+import CharityAdminEditRegister from './components/charity_admin_portal/charity-admin-manage-registers/CharityAdminEditRegister.tsx'
+import CharityAdminAddRegister from './components/charity_admin_portal/charity-admin-manage-registers/CharityAdminAddRegister.tsx'
 
 // Donor Admin Portal
 import DonorAdminPortal from './pages/DonorAdminPortal.tsx'
@@ -28,8 +34,6 @@ import DonorAdminDashboard from './components/donor_admin_portal/DonorAdminDashb
 import DonorAdminHistoryContainer from './components/donor_admin_portal/DonorAdminHistoryContainer.tsx'
 import DonorManageFollowed from './components/donor_admin_portal/DonorManageFollowed.tsx'
 import DonorRegistration from './components/donor_admin_portal/DonorRegistration.tsx'
-import CharityAdminEditItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminEditItem.tsx'
-import CharityAdminAddItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminAddItem.tsx'
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
@@ -46,8 +50,21 @@ const routes = createRoutesFromElements(
     <Route path=":charitySlug/admin" element={<CharityAdminPortal />}>
       <Route index element={<AdminHome />} />
       <Route path="dashboard" element={<AdminDashboard />} />
-      <Route path="registers" element={<CharityAdminRegisters />} />
       <Route path="registration" element={<CharityForm />} />
+      <Route path="manageregisters" element={<CharityAdminManageRegisters />} />
+      <Route path="manageregisters/add" element={<CharityAdminAddRegister />} />
+      <Route
+        path="manageregisters/edit/:registerid"
+        element={<CharityAdminEditRegister />}
+      />
+      <Route path="registers" element={<CharityAdminRegisters />}>
+        <Route path=":registerid" element={<CharityAdminRegister />} />
+        <Route path=":registerid/items/add" element={<CharityAdminAddItem />} />
+        <Route
+          path=":registerid/items/edit/:itemid"
+          element={<CharityAdminEditItem />}
+        />
+      </Route>
     </Route>
     <Route path="donor/admin" element={<DonorAdminPortal />}>
       <Route index element={<DonorAdminDashboard />} />
@@ -55,11 +72,6 @@ const routes = createRoutesFromElements(
       <Route path="donation-history" element={<DonorAdminHistoryContainer />} />
       <Route path="followed-charities" element={<DonorManageFollowed />} />
     </Route>
-    <Route path="items/edit/:id" element={<CharityAdminEditItem />} />
-    <Route
-      path="items/add-to-register/:registerid"
-      element={<CharityAdminAddItem />}
-    />
   </Route>,
 )
 

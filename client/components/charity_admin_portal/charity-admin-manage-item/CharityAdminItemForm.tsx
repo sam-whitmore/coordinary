@@ -17,6 +17,8 @@ export default function CharityAdminItemForm(props: Props) {
     priceInNZD: props.priceInNZD,
     NZDRaised: props.NZDRaised,
     notes: props.notes ?? '',
+    description: props.description,
+    creatorCharitySlug: props.creatorCharitySlug,
   })
   const [image, setImage] = useState<File | string>(`/uploads/${props.image}`)
   const [ticked, setTicked] = useState(props.used)

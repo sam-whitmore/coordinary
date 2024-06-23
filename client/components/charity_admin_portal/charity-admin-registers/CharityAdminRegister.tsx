@@ -1,17 +1,20 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import useRegisterItems from '../../../hooks/useRegisterItems'
+import AdminItemCard from '../charity-admin-manage-item/AdminItemCard'
+import AdminAddItemCard from '../charity-admin-manage-item/AdminAddItemCard'
 
-interface Props {
-  id: number
-}
+// interface Props {
+//   id: number
+// }
 
-export default function CharityAdminRegister(register: Props) {
+export default function CharityAdminRegister() {
+  const { registerid } = useParams()
   const {
     data: items,
     isPending,
     isError,
     error,
-  } = useRegisterItems().byRegisterId(register.id)
+  } = useRegisterItems().byRegisterId(Number(registerid))
 
   const { del } = useRegisterItems()
 
@@ -23,28 +26,34 @@ export default function CharityAdminRegister(register: Props) {
   if (isError) return <div>{error.message}</div>
   if (!items || items.length < 1 || !(items instanceof Array))
     return (
-      <div>
-        <div>{'No items found'}</div>{' '}
-        <Link to={`/items/add-to-register/${register.id}`}>Add Item</Link>
+      <div className="h-full w-full">
+        <div className="mt-4 grid h-3/4 grid-cols-4 gap-4">
+          <Link
+            className="place-content-center rounded-2xl border border-black text-center align-middle text-secondary shadow-xl hover:border-secondary hover:bg-secondary hover:text-background"
+            to={`items/add`}
+          >
+            <AdminAddItemCard />
+          </Link>
+        </div>
       </div>
     )
 
   return (
-    <div>
-      <div className="border-box h-[90%] w-full border-4 border-pink-400">
-        {items.map((item) => {
-          return (
-            <div key={item.items_id}>
-              <p>{item.name}</p>
-              <Link to={`../../items/edit/${item.items_id}`}>Edit Item</Link>
-              <button onClick={() => handleDelete(item.items_id)}>
-                Delete
-              </button>
-            </div>
-          )
-        })}
+    <div className="h-full w-full">
+      <div className="mt-4 grid h-3/4 grid-cols-4 gap-4">
+        {items.map((item) => (
+          <AdminItemCard
+            key={item.items_id}
+            {...{ ...item, requestDelete: handleDelete }}
+          />
+        ))}
+        <Link
+          className="place-content-center rounded-2xl border border-black text-center align-middle text-secondary shadow-xl hover:border-secondary hover:bg-secondary hover:text-background"
+          to={`items/add`}
+        >
+          <AdminAddItemCard />
+        </Link>
       </div>
-      <Link to={`/items/add-to-register/${register.id}`}>Add Item</Link>
     </div>
   )
 }

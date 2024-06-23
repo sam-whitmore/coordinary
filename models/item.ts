@@ -5,6 +5,8 @@ export interface ItemData {
   priceInNZD: number
   NZDRaised: number
   notes?: string
+  description: string
+  creatorCharitySlug: string
 }
 
 export interface Item extends ItemData {
@@ -20,6 +22,8 @@ export interface ItemSnakeCase {
   price_in_NZD: number
   NZD_raised: number
   notes?: string
+  description: string
+  creatorCharitySlug: string
 }
 
 export interface ItemFromRegister {
@@ -30,4 +34,7 @@ export interface ItemFromRegister {
   used: boolean
   priceInNZD: number
   NZDRaised: number
+  description: string
+  creatorCharitySlug: string
+  notes?: string
 }

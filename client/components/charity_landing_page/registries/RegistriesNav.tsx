@@ -9,7 +9,7 @@ export default function RegistriesNav(registers: RegisterFromSlug[]) {
             key={register.registerId}
             className="mx-8 my-auto bg-teal-100 p-4 shadow-md"
           >
-            {register.registerName}
+            {register.name}
           </button>
         )
       })}

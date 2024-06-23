@@ -2,8 +2,7 @@ import request from 'superagent'
 import { useMutation } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Register, RegisterData } from '../../models/register'
-import { Item, ItemData, ItemFromRegister } from '../../models/item'
+import { ItemData, ItemFromRegister } from '../../models/item'
 
 const rootURL = '/api/v1/registers_items'
 

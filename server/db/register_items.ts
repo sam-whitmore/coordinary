@@ -1,16 +1,15 @@
-import { ItemData } from '../../models/item.ts'
 import db from './connection.ts'
 
 // Pre-define snake_case to camelCase select statements for gets??
 // TODO: Change SQLite Columns for Items from New to Used
-const columns = [
-  'id',
-  'name',
-  'image',
-  'used',
-  'price_in_NZD as priceInNZD',
-  'NZD_raised as NZDRaised',
-]
+// const columns = [
+//   'id',
+//   'name',
+//   'image',
+//   'used',
+//   'price_in_NZD as priceInNZD',
+//   'NZD_raised as NZDRaised',
+// ]
 
 const joinColumns = [
   'registers.id as register_id',
@@ -21,12 +20,14 @@ const joinColumns = [
   'items.price_in_NZD as priceInNZD',
   'items.NZD_raised as NZDRaised',
   'items.name as name',
+  'items.notes as notes',
+  'registers.active as registers.active',
 ]
 
-// This fetches every register assigned to a charity.
+// This fetches every active register assigned to a charity.
 export async function getItemsByRegisterId(id: number) {
   const result = await db('registers')
-    .where('registers.id', id)
+    .where({ 'registers.id': id, active: true })
     .join('registers_items', 'registers.id', 'registers_items.register_id')
     .join('items', 'items.id', 'registers_items.items_id')
     .select(joinColumns)

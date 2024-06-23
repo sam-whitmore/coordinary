@@ -10,7 +10,9 @@ export async function up(knex) {
     table.boolean('used').notNullable()
     table.float('price_in_NZD').notNullable()
     table.float('NZD_raised').notNullable()
+    table.string('description')
     table.string('notes')
+    table.string('creator_charity_slug') //Makes sense to use it to filter notes visibility/editing permissions
   })
 }
 

@@ -25,6 +25,12 @@ export default function AdminSidebar() {
           to="registers"
           className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
         >
+          Items
+        </Link>
+        <Link
+          to="manageregisters"
+          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+        >
           Registers
         </Link>
         <Link

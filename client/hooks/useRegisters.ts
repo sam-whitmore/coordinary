@@ -28,6 +28,22 @@ export default function useRegisters() {
     })
   }
 
+  function useGetRegister(id: number) {
+    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+
+    return useQuery({
+      queryKey: ['registers', id],
+      queryFn: async () => {
+        const token = await getAccessTokenSilently()
+        const res = await request
+          .get(`${rootURL}/id/${id}`)
+          .auth(token, { type: 'bearer' })
+        return res.body as Register
+      },
+      enabled: isAuthenticated,
+    })
+  }
+
   function useGetRegistersByCharitySlug(slug: string) {
     return useQuery({
       queryKey: ['registers'],
@@ -81,10 +97,32 @@ export default function useRegisters() {
     })
   }
 
+  function useEditRegister() {
+    const { getAccessTokenSilently } = useAuth0()
+    const queryClient = useQueryClient()
+
+    return useMutation({
+      mutationFn: async ({ id, data }: { id: number; data: RegisterData }) => {
+        const token = await getAccessTokenSilently()
+        const res = await request
+          .patch(`${rootURL}/${id}`)
+          .auth(token, { type: 'bearer' })
+          .send(data)
+
+        return res.body
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['registers'] })
+      },
+    })
+  }
+
   return {
-    add: useAddRegister().mutate,
+    add: useAddRegister(),
     all: useGetAllRegisters,
     allOfCharity: useGetRegistersByCharitySlug,
-    del: useDeleteRegister().mutate,
+    del: useDeleteRegister(),
+    edit: useEditRegister(),
+    single: useGetRegister,
   }
 }

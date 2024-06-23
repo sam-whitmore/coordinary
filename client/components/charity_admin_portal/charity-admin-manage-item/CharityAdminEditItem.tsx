@@ -5,14 +5,18 @@ import { ItemData } from '../../../../models/item'
 import { useAuth0 } from '@auth0/auth0-react'
 
 export default function CharityAdminEditItem() {
-  const { id } = useParams()
+  const { itemid } = useParams()
   const { getAccessTokenSilently } = useAuth0()
-  const { useEditItem, useGetItemById, useUploadImage } = useItems(Number(id))
+  const { useEditItem, useGetItemById, useUploadImage } = useItems(
+    Number(itemid),
+  )
   const { data, isLoading, isError } = useGetItemById
 
   const handleSubmit = async (item: ItemData, id?: number) => {
-    const token = await getAccessTokenSilently()
-    await useEditItem.mutateAsync({ token, item, id })
+    if (id) {
+      const token = await getAccessTokenSilently()
+      await useEditItem.mutateAsync({ token, item, id })
+    }
   }
 
   const handleUpload = async (image: File) => {

@@ -1,8 +1,6 @@
 import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0'
 import { StatusCodes } from 'http-status-codes'
-import * as fs from 'fs'
-import * as path from 'path'
 import * as db from '../db/items'
 import * as registerItemsDB from '../db/register_items'
 
@@ -19,7 +17,7 @@ router.get('/', async (req, res) => {
   }
 })
 
-// Route to get a specific item by ID
+// GET Route to get a specific item by ID
 router.get('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10)
@@ -37,7 +35,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// Route to create a new item
+// POST Route to create a new item
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -56,7 +54,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
-// Route to update an item by ID
+// PATCH Route to update an item by ID
 router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -68,7 +66,16 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
     if (isNaN(id)) {
       return res.status(400).json({ errorMessage: 'Invalid item ID' })
     }
-    const { name, used, priceInNZD, NZDRaised, image, notes } = req.body
+    const {
+      name,
+      used,
+      priceInNZD,
+      NZDRaised,
+      image,
+      notes,
+      description,
+      creatorCharitySlug,
+    } = req.body
     const result = await db.updateItem(id, {
       name,
       image,
@@ -76,6 +83,8 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
       priceInNZD,
       NZDRaised,
       notes,
+      description,
+      creatorCharitySlug,
     })
     if (!result) {
       return res.status(404).json({ errorMessage: 'Item not found' })
@@ -86,8 +95,8 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
-// Route to delete an item by ID. NB: this won't work currently due to FK constraint.
-//Should be okay to leave alone - can't think of a time we'd actually call this route
+// Route to delete an item by ID. NB: this won't work currently due to a FK constraint.
+//Should be okay to leave alone (and ultimately delete) - can't think of a time we'd actually call this route
 router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)

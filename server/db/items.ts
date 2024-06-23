@@ -34,6 +34,8 @@ export async function addItem(data: ItemData) {
     used: data.used,
     price_in_NZD: data.priceInNZD,
     NZD_raised: data.NZDRaised,
+    description: data.description,
+    creatorCharitySlug: data.creatorCharitySlug,
   }
   const [id] = await db('items').insert(snakeCase)
   return id
@@ -48,6 +50,8 @@ export async function updateItem(id: number, data: ItemData) {
     price_in_NZD: Number(data.priceInNZD),
     NZD_raised: data.NZDRaised,
     notes: data.notes,
+    description: data.description,
+    creatorCharitySlug: data.creatorCharitySlug,
   }
   const result = await db('items').where({ id }).update(snakeCase)
   return result
