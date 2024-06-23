@@ -8,7 +8,7 @@ export default function AdminItemCard(item: Props) {
   const progressBarWidth: string = `${((item.NZDRaised / item.priceInNZD) * 100).toFixed(2)}%`
 
   return (
-    <div className="rounded-2xl border border-black text-center shadow-xl hover:border-secondary">
+    <div className="h-[90%] rounded-2xl border border-black text-center shadow-xl hover:border-secondary">
       <img
         className="mx-auto mb-4 mt-4 rounded-full border border-black"
         src={`/uploads/${item.image}`}
@@ -28,6 +28,7 @@ export default function AdminItemCard(item: Props) {
           <span>$0</span>
           <span>${item.priceInNZD}</span>
         </div>
+        <div className="mt-4 text-justify text-sm">{item.description}</div>
         <div className="mt-4 text-justify text-sm">{item.notes}</div>
         <div className="mt-6 flex justify-between">
           <button

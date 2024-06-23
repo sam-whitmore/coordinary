@@ -41,7 +41,7 @@ export default function CharityAdminViewRegisters(props: Props) {
           />
         ))}
         <Link
-          className="place-content-center rounded-2xl border border-black text-center align-middle text-secondary shadow-xl hover:border-secondary hover:bg-secondary hover:text-background"
+          className="h-[90%] place-content-center rounded-2xl border border-black text-center align-middle text-secondary shadow-xl hover:border-secondary hover:bg-secondary hover:text-background"
           to={`add`}
         >
           <div>

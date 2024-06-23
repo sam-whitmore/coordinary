@@ -25,12 +25,12 @@ export default function CharityAdminRegistersNav(props: Props) {
   if (!registers) return <p>Error: no registers found</p>
 
   return (
-    <div className="border-box flex h-[8%] w-full border-4 border-purple-500">
+    <div className="flex h-[8%] w-full justify-center font-medium text-primary">
       {Object.values(registers).map((register) => {
         return (
           <Link
             to={`${register.registerId}`}
-            className={`mx-2 rounded-2xl ${register.registerId == Number(registerid) ? 'border-black' : 'border-accent'} border-2  px-2 align-baseline text-text hover:bg-accent`}
+            className={`mx-8 my-auto bg-teal-100 p-4 shadow-md ${register.registerId == Number(registerid) ? 'border-primary' : 'border-teal-100'} border-2  px-2 align-baseline text-text hover:border-primary hover:bg-primary`}
             key={register.registerId}
           >
             <div className="text-center align-baseline">{register.name}</div>

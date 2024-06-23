@@ -31,7 +31,7 @@ export default function CharityAdminRegisters() {
   }
 
   return (
-    <div className="border-box h-full w-5/6 border-4 border-green-400">
+    <div className="border-box h-full w-5/6">
       <CharityAdminRegistersNav {...{ ...charity }} />
       <Outlet />
     </div>

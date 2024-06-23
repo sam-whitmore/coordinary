@@ -7,7 +7,7 @@ interface Props extends RegisterFromSlug {
 
 export default function CharityAdminRegisterCard(register: Props) {
   return (
-    <div className="rounded-2xl border border-black text-center shadow-xl hover:border-secondary">
+    <div className="h-[90%] rounded-2xl border border-black text-center shadow-xl hover:border-secondary">
       <h1 className="text-2xl">{register.name}</h1>
       <div className="mx-auto mt-2 h-auto w-3/4 ">
         <div className="mt-4 rounded-xl bg-gray-300 text-justify text-sm shadow-xl">
