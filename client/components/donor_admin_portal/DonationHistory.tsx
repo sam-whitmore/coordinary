@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import useDonationsByDonor from '../../hooks/useDonations'
 import { useFilteredDonationsByDonor } from '../../hooks/useDonations'
 import DonationFilter from './DonationToPdf/FilterDonationsByPeriod'
+import DateFilter from './DonationToPdf/FilterDonationsByDate'
 
 interface Props {
   id: number
@@ -10,12 +11,13 @@ interface Props {
 
 export default function DonationHistory(props: Props) {
   const [period, setPeriod] = useState('all')
+  const [date, setDate] = useState('')
 
   const allTimeQuery = useDonationsByDonor(props.id)
-  const filteredQuery = useFilteredDonationsByDonor(props.id, period)
+  const filteredQuery = useFilteredDonationsByDonor(props.id, period, date)
 
   const { isLoading, isError, data } =
-    period === 'all' ? allTimeQuery : filteredQuery
+    period === 'all' && !date ? allTimeQuery : filteredQuery
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -38,9 +40,10 @@ export default function DonationHistory(props: Props) {
             </h1>
           </div>
         </div>
-        <span>
+        <div className="mx-4 flex space-x-5">
           <DonationFilter onPeriodChange={setPeriod} />
-        </span>
+          <DateFilter onDateChange={setDate} />
+        </div>
         <div className="grid grid-cols-7 gap-2 border-b-2 border-secondary p-2 text-secondary hover:border-primary hover:text-primary">
           <div>Donation Value</div>
           <div>Item</div>
@@ -51,29 +54,23 @@ export default function DonationHistory(props: Props) {
           <div>Anonymous?</div>
         </div>
         <ul>
-          {data.map((donation) => {
-            return (
-              <li key={`donation: ${donation.id}`}>
-                <div className="grid grid-cols-7 gap-2 border-t-2 ">
-                  <div>${donation.valueInNZD}</div>
-                  <div>{donation.itemName}</div>
-                  <div>{donation.itemPriceNZD}</div>
-                  <div>{donation.registerName}</div>
-                  <div>
-                    <Link to={`../../../${donation.charitySlug}`}>
-                      {donation.charityName}
-                    </Link>
-                  </div>
-                  <div>
-                    {new Date(donation.datetime)
-                      .toLocaleDateString()
-                      .toString()}
-                  </div>
-                  <div>{donation.anonymous ? 'Yes' : 'No'}</div>
+          {data.map((donation) => (
+            <li key={`donation: ${donation.id}`}>
+              <div className="grid grid-cols-7 gap-2 border-t-2">
+                <div>${donation.valueInNZD}</div>
+                <div>{donation.itemName}</div>
+                <div>{donation.itemPriceNZD}</div>
+                <div>{donation.registerName}</div>
+                <div>
+                  <Link to={`../../../${donation.charitySlug}`}>
+                    {donation.charityName}
+                  </Link>
                 </div>
-              </li>
-            )
-          })}
+                <div>{new Date(donation.datetime).toLocaleDateString()}</div>
+                <div>{donation.anonymous ? 'Yes' : 'No'}</div>
+              </div>
+            </li>
+          ))}
         </ul>
       </section>
     </>

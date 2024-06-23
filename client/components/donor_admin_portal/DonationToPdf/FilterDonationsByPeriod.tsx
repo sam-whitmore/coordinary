@@ -15,7 +15,10 @@ export default function DonationFilter({ onPeriodChange }: Props) {
 
   return (
     <div className="filter-section mb-4 flex items-center space-x-4">
-      <label htmlFor="period" className="mr-2 text-lg font-medium text-primary">
+      <label
+        htmlFor="period"
+        className=" mr-2 whitespace-nowrap text-lg font-medium text-primary"
+      >
         Filter by period:
       </label>
       <select
