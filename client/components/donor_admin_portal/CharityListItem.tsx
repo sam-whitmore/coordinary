@@ -28,32 +28,37 @@ export default function CharityListItem(props: Props) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      <div>
-        <Link to={`../../../${props.slug}`} className="text-xl">
-          {props.name}
-        </Link>
+    <section className="py-4">
+      <div className="grid grid-cols-2 items-center gap-4 rounded-lg bg-white p-4 shadow-md">
+        <div>
+          <Link
+            to={`../../../${props.slug}`}
+            className="hover:text-primary-dark font-display text-2xl font-medium capitalize text-primary"
+          >
+            {props.name}
+          </Link>
+        </div>
+        <div className="flex justify-end space-x-3">
+          <button
+            className={`rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600 ${selectedForUnfollowing ? 'hidden' : ''}`}
+            onClick={handleSelectForUnfollowing}
+          >
+            Unfollow
+          </button>
+          <button
+            className={`rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600 ${selectedForUnfollowing ? '' : 'hidden'}`}
+            onClick={handleUnfollow}
+          >
+            Confirm Unfollow
+          </button>
+          <button
+            className={`rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 ${selectedForUnfollowing ? '' : 'hidden'}`}
+            onClick={handleCancelUnfollow}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
-      <div>
-        <button
-          className={`mx-5 ${selectedForUnfollowing ? 'hidden' : ''}`}
-          onClick={handleSelectForUnfollowing}
-        >
-          Unfollow
-        </button>
-        <button
-          className={`${selectedForUnfollowing ? '' : 'hidden'}`}
-          onClick={handleUnfollow}
-        >
-          Confirm Unfollow
-        </button>
-        <button
-          className={`mx-5 ${selectedForUnfollowing ? '' : 'hidden'}`}
-          onClick={handleCancelUnfollow}
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
+    </section>
   )
 }

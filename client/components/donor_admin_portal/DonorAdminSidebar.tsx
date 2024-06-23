@@ -7,29 +7,29 @@ export default function DonorAdminSidebar() {
   const { user } = useAuth0()
 
   return (
-    <div className="border-box relative flex h-full w-1/6 flex-col border-4 border-yellow-300">
-      <div className="border-box flex h-auto w-full flex-col border-4 border-purple-300">
+    <div className="relative flex h-auto w-[10%] flex-grow flex-col border-r-2 border-secondary hover:border-primary">
+      <div className="flex h-auto w-full flex-col">
         {/* <Link
           to=""
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+          className="text-secondary hover:text-primary p-2 border-b-2 border-secondary hover:border-primary"
         >
           Admin Home
         </Link> */}
         <Link
           to=""
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+          className="border-b-2 border-secondary p-2 text-secondary hover:border-primary hover:text-primary"
         >
           Dashboard
         </Link>
         <Link
           to="donation-history"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+          className="border-b-2 border-secondary p-2 text-secondary hover:border-primary hover:text-primary"
         >
           Donation History
         </Link>
         <Link
           to="followed-charities"
-          className="border-box mb-2 border-4 border-slate-200 bg-slate-50 p-2 shadow-md"
+          className="border-b-2 border-secondary p-2 text-secondary hover:border-primary hover:text-primary"
         >
           Followed Charities
         </Link>
