@@ -53,12 +53,12 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
       .sendStatus(StatusCodes.CREATED)
   } catch (err) {
     console.error('Error in addDonor route:', err) // Log the error details
+    next(err)
   }
 })
 
 router.patch('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
-    a
     res.sendStatus(StatusCodes.UNAUTHORIZED)
     return
   }

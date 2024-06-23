@@ -34,6 +34,8 @@ export async function addItem(data: ItemData) {
     used: data.used,
     price_in_NZD: data.priceInNZD,
     NZD_raised: data.NZDRaised,
+    description: data.description,
+    creatorCharitySlug: data.creatorCharitySlug,
   }
   const [id] = await db('items').insert(snakeCase)
   return id
@@ -45,8 +47,11 @@ export async function updateItem(id: number, data: ItemData) {
     name: data.name,
     image: data.image,
     used: data.used,
-    price_in_NZD: data.priceInNZD,
+    price_in_NZD: Number(data.priceInNZD),
     NZD_raised: data.NZDRaised,
+    notes: data.notes,
+    description: data.description,
+    creatorCharitySlug: data.creatorCharitySlug,
   }
   const result = await db('items').where({ id }).update(snakeCase)
   return result
@@ -54,7 +59,8 @@ export async function updateItem(id: number, data: ItemData) {
 
 // Function to delete an item by ID
 export async function deleteItem(id: number) {
-  const result = await db('items').where({ id }).del()
+  console.log(id)
+  const result = await db('items').where({ id }).delete()
   return result
 }
 

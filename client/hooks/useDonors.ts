@@ -21,7 +21,7 @@ export default function useActiveDonor() {
   return {
     ...query,
     edit: useEditDonor(),
-    add: useAddDonor,
+    add: useAddDonor(),
   }
 }
 

@@ -14,6 +14,7 @@ export default function Registries() {
   } = useRegisters().allOfCharity(charitySlug as string)
 
   if (!registers) return <p>Error: no registers found</p>
+  console.log(registers)
 
   if (isPending) {
     return <p>Loading...</p>

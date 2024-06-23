@@ -21,6 +21,12 @@ import AdminHome from './components/charity_admin_portal/AdminHome.tsx'
 import AdminDashboard from './components/charity_admin_portal/AdminDashboard.tsx'
 import CharityAdminRegisters from './components/charity_admin_portal/CharityAdminRegisters.tsx'
 import CharityForm from './components/charity_admin_portal/AdminCharityRegistration.tsx'
+import CharityAdminEditItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminEditItem.tsx'
+import CharityAdminAddItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminAddItem.tsx'
+import CharityAdminRegister from './components/charity_admin_portal/charity-admin-registers/CharityAdminRegister.tsx'
+import CharityAdminManageRegisters from './components/charity_admin_portal/CharityAdminManageRegisters.tsx'
+import CharityAdminEditRegister from './components/charity_admin_portal/charity-admin-manage-registers/CharityAdminEditRegister.tsx'
+import CharityAdminAddRegister from './components/charity_admin_portal/charity-admin-manage-registers/CharityAdminAddRegister.tsx'
 
 // Donor Admin Portal
 import DonorAdminPortal from './pages/DonorAdminPortal.tsx'
@@ -36,7 +42,7 @@ const routes = createRoutesFromElements(
       <Route index element={<About />} />
       <Route path="posts" element={<OurImpact />} />
       <Route path="donate" element={<Registries />}>
-        <Route index element={<Registry />} />
+        <Route path=":registerid" element={<Registry />} />
       </Route>
       <Route path="donors" element={<OurDonors />} />
       <Route path="contact" element={<CharityContact />} />
@@ -44,8 +50,21 @@ const routes = createRoutesFromElements(
     <Route path=":charitySlug/admin" element={<CharityAdminPortal />}>
       <Route index element={<AdminHome />} />
       <Route path="dashboard" element={<AdminDashboard />} />
-      <Route path="registers" element={<CharityAdminRegisters />} />
       <Route path="registration" element={<CharityForm />} />
+      <Route path="manageregisters" element={<CharityAdminManageRegisters />} />
+      <Route path="manageregisters/add" element={<CharityAdminAddRegister />} />
+      <Route
+        path="manageregisters/edit/:registerid"
+        element={<CharityAdminEditRegister />}
+      />
+      <Route path="registers" element={<CharityAdminRegisters />}>
+        <Route path=":registerid" element={<CharityAdminRegister />} />
+        <Route path=":registerid/items/add" element={<CharityAdminAddItem />} />
+        <Route
+          path=":registerid/items/edit/:itemid"
+          element={<CharityAdminEditItem />}
+        />
+      </Route>
     </Route>
     <Route path="donor/admin" element={<DonorAdminPortal />}>
       <Route index element={<DonorAdminDashboard />} />

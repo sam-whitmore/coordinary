@@ -55,7 +55,7 @@ const FollowCharityButton: React.FC<ButtonProps> = ({ donorId, charityId }) => {
 
   return (
     <div className="mb-1 inline-block scale-100 transform cursor-pointer">
-      <Heart isClick={isFollowing} onClick={handleFollowToggle} />
+      <Heart {...{ isClick: isFollowing, onClick: handleFollowToggle }} />
     </div>
   )
 }

@@ -9,6 +9,7 @@ const columns = [
   'email',
   'location',
   'slug',
+  'default_register_id as defaultRegisterId',
 ]
 
 export async function getAllCharities() {

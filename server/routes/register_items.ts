@@ -2,6 +2,7 @@ import { Router } from 'express'
 import * as db from '../db/register_items'
 import * as itemDB from '../db/items'
 import checkJwt, { JwtRequest } from '../auth0'
+import { StatusCodes } from 'http-status-codes'
 
 const router = Router()
 
@@ -36,6 +37,26 @@ router.post('/:id', checkJwt, async (req: JwtRequest, res) => {
     res
       .status(500)
       .json({ error: 'Server-side Routing Failed to Add Item to Register' })
+  }
+})
+
+router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
+  try {
+    const id = parseInt(req.params.id, 10)
+    if (isNaN(id)) {
+      return res.status(400).json({ errorMessage: 'Invalid item ID' })
+    }
+    const result = await db.removeItemFromRegister(id)
+    if (!result) {
+      return res.status(404).json({ errorMessage: 'Item not found' })
+    }
+    res.sendStatus(StatusCodes.NO_CONTENT)
+  } catch (err) {
+    next(err)
   }
 })
 

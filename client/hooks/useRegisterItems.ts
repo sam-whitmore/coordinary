@@ -2,15 +2,14 @@ import request from 'superagent'
 import { useMutation } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Register, RegisterData } from '../../models/register'
-import { Item, ItemData, ItemFromRegister } from '../../models/item'
+import { ItemData, ItemFromRegister } from '../../models/item'
 
 const rootURL = '/api/v1/registers_items'
 
 export default function useRegisterItems() {
   function useGetItemsByRegisterId(id: number) {
     return useQuery({
-      queryKey: ['items', id],
+      queryKey: ['register', id],
       queryFn: async () => {
         const res = await request.get(`${rootURL}/${id}`)
         return res.body as ItemFromRegister[]
@@ -58,14 +57,14 @@ export default function useRegisterItems() {
         return res.body
       },
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['items'] })
+        queryClient.invalidateQueries({ queryKey: ['register'] })
       },
     })
   }
 
   return {
     addToRegister: useAddItemToRegister(),
-    del: useDeleteRegisterItem().mutate,
+    del: useDeleteRegisterItem(),
     byRegisterId: useGetItemsByRegisterId,
   }
 }

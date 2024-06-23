@@ -1,6 +1,8 @@
 export interface RegisterData {
   name: string
   charityId: number
+  description: string
+  active: boolean
 }
 
 export interface Register extends RegisterData {
@@ -12,10 +14,14 @@ export interface RegisterSnakeCase {
   id?: number
   name: string
   charity_id: number
+  description: string
+  active: boolean
 }
 
 export interface RegisterFromSlug {
   charityId: number
   registerId: number
-  registerName: string
+  name: string
+  description: string
+  active: boolean
 }

@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { Donation, DonationWithJoinedData } from '../../models/donation'
+import { DonationWithJoinedData } from '../../models/donation'
 
 const rootURL = new URL(`/api/v1`, document.baseURI).toString()
 
