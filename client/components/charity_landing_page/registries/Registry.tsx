@@ -16,11 +16,11 @@ export default function Registry() {
   console.log(items)
 
   return (
-    <div className="h-full w-full">
+    <div className="h-3/4 w-full">
       <h1 className="font-display text-2xl font-medium text-primary">
         Registry
       </h1>
-      <div className="mt-4 grid h-3/4 grid-cols-4 gap-4">
+      <div className="mt-4 grid h-full grid-cols-4 gap-4">
         {items.map((item) => {
           return <ItemCard key={item.items_id} {...item} />
         })}
