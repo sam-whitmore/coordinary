@@ -48,28 +48,39 @@ export default function DonorAdminDashboard() {
 
   return (
     <>
-      <div className="border-box h-full w-5/6 border-4 border-green-400">
-        <ManageDetails {...{ email: data.email, onSubmit: handleSubmit }} />
-      </div>
-      <div
-        className={`flex ${alertData.colour === 'green' ? 'bg-green-100' : 'bg-red-100'} mb-4 rounded-lg p-4 text-sm ${alertData.colour === 'green' ? 'text-green-700' : 'text-red-700'} ${alert ? '' : 'hidden'}`}
-        role="alert"
-      >
-        <svg
-          className="mr-3 inline h-5 w-5"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
+      <div className="relative h-full w-[90%] overflow-y-scroll">
+        <div className="h-auto w-auto overflow-y-scroll bg-background p-6">
+          <div className="flex items-center">
+            <h1 className="mb-4 font-display text-5xl font-medium capitalize text-secondary">
+              Your
+            </h1>
+            <h1 className="mb-4 font-display text-5xl font-medium capitalize text-primary">
+              Dashboard
+            </h1>
+          </div>
+
+          <ManageDetails {...{ email: data.email, onSubmit: handleSubmit }} />
+        </div>
+        <div
+          className={`flex ${alertData.colour === 'green' ? 'bg-green-100' : 'bg-red-100'} mb-4 rounded-lg p-4 text-sm ${alertData.colour === 'green' ? 'text-green-700' : 'text-red-700'} ${alert ? '' : 'hidden'}`}
+          role="alert"
         >
-          <path
-            fillRule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-            clipRule="evenodd"
-          ></path>
-        </svg>
-        <div>
-          <span className="font-medium">{alertData.text}</span>{' '}
-          {/* {alertData.messageBody} */}
+          <svg
+            className="mr-3 inline h-5 w-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clipRule="evenodd"
+            ></path>
+          </svg>
+          <div>
+            <span className="font-medium">{alertData.text}</span>{' '}
+            {/* {alertData.messageBody} */}
+          </div>
         </div>
       </div>
     </>

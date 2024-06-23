@@ -13,7 +13,7 @@ export default function DonorAdminHistoryContainer() {
   }
 
   return (
-    <div className="border-box h-full w-5/6 border-4 border-green-400">
+    <div className="relative h-full w-[90%] overflow-y-scroll">
       <DonationHistory {...{ id: data.id }} />
     </div>
   )
