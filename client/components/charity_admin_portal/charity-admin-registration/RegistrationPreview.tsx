@@ -21,7 +21,9 @@ const PreviewForm: React.FC<Props> = ({
       </h2>
       <form onSubmit={handleSubmit}>
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold">Basic Details</h3>
+          <h3 className="text-xl font-semibold text-secondary">
+            Basic Details
+          </h3>
           <p>Name: {basicFormData.name}</p>
           <p>Category ID: {basicFormData.categoryId}</p>
           <p>Phone: {basicFormData.phone}</p>
@@ -29,18 +31,20 @@ const PreviewForm: React.FC<Props> = ({
           <p>Location: {basicFormData.location}</p>
           <p>Slug: {basicFormData.slug}</p>
 
-          <h3 className="text-xl font-semibold">Business Operations</h3>
+          <h3 className="text-xl font-semibold text-secondary">
+            Business Operations
+          </h3>
           <p>Physical Address: {expandedFormData.physicalAddress}</p>
           <p>Postal Address: {expandedFormData.postalAddress}</p>
           <p>Opening Hours: {expandedFormData.openingHours}</p>
           <p>Services: {expandedFormData.services}</p>
 
-          <h3 className="text-xl font-semibold">Vision</h3>
+          <h3 className="text-xl font-semibold text-secondary">Vision</h3>
           <p>Vision: {expandedFormData.vision}</p>
           <p>Mission: {expandedFormData.mission}</p>
           <p>Values: {expandedFormData.values}</p>
 
-          <h3 className="text-xl font-semibold">Story</h3>
+          <h3 className="text-xl font-semibold text-secondary">Story</h3>
           <p>Story: {expandedFormData.story}</p>
           <p>Emphatic: {expandedFormData.emphatic}</p>
           <p>CTA Statement: {expandedFormData.ctaStatement}</p>

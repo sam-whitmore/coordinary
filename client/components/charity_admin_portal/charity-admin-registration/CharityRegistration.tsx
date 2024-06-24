@@ -43,14 +43,18 @@ const CharityForm = () => {
   })
   const [error, setError] = useState('')
 
-  const handleBasicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBasicChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setBasicFormData({
       ...basicFormData,
       [e.target.name]: e.target.value,
     })
   }
 
-  const handleExpandedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleExpandedChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setExpandedFormData({
       ...expandedFormData,
       [e.target.name]: e.target.value,
