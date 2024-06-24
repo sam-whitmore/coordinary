@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import useRegisterItems from '../../../hooks/useRegisterItems'
 import ItemCard from './registry/ItemCard'
+import Spinner from '../../Spinner'
 
 export default function Registry() {
   const { registerid } = useParams()
@@ -11,7 +12,7 @@ export default function Registry() {
     error,
   } = useRegisterItems().byRegisterId(Number(registerid))
 
-  if (isPending) return <div>Loading...</div>
+  if (isPending) return <Spinner />
   if (isError) return <div>{error.message}</div>
   if (!items) return <div>{'No items found'}</div>
 
