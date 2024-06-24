@@ -1,6 +1,8 @@
 # Node modules
 /node_modules
 
+
+
 # Logs
 *.log
 
@@ -15,3 +17,4 @@
 
 # Dotenv env settings
 .env
+git
