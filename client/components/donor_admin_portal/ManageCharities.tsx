@@ -43,7 +43,7 @@ export default function ManageCharities(props: Props) {
               Uh oh, it seems you dont follow any charities yet.
             </p>
             <Link
-              to="/"
+              to="/Charities"
               className="hover:text-primary-dark text-primary underline"
             >
               Lets find you one
