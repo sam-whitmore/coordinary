@@ -78,15 +78,15 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
       slug,
       defaultRegisterId,
     } = req.body
-
-    if (!categoryId || !name || !slug) {
+    console.log(req.body)
+    if (!name || !slug) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: 'Missing required fields' })
     }
 
     const charityData = {
-      categoryId,
+      categoryId: categoryId ? categoryId : 1,
       name,
       phone,
       email,

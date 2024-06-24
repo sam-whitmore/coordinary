@@ -16,3 +16,25 @@ export async function getDonorHistory({
 
   return result.body as DonationWithJoinedData[]
 }
+
+export async function getDonorHistoryWithFilters({
+  token,
+  id,
+  period,
+  date,
+}: {
+  token: string
+  id: number
+  period: string
+  date?: string
+}) {
+  const query = request
+    .get(`${rootURL}/donations/donor/${id}`)
+    .query({ period })
+  if (date) {
+    query.query({ date })
+  }
+  const result = await query.set('Authorization', `Bearer ${token}`)
+
+  return result.body as DonationWithJoinedData[]
+}

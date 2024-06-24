@@ -4,6 +4,7 @@ import { RegisterData } from '../../../../models/register'
 import CharityAdminAddRegisterCard from './CharityAdminAddRegisterCard'
 import useCharities from '../../../hooks/useCharities'
 import { useAuth0 } from '@auth0/auth0-react'
+import Spinner from '../../Spinner'
 
 interface Props {
   slug: string
@@ -38,7 +39,7 @@ export default function CharityAdminViewRegisters(props: Props) {
   }
 
   if (isPending) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
 
   if (isError) {

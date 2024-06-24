@@ -1,6 +1,7 @@
 import useRegisters from '../../../hooks/useRegisters'
 import { Charity } from '../../../../models/charity'
 import { Link, useParams } from 'react-router-dom'
+import Spinner from '../../Spinner'
 
 interface Props extends Charity {}
 
@@ -15,7 +16,7 @@ export default function CharityAdminRegistersNav(props: Props) {
   const { registerid } = useParams()
 
   if (isPending) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
 
   if (isError) {

@@ -23,6 +23,10 @@ export async function getCharityBySlug(slug: string) {
 }
 
 export async function addCharities(data: CharityData) {
+  const match = await db('charities').where({ slug: data.slug }).first()
+  if (match) {
+    return match.id
+  }
   // prevents typos when switching to snakecase
   const snakecase: CharitySnakeCase = {
     name: data.name,

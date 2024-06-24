@@ -1,22 +1,29 @@
+import SignInButton from '../authentication/SignInButton'
 import SignOutButton from '../authentication/SignOutButton'
 import { Link } from 'react-router-dom'
-import { User } from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react'
 
-export default function ProfileCard(user: User) {
+export default function ProfileCard() {
+  const { user } = useAuth0()
+
+  if (!user)
+    return (
+      <div className="my-auto flex h-full w-auto py-1">
+        <SignInButton />
+        <circle className="border-box mx-2 my-auto h-[58px] w-[58px] rounded-full border-2 border-secondary bg-slate-50"></circle>
+      </div>
+    )
+
   return (
-    <div className="flex h-full w-full rounded-xl">
-      <Link
-        to="donor/admin"
-        className="mx-2 my-auto pl-2 font-display text-xl text-secondary hover:text-primary"
-      >
-        My Portal
-      </Link>
+    <div className="my-auto flex h-full w-auto py-1">
       <SignOutButton />
-      <img
-        src={user.picture}
-        alt={user.name}
-        className="h-20 w-20 rounded-full p-2"
-      />
+      <Link to="donor" className="my-auto">
+        <img
+          src={user.picture}
+          alt={user.name}
+          className="border-box mx-2 my-auto h-[58px] w-[58px] rounded-full border-2 border-primary/0 hover:border-primary"
+        />
+      </Link>
     </div>
   )
 }

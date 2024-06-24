@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { RegisterData } from '../../../../models/register'
 import useRegisters from '../../../hooks/useRegisters'
 import CharityAdminRegisterForm from './CharityAdminRegisterForm'
+import Spinner from '../../Spinner'
 
 export default function CharityAdminEditRegister() {
   const { registerid } = useParams()
@@ -23,7 +24,7 @@ export default function CharityAdminEditRegister() {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   if (isError || !register?.name) {

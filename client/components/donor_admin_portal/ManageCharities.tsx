@@ -27,8 +27,8 @@ export default function ManageCharities(props: Props) {
   }
 
   return (
-    <section className="relative h-full w-[90%] overflow-y-scroll">
-      <div className="h-auto w-auto overflow-y-scroll bg-background p-6">
+    <section className="relative h-full w-[90%] ">
+      <div className="h-auto w-auto  bg-background p-6">
         <div className="flex items-center">
           <h1 className="mb-4 font-display text-5xl font-medium capitalize text-secondary">
             Your
@@ -43,7 +43,7 @@ export default function ManageCharities(props: Props) {
               Uh oh, it seems you dont follow any charities yet.
             </p>
             <Link
-              to="/"
+              to="/Charities"
               className="hover:text-primary-dark text-primary underline"
             >
               Lets find you one
