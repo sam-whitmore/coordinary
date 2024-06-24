@@ -1,4 +1,4 @@
-interface CharityFormFieldProps {
+interface Props {
   label: string
   name: string
   value: string | number | undefined
@@ -7,7 +7,7 @@ interface CharityFormFieldProps {
   className?: string
 }
 
-const CharityFormField: React.FC<CharityFormFieldProps> = ({
+const CharityFormField: React.FC<Props> = ({
   label,
   name,
   value,

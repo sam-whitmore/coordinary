@@ -42,6 +42,7 @@ import DonorRegistration from './components/donor_admin_portal/DonorRegistration
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route index element={<HomePage />} />
+    <Route path="registration" element={<CharityRegistration />} />
     <Route path="charities" element={<Charities />} />
     <Route path=":charitySlug" element={<CharityLandingPage />}>
       <Route index element={<About />} />
@@ -55,7 +56,7 @@ const routes = createRoutesFromElements(
     <Route path=":charitySlug/admin" element={<CharityAdminPortal />}>
       <Route index element={<AdminHome />} />
       <Route path="dashboard" element={<AdminDashboard />} />
-      <Route path="registration" element={<CharityRegistration />} />
+
       <Route path="manageregisters" element={<CharityAdminManageRegisters />} />
       <Route path="manageregisters/add" element={<CharityAdminAddRegister />} />
       <Route
