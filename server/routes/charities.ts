@@ -127,6 +127,7 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
       { name, categoryId, phone, email, location, slug, defaultRegisterId },
       Number(id),
     )
+    res.sendStatus(StatusCodes.ACCEPTED)
   } catch (e) {
     next(e)
   }

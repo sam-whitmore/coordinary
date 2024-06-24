@@ -37,7 +37,9 @@ export default function CharityAdminItemForm(props: Props) {
     }
   }
 
-  const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = evt.target
     if (name === 'used') {
       setTicked((prev) => !prev)
@@ -66,68 +68,111 @@ export default function CharityAdminItemForm(props: Props) {
   }
 
   return (
-    <div className="bg-lightbackground mx-auto w-2/3 rounded-2xl border p-[5px] shadow-xl">
-      <form onSubmit={handleSubmit} className="ml-[5px] mt-[10px] space-y-5">
-        {image !== '/uploads/undefined' && image !== '/uploads/null' && (
+    <div className="bg-lightbackground mx-auto flex w-2/3 flex-wrap rounded-2xl border p-[5px] pb-[25px] shadow-xl">
+      <form onSubmit={handleSubmit} className="mt-[10px] w-full space-y-5">
+        <div className="ml-auto flex flex-wrap">
+          {image !== '/uploads/undefined' && image !== '/uploads/null' && (
+            <div className="mx-auto">
+              <img
+                alt="not found"
+                width={'250px'}
+                src={
+                  typeof image === 'string' ? image : URL.createObjectURL(image)
+                }
+              />
+              <button
+                type="button"
+                className="mx-auto w-full rounded border border-transparent bg-blue-500 px-2 py-2 text-white shadow-xl hover:bg-blue-700"
+                onClick={handleRemoveImage}
+              >
+                Remove Image
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="flex flex-wrap">
+          <label className="mx-auto cursor-pointer rounded border border-transparent bg-blue-500 px-4 py-2 text-white shadow-xl hover:bg-blue-700">
+            <input
+              className="mx-auto hidden "
+              type="file"
+              name="image"
+              onChange={handleImageChange}
+            ></input>
+            Upload Image
+          </label>
+        </div>
+        <div className="mx-auto flex w-3/4 flex-wrap justify-between">
           <div>
-            <img
-              alt="not found"
-              width={'250px'}
-              src={
-                typeof image === 'string' ? image : URL.createObjectURL(image)
-              }
-            />
-            <button
-              type="button"
-              className="ml-[10px] rounded border border-transparent bg-blue-500 object-center px-4 py-2 text-white hover:bg-blue-700"
-              onClick={handleRemoveImage}
-            >
-              Remove Image
-            </button>
+            <label htmlFor="name" className="block">
+              Item Name
+            </label>
+            <input
+              className="mx-auto shadow-md"
+              name="name"
+              id="name"
+              type="text"
+              value={formState.name}
+              onChange={handleChange}
+            ></input>
           </div>
-        )}
-        <label className="ml-[10px] cursor-pointer rounded border border-transparent bg-blue-500 object-center px-4 py-2 text-white hover:bg-blue-700">
+          <div>
+            <label htmlFor="used" className="block">
+              Used?
+            </label>
+            <input
+              className="mx-auto"
+              name="used"
+              id="used"
+              type="checkbox"
+              checked={ticked}
+              onChange={handleChange}
+            ></input>
+          </div>
+          <div>
+            <label
+              htmlFor="priceInNZD"
+              className="block"
+            >{`Target (NZD$)`}</label>
+            <input
+              className="mx-auto shadow-md"
+              name="priceInNZD"
+              id="priceInNZD"
+              type="number"
+              onChange={handleChange}
+              value={formState.priceInNZD}
+            ></input>
+          </div>
+        </div>
+        <div className="mx-auto w-3/4">
+          <label htmlFor="description" className="block">
+            Description
+          </label>
+          <textarea
+            className=" w-full shadow-md"
+            name="description"
+            id="description"
+            value={formState.description}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        <div className="mx-auto w-3/4">
+          <label htmlFor="notes" className="block">
+            Notes (private)
+          </label>
           <input
-            type="file"
-            name="image"
-            onChange={handleImageChange}
-            className="hidden"
+            className=" w-full shadow-md"
+            name="notes"
+            id="notes"
+            type="textarea"
+            value={formState.notes}
+            onChange={handleChange}
           ></input>
-          Upload Image
-        </label>
-        <label htmlFor="name">Item Name</label>
-        <input
-          name="name"
-          id="name"
-          type="text"
-          value={formState.name}
-          onChange={handleChange}
-        ></input>
-        <label htmlFor="used">Used?</label>
-        <input
-          name="used"
-          id="used"
-          type="checkbox"
-          checked={ticked}
-          onChange={handleChange}
-        ></input>
-        <label htmlFor="priceInNZD">{`Target (NZD$)`}</label>
-        <input
-          name="priceInNZD"
-          id="priceInNZD"
-          type="number"
-          onChange={handleChange}
-          value={formState.priceInNZD}
-        ></input>
-        <label htmlFor="notes">Notes</label>
-        <input
-          name="notes"
-          id="notes"
-          type="text"
-          value={formState.notes}
-          onChange={handleChange}
-        ></input>
-        <button>Submit</button>
+        </div>
+        <div className="flex flex-wrap">
+          <button className="mx-auto rounded border border-transparent bg-blue-500 object-center px-4 py-2 text-white shadow-md hover:bg-blue-700">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   )

@@ -32,7 +32,7 @@ export default function CharityAdminViewRegisters(props: Props) {
       charity.defaultRegisterId = id
       //purely to avoid having to invalidate a different query but still give feedback to user (hacky):
       registers.forEach((x) => (x.charityDefaultId = id))
-      // if (changed) changed.charityDefaultId = id
+
       await editCharity.mutateAsync({ token, id: charity.id, data: charity })
     }
   }

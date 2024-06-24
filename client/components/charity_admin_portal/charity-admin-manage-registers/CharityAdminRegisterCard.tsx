@@ -39,6 +39,7 @@ export default function CharityAdminRegisterCard(register: Props) {
                 charityId: register.charityId,
                 description: register.description,
                 active: register.active,
+                notes: '', //TODO: fix by getting notes data.
               },
               register.registerId,
             )
