@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useNavigate } from 'react-router-dom'
-import useCharities from '../../../hooks/useCharities'
 import { CharityData } from '../../../../models/charity'
 import { CharityInfo } from '../../../../models/charityInfo'
 import BasicCharityForm from './BasicDetailsRegistration'
-import ExpandedCharityForm from './ExpandedDetailsRegistration'
+import BusinessOperationsForm from './BusinessOperationsForm'
+import VisionForm from './VisionForm'
+import StoryForm from './StoryForm'
+import { useAddCharity } from '../../../hooks/useCharitiesInformation'
+import PreviewForm from './RegistrationPreview'
 
 const CharityForm = () => {
   const { user } = useAuth0()
   const navigate = useNavigate()
-  const { add } = useCharities()
-  const addCharity = add()
+  const addCharity = useAddCharity()
   const [step, setStep] = useState(1)
   const [basicFormData, setBasicFormData] = useState<CharityData>({
     name: '',
@@ -40,7 +42,6 @@ const CharityForm = () => {
     stakeholders: '',
   })
   const [error, setError] = useState('')
-  const [isSuccess, setIsSuccess] = useState(false)
 
   const handleBasicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBasicFormData({
@@ -57,11 +58,11 @@ const CharityForm = () => {
   }
 
   const handleNext = () => {
-    setStep(2)
+    setStep(step + 1)
   }
 
   const handleBack = () => {
-    setStep(1)
+    setStep(step - 1)
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -83,7 +84,6 @@ const CharityForm = () => {
       { slug: basicFormData.slug, info: newCharity },
       {
         onSuccess: () => {
-          setIsSuccess(true)
           setError('')
           navigate(`/${basicFormData.slug}/admin`)
         },
@@ -97,21 +97,47 @@ const CharityForm = () => {
 
   return (
     <>
-      {step === 1 ? (
+      {step === 1 && (
         <BasicCharityForm
           formData={basicFormData}
           handleChange={handleBasicChange}
           handleNext={handleNext}
           error={error}
         />
-      ) : (
-        <ExpandedCharityForm
+      )}
+      {step === 2 && (
+        <BusinessOperationsForm
           formData={expandedFormData}
           handleChange={handleExpandedChange}
           handleBack={handleBack}
-          handleSubmit={handleSubmit}
+          handleNext={handleNext}
           error={error}
-          isSuccess={isSuccess}
+        />
+      )}
+      {step === 3 && (
+        <VisionForm
+          formData={expandedFormData}
+          handleChange={handleExpandedChange}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          error={error}
+        />
+      )}
+      {step === 4 && (
+        <StoryForm
+          formData={expandedFormData}
+          handleChange={handleExpandedChange}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          error={error}
+        />
+      )}
+      {step === 5 && (
+        <PreviewForm
+          basicFormData={basicFormData}
+          expandedFormData={expandedFormData}
+          handleBack={handleBack}
+          handleSubmit={handleSubmit}
         />
       )}
     </>
