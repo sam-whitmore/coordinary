@@ -8,6 +8,7 @@ import charityCategories from './routes/charityCategories.ts'
 import registers_itemsRoutes from './routes/register_items.ts'
 import donorRoutes from './routes/donors.ts'
 import uploadRoutes from './routes/upload.ts'
+import charitiesInfoRoutes from './routes/charitiesInfo.ts'
 
 const server = express()
 
@@ -20,6 +21,7 @@ server.use('/api/v1/registers', registerRoutes)
 server.use('/api/v1/registers_items', registers_itemsRoutes)
 server.use('/api/v1/donations', donationRoutes)
 server.use('/api/v1/charityCategories', charityCategories)
+server.use('/api/v1/charities_info', charitiesInfoRoutes)
 server.use('/api/v1/donors', donorRoutes)
 server.use('/api/v1/upload', uploadRoutes)
 
