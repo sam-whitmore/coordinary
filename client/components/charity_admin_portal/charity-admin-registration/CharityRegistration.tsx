@@ -7,13 +7,16 @@ import BasicCharityForm from './BasicDetailsRegistration'
 import BusinessOperationsForm from './BusinessOperationsForm'
 import VisionForm from './VisionForm'
 import StoryForm from './StoryForm'
-import { useAddCharity } from '../../../hooks/useCharitiesInformation'
+import useCharitiesInfo from '../../../hooks/useCharitiesInformation'
 import PreviewForm from './RegistrationPreview'
+import useCharities from '../../../hooks/useCharities'
 
 const CharityForm = () => {
   const { user } = useAuth0()
   const navigate = useNavigate()
-  const addCharity = useAddCharity()
+  const { add: addCharity } = useCharitiesInfo()
+  const { getAccessTokenSilently } = useAuth0()
+  const { add } = useCharities()
   const [step, setStep] = useState(1)
   const [basicFormData, setBasicFormData] = useState<CharityData>({
     name: '',
@@ -84,8 +87,10 @@ const CharityForm = () => {
       categoryId: Number(basicFormData.categoryId),
       defaultRegisterId: Number(basicFormData.defaultRegisterId),
     }
+    const token = await getAccessTokenSilently()
 
-    addCharity.mutate(
+    await add.mutateAsync({ token, data: basicFormData })
+    await addCharity.mutateAsync(
       { slug: basicFormData.slug, info: newCharity },
       {
         onSuccess: () => {
