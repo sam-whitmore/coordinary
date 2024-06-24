@@ -20,13 +20,14 @@ import CharityAdminPortal from './pages/CharityAdminPortal.tsx'
 import AdminHome from './components/charity_admin_portal/AdminHome.tsx'
 import AdminDashboard from './components/charity_admin_portal/AdminDashboard.tsx'
 import CharityAdminRegisters from './components/charity_admin_portal/CharityAdminRegisters.tsx'
-import CharityForm from './components/charity_admin_portal/AdminCharityRegistration.tsx'
+// import CharityForm from './components/charity_admin_portal/charity-admin-registration/BasicDetailsRegistration.tsx'
 import CharityAdminEditItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminEditItem.tsx'
 import CharityAdminAddItem from './components/charity_admin_portal/charity-admin-manage-item/CharityAdminAddItem.tsx'
 import CharityAdminRegister from './components/charity_admin_portal/charity-admin-registers/CharityAdminRegister.tsx'
 import CharityAdminManageRegisters from './components/charity_admin_portal/CharityAdminManageRegisters.tsx'
 import CharityAdminEditRegister from './components/charity_admin_portal/charity-admin-manage-registers/CharityAdminEditRegister.tsx'
 import CharityAdminAddRegister from './components/charity_admin_portal/charity-admin-manage-registers/CharityAdminAddRegister.tsx'
+import CharityRegistration from './components/charity_admin_portal/charity-admin-registration/CharityRegistration.tsx'
 
 // Donor Admin Portal
 import DonorAdminPortal from './pages/DonorAdminPortal.tsx'
@@ -50,7 +51,7 @@ const routes = createRoutesFromElements(
     <Route path=":charitySlug/admin" element={<CharityAdminPortal />}>
       <Route index element={<AdminHome />} />
       <Route path="dashboard" element={<AdminDashboard />} />
-      <Route path="registration" element={<CharityForm />} />
+      <Route path="registration" element={<CharityRegistration />} />
       <Route path="manageregisters" element={<CharityAdminManageRegisters />} />
       <Route path="manageregisters/add" element={<CharityAdminAddRegister />} />
       <Route

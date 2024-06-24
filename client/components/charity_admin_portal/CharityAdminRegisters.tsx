@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useParams, useNavigate } from 'react-router-dom'
 import useCharities from '../../hooks/useCharities'
 import CharityAdminRegistersNav from './charity-admin-registers/CharityAdminRegistersNav'
+import Spinner from '../Spinner'
 
 export default function CharityAdminRegisters() {
   const { charitySlug } = useParams()
@@ -24,7 +25,7 @@ export default function CharityAdminRegisters() {
   }, [charity, isError, isLoading, nav])
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
   if (isError || !charity) {
     return <p>{error?.message}</p>

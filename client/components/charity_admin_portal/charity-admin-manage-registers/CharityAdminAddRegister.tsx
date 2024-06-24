@@ -3,6 +3,7 @@ import { RegisterData } from '../../../../models/register'
 import useRegisters from '../../../hooks/useRegisters'
 import CharityAdminRegisterForm from './CharityAdminRegisterForm'
 import useCharities from '../../../hooks/useCharities'
+import Spinner from '../../Spinner'
 
 export default function CharityAdminAddRegister() {
   const { charitySlug } = useParams()
@@ -23,7 +24,7 @@ export default function CharityAdminAddRegister() {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   if (isError || !charity) {
