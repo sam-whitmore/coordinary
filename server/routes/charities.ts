@@ -61,6 +61,7 @@ router.delete(
   },
 )
 
+//POST api/v1/charities - add new charity.
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -101,6 +102,33 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
       .sendStatus(StatusCodes.CREATED)
   } catch (err) {
     next(err)
+  }
+})
+
+//PATCH api/v1/charities/:id - edit charity
+router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
+  try {
+    const { id } = req.params
+    const {
+      name,
+      categoryId,
+      phone,
+      email,
+      location,
+      slug,
+      defaultRegisterId,
+    } = req.body
+
+    await db.editCharity(
+      { name, categoryId, phone, email, location, slug, defaultRegisterId },
+      Number(id),
+    )
+  } catch (e) {
+    next(e)
   }
 })
 

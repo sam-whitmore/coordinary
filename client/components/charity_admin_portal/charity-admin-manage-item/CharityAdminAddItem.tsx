@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import CharityAdminItemForm from './CharityAdminItemForm'
 import useItems from '../../../hooks/useItems'
 import { ItemData } from '../../../../models/item'
@@ -9,6 +9,7 @@ export default function CharityAdminAddItem() {
   const { getAccessTokenSilently } = useAuth0()
   const { useAddItem, useUploadImage } = useItems(Number(registerid))
 
+  const nav = useNavigate()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmit = async (item: ItemData, id?: number) => {
     const token = await getAccessTokenSilently()
@@ -17,6 +18,7 @@ export default function CharityAdminAddItem() {
       item,
       registerid: Number(registerid),
     })
+    nav(`../${registerid}`)
   }
 
   const handleUpload = async (image: File) => {

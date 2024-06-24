@@ -50,3 +50,18 @@ export async function donorFollowCharity({
     .send({ charityId })
   return res.body
 }
+
+export async function editCharity({
+  token,
+  data,
+  id,
+}: {
+  token: string
+  data: CharityData
+  id: number
+}) {
+  return await request
+    .patch(`${rootURL}/charities/${id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(data)
+}

@@ -24,4 +24,5 @@ export interface RegisterFromSlug {
   name: string
   description: string
   active: boolean
+  charityDefaultId: number
 }

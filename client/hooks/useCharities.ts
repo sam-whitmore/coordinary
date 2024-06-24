@@ -55,9 +55,14 @@ export default function useCharities() {
     return useCharityMutation(({ token, data }) => API.addCharity(token, data))
   }
 
+  function useEditCharity() {
+    return useCharityMutation(API.editCharity)
+  }
+
   return {
     all: useGetAllCharities,
     get: useGetCharityInformation,
-    add: useAddCharity,
+    add: useAddCharity(),
+    edit: useEditCharity(),
   }
 }

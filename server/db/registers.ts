@@ -20,6 +20,7 @@ const joinColumns = [
   'registers.name as name',
   'registers.description as description',
   'registers.active as active',
+  'charities.default_register_id as charityDefaultId',
 ]
 
 export async function getAllRegisters() {

@@ -47,10 +47,13 @@ export default function CharityAdminItemForm(props: Props) {
   }
 
   const handleRemoveImage = () => {
+    console.log('removed clicked')
     if (typeof image === 'string') {
+      console.log('revoked')
       URL.revokeObjectURL(image)
     }
     setFormState((prev) => ({ ...prev, image: undefined }))
+    setImage(() => '/uploads/undefined')
   }
 
   const handleImageChange = async (evt: ChangeEvent<HTMLInputElement>) => {
@@ -63,9 +66,9 @@ export default function CharityAdminItemForm(props: Props) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        {image && (
+    <div className="bg-lightbackground mx-auto w-2/3 rounded-2xl border p-[5px] shadow-xl">
+      <form onSubmit={handleSubmit} className="ml-[5px] mt-[10px] space-y-5">
+        {image !== '/uploads/undefined' && image !== '/uploads/null' && (
           <div>
             <img
               alt="not found"
@@ -74,11 +77,24 @@ export default function CharityAdminItemForm(props: Props) {
                 typeof image === 'string' ? image : URL.createObjectURL(image)
               }
             />
-            <button onClick={handleRemoveImage}>Remove Image</button>
+            <button
+              type="button"
+              className="ml-[10px] rounded border border-transparent bg-blue-500 object-center px-4 py-2 text-white hover:bg-blue-700"
+              onClick={handleRemoveImage}
+            >
+              Remove Image
+            </button>
           </div>
         )}
-        <label htmlFor="image">Upload an Image</label>
-        <input type="file" name="image" onChange={handleImageChange}></input>
+        <label className="ml-[10px] cursor-pointer rounded border border-transparent bg-blue-500 object-center px-4 py-2 text-white hover:bg-blue-700">
+          <input
+            type="file"
+            name="image"
+            onChange={handleImageChange}
+            className="hidden"
+          ></input>
+          Upload Image
+        </label>
         <label htmlFor="name">Item Name</label>
         <input
           name="name"
