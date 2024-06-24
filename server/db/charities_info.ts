@@ -4,6 +4,7 @@ import { CharityInfo, CharityInfoSnakeCase } from '../../models/charityInfo.ts'
 const joinColumns = [
   'charities.id as charityId',
   'charities.slug as slug',
+  'charities.name as name',
   'charities_info.physical_address as physicalAddress',
   'charities_info.postal_address as postalAddress',
   'charities_info.opening_hours as openingHours',
@@ -21,9 +22,8 @@ const joinColumns = [
 
 export async function getCharityInfoBySlug(slug: string) {
   const result = await db('charities')
-    .join('charities_info', 'charities.id', 'charities_info.charity_id')
-    .where('charities.slug', slug)
-    .select(joinColumns)
+    .join('charities_info', 'charities.id', 'charities_info.charity_id').where('charities.slug', slug)
+    .select(joinColumns).first()
   return result
 }
 

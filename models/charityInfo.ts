@@ -1,6 +1,7 @@
 export interface CharityInfo {
   charityId: number
   slug: string
+  name: string
   physicalAddress: string
   postalAddress: string
   openingHours: string
@@ -14,6 +15,7 @@ export interface CharityInfo {
   emphatic: string
   ctaStatement: string
   stakeholders: string
+
 }
 
 export interface CharityInfoSnakeCase {
@@ -31,4 +33,5 @@ export interface CharityInfoSnakeCase {
   emphatic: string
   cta_statement: string
   stakeholders: string
+
 }

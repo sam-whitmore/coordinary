@@ -5,6 +5,9 @@ import App from './components/App.tsx'
 // Home
 import HomePage from './pages/HomePage.tsx'
 
+// All Charities
+import Charities from './pages/Charities.tsx'
+
 // Charity Landing Page
 import CharityLandingPage from './pages/CharityLandingPage.tsx'
 import OurImpact from './components/charity_landing_page/OurImpact.tsx'
@@ -40,6 +43,7 @@ const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route index element={<HomePage />} />
     <Route path="registration" element={<CharityRegistration />} />
+    <Route path="charities" element={<Charities />} />
     <Route path=":charitySlug" element={<CharityLandingPage />}>
       <Route index element={<About />} />
       <Route path="posts" element={<OurImpact />} />
@@ -68,7 +72,7 @@ const routes = createRoutesFromElements(
         />
       </Route>
     </Route>
-    <Route path="donor/admin" element={<DonorAdminPortal />}>
+    <Route path="donor" element={<DonorAdminPortal />}>
       <Route index element={<DonorAdminDashboard />} />
       <Route path="registration-admin" element={<DonorRegistration />} />
       <Route path="donation-history" element={<DonorAdminHistoryContainer />} />
