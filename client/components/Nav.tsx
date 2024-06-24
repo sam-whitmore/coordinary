@@ -5,7 +5,7 @@ export default function Nav() {
   
 
   return (
-      <div className="flex h-[10%] max-h-[80px] min-h-[60px] w-full justify-between border-b-2 border-secondary hover:border-primary">
+      <div className="flex h-[8%] w-full justify-between border-b-2 border-secondary hover:border-primary">
         <Breadcrumbs />
         <ProfileCard />
       </div>

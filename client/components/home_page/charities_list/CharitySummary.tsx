@@ -19,14 +19,14 @@ export default function CharitySummary(charity: Charity) {
   }
 
   return (
-    <div className="my-4 h-auto w-full px-8 text-right">
+    <div className="my-4 mx-2 p-4 rounded-2xl border-2 border-secondary hover:border-primary">
       <Link
-        to={charity.slug}
-        className="font-display text-xl font-medium text-secondary hover:text-primary"
+        to={`/${charity.slug}`}
+        className="font-display text-2xl font-medium text-secondary hover:text-primary"
       >
         {charity.name}
       </Link>
-      <h3 className="text-sm italic">
+      <h3 className="text-sm italic mt-2">
         {charityInfo.vision}
       </h3>
     </div>

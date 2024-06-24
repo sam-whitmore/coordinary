@@ -17,7 +17,7 @@ export default function ProfileCard() {
   return (
     <div className="my-auto flex h-full w-auto py-1">
       <SignOutButton />
-      <Link to="donor/admin" className="my-auto">
+      <Link to="donor" className="my-auto">
         <img
           src={user.picture}
           alt={user.name}

@@ -3,11 +3,8 @@ import CharitiesList from '../components/home_page/CharitiesList'
 
 export default function HomePage() {
   return (
-    <div className="h-[90%] w-screen">
-      <div className="flex h-full w-full">
+    <div className="h-[90%] w-screen flex">
         <HeroContainer />
-        <CharitiesList />
-      </div>
     </div>
   )
 }
