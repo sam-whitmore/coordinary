@@ -4,8 +4,6 @@ import dateMath from '../../../../timeHelper'
 export default function ItemCard(item: ItemFromRegister) {
   const progressBarWidth: string = `${((item.NZDRaised / item.priceInNZD) * 100).toFixed(2)}%`
 
-  console.log(item)
-
   return (
     <>
       <dialog
@@ -20,11 +18,13 @@ export default function ItemCard(item: ItemFromRegister) {
             alt={item.name}
           ></img>
           <h3 className="text-center text-lg font-bold">{item.name}</h3>
-          <div className="py-4">
-            <div className="">
+          <div className="grid grid-cols-2 gap-4 py-4">
+            <div className="card bg-base-100 rounded-xl border border-black p-4">
               <p>First, select or enter in a custom amount:</p>
             </div>
-            <div className=""></div>
+            <div className="card bg-base-100 rounded-xl border border-black p-4 text-center">
+              Recent Donators:
+            </div>
           </div>
           <div className="modal-action">
             <form method="dialog">
