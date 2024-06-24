@@ -15,7 +15,7 @@ const BasicCharityForm: React.FC<Props> = ({
   error,
 }) => {
   return (
-    <div className=" relative mx-auto my-8 h-full w-[100%] max-w-2xl rounded-md bg-white p-8 shadow-md">
+    <div className="relative mx-auto my-8 flex w-full max-w-2xl flex-col rounded-md bg-white p-8 shadow-md">
       <h2 className="mb-4 font-display text-3xl font-medium capitalize text-primary">
         Basic Details
       </h2>

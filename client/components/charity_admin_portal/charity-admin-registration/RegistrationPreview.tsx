@@ -15,7 +15,7 @@ const PreviewForm: React.FC<Props> = ({
   handleSubmit,
 }) => {
   return (
-    <div className=" relative mx-auto my-8 h-full w-[100%] max-w-2xl rounded-md bg-white p-8 shadow-md">
+    <div className="relative mx-auto my-8 flex w-full max-w-2xl flex-col rounded-md bg-white p-8 shadow-md">
       <h2 className="mb-4 font-display text-3xl font-medium capitalize text-primary">
         Review
       </h2>
@@ -44,7 +44,7 @@ const PreviewForm: React.FC<Props> = ({
           <p>Mission: {expandedFormData.mission}</p>
           <p>Values: {expandedFormData.values}</p>
 
-          <h3 className="text-xl font-semibold text-secondary">Story</h3>
+          <h3 className="text-xl font-semibold ">Story</h3>
           <p>Story: {expandedFormData.story}</p>
           <p>Emphatic: {expandedFormData.emphatic}</p>
           <p>CTA Statement: {expandedFormData.ctaStatement}</p>
