@@ -1,14 +1,14 @@
 import { CharityData } from '../../../../models/charity'
 import CharityFormField from './AdminCharityForm'
 
-interface BasicCharityFormProps {
+interface Props {
   formData: CharityData
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleNext: () => void
   error: string
 }
 
-const BasicCharityForm: React.FC<BasicCharityFormProps> = ({
+const BasicCharityForm: React.FC<Props> = ({
   formData,
   handleChange,
   handleNext,

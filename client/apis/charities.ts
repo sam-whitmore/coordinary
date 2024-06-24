@@ -58,7 +58,7 @@ export async function addCharityInfo(
   info: CharityInfo,
 ) {
   await request
-    .post(`${rootURL}/${slug}`)
+    .post(`http://localhost:3000/api/v1/charities_info/${slug}`)
     .set('Authorization', `Bearer ${token}`)
     .send(info)
 }

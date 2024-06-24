@@ -21,8 +21,8 @@ const CharityForm = () => {
     phone: '',
     email: '',
     location: '',
-    slug: '',
     defaultRegisterId: 0,
+    slug: '',
   })
   const [expandedFormData, setExpandedFormData] = useState<CharityInfo>({
     charityId: 0,
@@ -69,7 +69,7 @@ const CharityForm = () => {
     setStep(step - 1)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!user || !user.sub) {
@@ -80,6 +80,7 @@ const CharityForm = () => {
     const newCharity: CharityData & CharityInfo = {
       ...basicFormData,
       ...expandedFormData,
+      slug: basicFormData.slug,
       categoryId: Number(basicFormData.categoryId),
       defaultRegisterId: Number(basicFormData.defaultRegisterId),
     }
