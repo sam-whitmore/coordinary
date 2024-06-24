@@ -15,8 +15,8 @@ export default function CharitiesList() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="grid auto-cols-max grid-flow-col gap-4">
+    <div className="flex justify-center">
+      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {charities.map((charity) => {
           return <CharitySummary key={charity.id} {...charity} />
         })}

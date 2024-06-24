@@ -23,25 +23,25 @@ export default function CharitySummary(charity: Charity) {
   }
 
   return (
-    <div className="w-100 h-168 mx-2 my-4 flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-secondary shadow-lg hover:border-primary">
+    <div className="w-100 h-168 mx-2 my-4 flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-secondary bg-white shadow-lg hover:border-primary">
       <div>
         <img
-          src={charityInfo.imageUrl} // Assuming charityInfo contains an imageUrl field
+          src={charityInfo.image || 'uploads/placeholder.png'}
           alt={charity.name}
-          className="h-64 w-full object-cover"
+          className="h-64 w-full rounded-t-2xl object-cover"
         />
         <div className="p-4">
           <Link
             to={`/${charity.slug}`}
-            className="font-display text-2xl font-medium text-secondary hover:text-primary"
+            className="font-display text-2xl font-medium text-primary hover:text-accent"
           >
             {charity.name}
           </Link>
-          <p className="mt-2 text-sm italic">{charityInfo.vision}</p>
+          <h3 className="mt-4 text-lg font-semibold text-secondary">Vision</h3>
+          <p className="mt-2 text-sm italic ">{charityInfo.vision}</p>
+          <h3 className="mt-4 text-lg font-semibold text-secondary">Mission</h3>
+          <p className="mt-2 text-sm ">{charityInfo.mission}</p>
         </div>
-      </div>
-      <div className="p-4">
-        <p className="mt-2 text-sm">{charityInfo.mission}</p>
       </div>
     </div>
   )
