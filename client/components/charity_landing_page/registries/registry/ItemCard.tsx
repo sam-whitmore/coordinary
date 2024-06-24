@@ -1,8 +1,58 @@
+import { useEffect, useState } from 'react'
 import { ItemFromRegister } from '../../../../../models/item'
 import dateMath from '../../../../timeHelper'
+import useDonationsByDonor from '../../../../hooks/useDonations'
+import { Donation } from '../../../../../models/donation'
 
 export default function ItemCard(item: ItemFromRegister) {
   const progressBarWidth: string = `${((item.NZDRaised / item.priceInNZD) * 100).toFixed(2)}%`
+  const [selectedOption, setSelectedOption] = useState<number | null>(null)
+  const [customAmount, setCustomAmount] = useState<number | null>(null)
+
+  const handleSelect = (option) => {
+    setSelectedOption(option === selectedOption ? null : option)
+    setCustomAmount(null)
+  }
+
+  const handleCustomAmountChange = (e) => {
+    setSelectedOption(null)
+    const enteredAmount = parseFloat(e.target.value)
+    if (!isNaN(enteredAmount)) {
+      setCustomAmount(enteredAmount)
+    }
+  }
+
+  const getTotal = () => {
+    return selectedOption !== null ? selectedOption : customAmount || 0
+  }
+
+  const [donations, setDonations] = useState<Donation[] | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [fetchError, setFetchError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true)
+      setFetchError(null)
+
+      try {
+        const fetchedDonations = await useDonationsByDonor(item.items_id)
+        setDonations(fetchedDonations)
+      } catch (error) {
+        setFetchError(error)
+        console.error('Error fetching donations:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [item.items_id, useDonationsByDonor]) // Re-fetch on item ID change
+
+  const findMatchingDonation = (): Donation | null => {
+    // Find a donation matching the item ID (assuming donations are loaded)
+    return donations?.find((donation) => donation.itemId === item.items_id)
+  }
 
   return (
     <>
@@ -19,16 +69,101 @@ export default function ItemCard(item: ItemFromRegister) {
           ></img>
           <h3 className="text-center text-lg font-bold">{item.name}</h3>
           <div className="grid grid-cols-2 gap-4 py-4">
-            <div className="card bg-base-100 rounded-xl border border-black p-4">
-              <p>First, select or enter in a custom amount:</p>
+            <div className="card bg-base-100 rounded-xl p-4">
+              <p>Info on Item:</p>
+              <p className="mt-4">{item.description}</p>
+              <p className="mt-4">Select an amount:</p>
+              <div className="m-4 grid grid-cols-5 gap-2">
+                <button
+                  className={`rounded-xl border border-blue-500 px-4 py-2 font-bold ${
+                    selectedOption === 1 ? 'bg-blue-500 text-white' : ''
+                  }`}
+                  onClick={() => handleSelect(1)}
+                >
+                  $1
+                </button>
+                <button
+                  className={`rounded-xl border border-blue-500 px-4 py-2 font-bold ${
+                    selectedOption === 5 ? 'bg-blue-500 text-white' : ''
+                  }`}
+                  onClick={() => handleSelect(5)}
+                >
+                  $5
+                </button>
+                <button
+                  className={`rounded-xl border border-blue-500 px-4 py-2 font-bold ${
+                    selectedOption === 10 ? 'bg-blue-500 text-white' : ''
+                  }`}
+                  onClick={() => handleSelect(10)}
+                >
+                  $10
+                </button>
+                <button
+                  className={`rounded-xl border border-blue-500 px-4 py-2 font-bold ${
+                    selectedOption === 20 ? 'bg-blue-500 text-white' : ''
+                  }`}
+                  onClick={() => handleSelect(20)}
+                >
+                  $20
+                </button>
+                <button
+                  className={`rounded-xl border border-blue-500 px-4 py-2 font-bold ${
+                    selectedOption === 50 ? 'bg-blue-500 text-white' : ''
+                  }`}
+                  onClick={() => handleSelect(50)}
+                >
+                  $50
+                </button>
+              </div>
+              <div className="flex justify-evenly">
+                <p className="mt-4">or Enter in an amount ($):</p>
+                <input
+                  className="input ml-2 mt-2 h-[25px] w-1/2 border border-black px-2 py-4"
+                  type="number"
+                  placeholder="1"
+                  onChange={handleCustomAmountChange}
+                  value={customAmount || ''}
+                ></input>
+              </div>
+              <div className="mt-4 font-bold">
+                <p className="text-center">Total: ${getTotal()}</p>
+              </div>
+              <div className="mx-auto">
+                <div className="mx-auto font-bold">
+                  <button className="mt-2 rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
+                    Donate ${getTotal()}
+                  </button>
+                </div>
+                <div className="modal-action mt-4 font-bold">
+                  <form method="dialog">
+                    <button className="rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
+                      Cancel
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
-            <div className="card bg-base-100 rounded-xl border border-black p-4 text-center">
-              Recent Donators:
+            <div className="card bg-base-100 rounded-xl p-4 text-center">
+              Recent Donations:
+              {isLoading ? (
+                <div>Loading donations...</div>
+              ) : fetchError ? (
+                <div>Error fetching donations: {fetchError.message}</div>
+              ) : (
+                findMatchingDonation() && ( // Check if donations are loaded and a match exists
+                  <p>
+                    Someone donated ${findMatchingDonation().valueInNZD} for
+                    this item.
+                  </p>
+                )
+              )}
             </div>
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
             </form>
           </div>
         </div>
