@@ -10,6 +10,9 @@ import StoryForm from './StoryForm'
 import useCharitiesInfo from '../../../hooks/useCharitiesInformation'
 import PreviewForm from './RegistrationPreview'
 import useCharities from '../../../hooks/useCharities'
+import ProgressBar from '../../../utility/ProgressBar'
+
+const totalSteps = 5
 
 const CharityForm = () => {
   const { user } = useAuth0()
@@ -107,6 +110,7 @@ const CharityForm = () => {
 
   return (
     <>
+      <ProgressBar step={step} totalSteps={totalSteps} />
       {step === 1 && (
         <BasicCharityForm
           formData={basicFormData}
