@@ -5,7 +5,7 @@ export default function SignInButton() {
 
   return (
     <button
-      className="rtl border-box rounded-lg border-2 border-primary/0 font-display text-2xl text-primary underline-offset-[3px] hover:border-primary hover:underline"
+      className="rtl mx-2 font-display text-2xl font-medium text-secondary hover:text-primary"
       onClick={() => loginWithPopup()}
     >
       Sign In
