@@ -5,7 +5,7 @@ export default function SignOutButton() {
 
   return (
     <button
-      className="rtl text-xl text-secondary hover:text-primary font-display mx-2"
+      className="rtl mx-2 font-display text-2xl font-medium text-secondary hover:text-primary"
       onClick={() =>
         logout({ logoutParams: { returnTo: window.location.origin } })
       }
