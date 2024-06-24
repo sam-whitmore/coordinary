@@ -1,7 +1,8 @@
 # Node modules
 /node_modules
 
-
+#vscode settings
+.vscode
 
 # Logs
 *.log
