@@ -1,4 +1,5 @@
 import db from './connection.ts'
+import { CharityInfo } from '../../models/charityInfo.ts'
 //pre-define snakecase to 'actual' select statements for gets (saves duplication of work if there are changes)
 const joinColumns = [
   'charities.id as charityId',
@@ -20,7 +21,21 @@ const joinColumns = [
 
 export async function getCharityInfoBySlug(slug: string) {
   const result = await db('charities')
-    .join('charities_info', 'charities.id', 'charities_info.charity_id').where('charities.slug', slug)
+    .join('charities_info', 'charities.id', 'charities_info.charity_id')
+    .where('charities.slug', slug)
     .select(joinColumns)
   return result
+}
+
+export async function addCharityInfoBySlug(slug: string, info: CharityInfo) {
+  const [charity] = await db('charities').where({ slug }).select('id')
+
+  const newInfo = {
+    ...info,
+    charity_id: charity.id,
+  }
+
+  await db('charities_info').insert(newInfo)
+
+  return { success: true }
 }

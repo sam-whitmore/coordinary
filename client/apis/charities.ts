@@ -1,5 +1,6 @@
 import request from 'superagent'
 import { Charity, CharityData } from '../../models/charity'
+import { CharityInfo } from '../../models/charityInfo'
 
 const rootURL = new URL(`/api/v1`, document.baseURI).toString()
 
@@ -49,4 +50,15 @@ export async function donorFollowCharity({
     .set('Authorization', `Bearer ${token}`)
     .send({ charityId })
   return res.body
+}
+
+export async function addCharityInfo(
+  token: string,
+  slug: string,
+  info: CharityInfo,
+) {
+  await request
+    .post(`${rootURL}/${slug}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(info)
 }
