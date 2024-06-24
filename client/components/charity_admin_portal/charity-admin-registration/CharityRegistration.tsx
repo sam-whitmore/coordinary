@@ -110,7 +110,6 @@ const CharityForm = () => {
 
   return (
     <>
-      <ProgressBar step={step} totalSteps={totalSteps} />
       {step === 1 && (
         <BasicCharityForm
           formData={basicFormData}
@@ -154,6 +153,7 @@ const CharityForm = () => {
           handleSubmit={handleSubmit}
         />
       )}
+      <ProgressBar step={step} totalSteps={totalSteps} />
     </>
   )
 }

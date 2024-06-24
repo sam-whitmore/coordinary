@@ -8,13 +8,8 @@ const ProgressBar = ({
   const percentage = (step / totalSteps) * 100
 
   return (
-    <div className="relative pt-1">
+    <div className="relative mx-auto my-4 flex w-full max-w-2xl flex-col rounded-md bg-white p-3 shadow-md">
       <div className="mb-2 flex items-center justify-between">
-        <div>
-          <span className="bg-primary-light text-s inline-block rounded-full px-2 py-1 font-semibold uppercase text-primary">
-            Step {step} of {totalSteps}
-          </span>
-        </div>
         <div className="text-right">
           <span className="text-s inline-block font-semibold text-primary">
             {percentage.toFixed(0)}%

@@ -1,9 +1,12 @@
 import { CharityInfo } from '../../../../models/charityInfo'
 import CharityFormField from './AdminCharityForm'
+import LargeFormField from './LargeFormField'
 
 interface Props {
   formData: CharityInfo
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void
   handleBack: () => void
   handleNext: () => void
   error: string
@@ -28,21 +31,21 @@ const StoryForm: React.FC<Props> = ({
         }}
       >
         <div className="space-y-4">
-          <CharityFormField
+          <LargeFormField
             label="Story"
             name="story"
             value={formData.story}
             onChange={handleChange}
             className="w-full"
           />
-          <CharityFormField
+          <LargeFormField
             label="Emphatic"
             name="emphatic"
             value={formData.emphatic}
             onChange={handleChange}
             className="w-full"
           />
-          <CharityFormField
+          <LargeFormField
             label="CTA Statement"
             name="ctaStatement"
             value={formData.ctaStatement}

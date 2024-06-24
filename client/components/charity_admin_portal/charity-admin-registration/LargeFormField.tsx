@@ -21,7 +21,7 @@ const LargeFormField: React.FC<Props> = ({
         value={value}
         onChange={onChange}
         rows={5}
-        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        className="mt-1 block w-full resize-none rounded-md border border-gray-300 bg-white p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
       />
     </div>
   )

@@ -44,7 +44,7 @@ const PreviewForm: React.FC<Props> = ({
           <p>Mission: {expandedFormData.mission}</p>
           <p>Values: {expandedFormData.values}</p>
 
-          <h3 className="text-xl font-semibold ">Story</h3>
+          <h3 className="text-xl font-semibold text-secondary">Story</h3>
           <p>Story: {expandedFormData.story}</p>
           <p>Emphatic: {expandedFormData.emphatic}</p>
           <p>CTA Statement: {expandedFormData.ctaStatement}</p>
