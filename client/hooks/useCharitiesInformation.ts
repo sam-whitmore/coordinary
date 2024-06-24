@@ -11,7 +11,7 @@ import * as API from '../apis/charities'
 
 const rootURL = '/api/v1/charities_info'
 
-export default function useCharities() {
+export default function useCharitiesInfo() {
   function useGetCharityInformationBySlug(charitySlug: string) {
     return useQuery({
       queryKey: ['charities_info', charitySlug],
@@ -24,7 +24,7 @@ export default function useCharities() {
 
   return {
     info: useGetCharityInformationBySlug,
-    add: useAddCharity,
+    add: useAddCharity(),
   }
 }
 

@@ -58,6 +58,6 @@ export default function useCharities() {
   return {
     all: useGetAllCharities,
     get: useGetCharityInformation,
-    add: useAddCharity,
+    add: useAddCharity(),
   }
 }
