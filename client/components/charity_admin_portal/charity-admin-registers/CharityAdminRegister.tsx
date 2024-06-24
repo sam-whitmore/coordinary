@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import useRegisterItems from '../../../hooks/useRegisterItems'
 import AdminItemCard from '../charity-admin-manage-item/AdminItemCard'
 import AdminAddItemCard from '../charity-admin-manage-item/AdminAddItemCard'
+import Spinner from '../../Spinner'
 
 // interface Props {
 //   id: number
@@ -22,7 +23,7 @@ export default function CharityAdminRegister() {
     del.mutateAsync(id)
   }
 
-  if (isPending) return <div>Loading...</div>
+  if (isPending) return <Spinner />
   if (isError) return <div>{error.message}</div>
   if (!items || items.length < 1 || !(items instanceof Array))
     return (

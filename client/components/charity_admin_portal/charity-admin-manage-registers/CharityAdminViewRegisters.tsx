@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import useRegisters from '../../../hooks/useRegisters'
 import CharityAdminRegisterCard from './CharityAdminRegisterCard'
 import { RegisterData } from '../../../../models/register'
+import Spinner from '../../Spinner'
 
 interface Props {
   slug: string
@@ -23,7 +24,7 @@ export default function CharityAdminViewRegisters(props: Props) {
   }
 
   if (isPending) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
 
   if (isError) {

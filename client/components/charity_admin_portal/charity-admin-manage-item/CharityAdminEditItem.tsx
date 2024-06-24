@@ -3,6 +3,7 @@ import CharityAdminItemForm from './CharityAdminItemForm'
 import useItems from '../../../hooks/useItems'
 import { ItemData } from '../../../../models/item'
 import { useAuth0 } from '@auth0/auth0-react'
+import Spinner from '../../Spinner'
 
 export default function CharityAdminEditItem() {
   const { itemid } = useParams()
@@ -26,7 +27,7 @@ export default function CharityAdminEditItem() {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   if (isError || !data?.name) {
