@@ -25,6 +25,7 @@ export default function useCharitiesInfo() {
   return {
     info: useGetCharityInformationBySlug,
     add: useAddCharity(),
+    edit: useEditCharity(),
   }
 }
 
@@ -49,6 +50,16 @@ export function useAddCharity() {
     async ({ slug, info }: { slug: string; info: CharityInfo }) => {
       const token = await getAccessTokenSilently()
       return API.addCharityInfo(token, slug, info)
+    },
+  )
+}
+
+export function useEditCharity() {
+  const { getAccessTokenSilently } = useAuth0()
+  return useCharityMutation(
+    async ({ slug, info }: { slug: string; info: CharityInfo }) => {
+      const token = await getAccessTokenSilently()
+      return API.editCharityInfo(token, slug, info)
     },
   )
 }

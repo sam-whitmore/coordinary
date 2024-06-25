@@ -27,4 +27,16 @@ router.post('/:slug', async (req, res, next) => {
   }
 })
 
+router.patch('/:slug', async (req, res, next) => {
+  const slug = req.params.slug
+  const info = req.body
+
+  try {
+    const result = await db.editCharityInfoBySlug(slug, info)
+    res.json(result)
+  } catch (err) {
+    next(err)
+  }
+})
+
 export default router

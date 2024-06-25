@@ -69,6 +69,17 @@ export async function addCharityInfo(
     .send(info)
 }
 
+export async function editCharityInfo(
+  token: string,
+  slug: string,
+  info: CharityInfo,
+) {
+  await request
+    .patch(`${rootURL}/charities_info/${slug}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(info)
+}
+
 export async function editCharity({
   token,
   data,

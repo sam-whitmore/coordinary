@@ -61,12 +61,18 @@ export default function ItemCard(item: ItemFromRegister) {
         className="modal h-3/4 w-1/2 rounded-xl border border-black p-4"
       >
         <div className="modal-box">
-          <img
-            className="mx-auto mb-4 mt-4 h-[125px] rounded-full border border-black"
-            src={`/uploads/${item.image}`}
-            width={'125px'}
-            alt={item.name}
-          ></img>
+          {item.image ? (
+            <img
+              className="mx-auto mb-4 mt-4 h-[125px] rounded-full border border-black"
+              src={`/uploads/${item.image}`}
+              width={'125px'}
+              alt={item.name}
+            ></img>
+          ) : (
+            <svg className="mx-auto mb-4 mt-4 h-[125px] w-[125px] rounded-full border border-black">
+              <circle r="75" cx="70" cy="70" className="fill-primary" />
+            </svg>
+          )}
           <h3 className="text-center text-lg font-bold">{item.name}</h3>
           <div className="grid grid-cols-2 gap-4 py-4">
             <div className="card bg-base-100 rounded-xl p-4">
@@ -168,15 +174,19 @@ export default function ItemCard(item: ItemFromRegister) {
           </div>
         </div>
       </dialog>
-      <div className="h-[90%] rounded-2xl border border-black text-center shadow-xl">
-        <div className="box-border h-[125px]">
+      <div className="h-[500px] rounded-2xl border border-secondary bg-lightbackground text-center shadow-xl transition duration-1000 ease-in-out hover:bg-background">
+        {item.image ? (
           <img
             className="mx-auto mb-4 mt-4 h-[125px] rounded-full border border-black"
             src={`/uploads/${item.image}`}
             width={'125px'}
             alt={item.name}
           ></img>
-        </div>
+        ) : (
+          <svg className="mx-auto mb-4 mt-4 h-[125px] w-[125px] rounded-full border border-black">
+            <circle r="75" cx="70" cy="70" className="fill-primary" />
+          </svg>
+        )}
         <h1 className="text-2xl">
           {item.name}{' '}
           <span className="text-sm">{item.used ? '(Used)' : ''}</span>

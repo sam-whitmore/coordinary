@@ -56,3 +56,28 @@ export async function addCharityInfoBySlug(slug: string, info: CharityInfo) {
 
   return { success: true }
 }
+
+export async function editCharityInfoBySlug(slug: string, info: CharityInfo) {
+  const [charity] = await db('charities').where({ slug }).select('id')
+
+  const snakeCase: CharityInfoSnakeCase = {
+    charity_id: charity.id,
+    physical_address: info.physicalAddress,
+    postal_address: info.postalAddress,
+    opening_hours: info.openingHours,
+    phone: info.phone,
+    email: info.email,
+    vision: info.vision,
+    mission: info.mission,
+    values: info.values,
+    services: info.services,
+    story: info.story,
+    emphatic: info.emphatic,
+    cta_statement: info.ctaStatement,
+    stakeholders: info.stakeholders,
+  }
+
+  await db('charities_info').where({ charity_id: charity.id }).update(snakeCase)
+
+  return { success: true }
+}

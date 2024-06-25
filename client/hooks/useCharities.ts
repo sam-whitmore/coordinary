@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-query'
 import { Charity, CharityData } from '../../models/charity'
 import * as API from '../apis/charities'
-import { CharityPreferences } from '../../models/charityPreferences'
+// import { CharityPreferences } from '../../models/charityPreferences'
 
 const rootURL = '/api/v1/charities'
 

@@ -12,6 +12,8 @@ export default function Registry() {
     error,
   } = useRegisterItems().byRegisterId(Number(registerid))
 
+  if (!registerid || isNaN(Number(registerid)))
+    return <div>Please select a Register</div>
   if (isPending) return <Spinner />
   if (isError) return <div>{error.message}</div>
   if (!items) return <div>{'No items found'}</div>
