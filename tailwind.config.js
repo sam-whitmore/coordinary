@@ -9,6 +9,7 @@ export default {
         primary: '#0ad3c2',
         secondary: '#75b8ff',
         accent: '#ffe100',
+        lightbackground: '#f9fcff',
       },
       spacing: {
         100: '25rem',

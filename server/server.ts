@@ -10,6 +10,7 @@ import donorRoutes from './routes/donors.ts'
 import uploadRoutes from './routes/upload.ts'
 import charitiesInfoRoutes from './routes/charitiesInfo.ts'
 import stripeRoutes from './routes/stripe.ts'
+import charitiesPreferences from './routes/charitiesPreferences.ts'
 
 const server = express()
 
@@ -26,6 +27,7 @@ server.use('/api/v1/charities_info', charitiesInfoRoutes)
 server.use('/api/v1/donors', donorRoutes)
 server.use('/api/v1/upload', uploadRoutes)
 server.use('/api/v1/stripe', stripeRoutes)
+server.use('/api/v1/charities_preferences', charitiesPreferences)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))

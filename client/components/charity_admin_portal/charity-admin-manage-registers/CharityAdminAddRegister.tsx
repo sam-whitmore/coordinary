@@ -18,7 +18,7 @@ export default function CharityAdminAddRegister() {
 
   const { add } = useRegisters()
 
-  const handleAdd = async (data: RegisterData, id?: number) => {
+  const handleAdd = async (data: Omit<RegisterData, 'notes'>, id?: number) => {
     await add.mutateAsync(data)
     nav('../manageregisters')
   }
@@ -32,7 +32,7 @@ export default function CharityAdminAddRegister() {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <CharityAdminRegisterForm
         {...{
           ...{

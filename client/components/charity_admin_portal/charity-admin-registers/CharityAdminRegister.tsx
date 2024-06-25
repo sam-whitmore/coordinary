@@ -1,12 +1,8 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import useRegisterItems from '../../../hooks/useRegisterItems'
 import AdminItemCard from '../charity-admin-manage-item/AdminItemCard'
 import AdminAddItemCard from '../charity-admin-manage-item/AdminAddItemCard'
 import Spinner from '../../Spinner'
-
-// interface Props {
-//   id: number
-// }
 
 export default function CharityAdminRegister() {
   const { registerid } = useParams()
@@ -25,36 +21,24 @@ export default function CharityAdminRegister() {
 
   if (isPending) return <Spinner />
   if (isError) return <div>{error.message}</div>
-  if (!items || items.length < 1 || !(items instanceof Array))
-    return (
-      <div className="h-full w-full">
-        <div className="mt-4 grid h-3/4 grid-cols-4 gap-4">
-          <Link
-            className="place-content-center rounded-2xl border border-black text-center align-middle text-secondary shadow-xl hover:border-secondary hover:bg-secondary hover:text-background"
-            to={`items/add`}
-          >
-            <AdminAddItemCard />
-          </Link>
-        </div>
-      </div>
-    )
 
   return (
     <div className="h-full w-full">
-      <div className="mt-4 grid h-3/4 grid-cols-4 gap-4">
-        {items.map((item) => (
-          <AdminItemCard
-            key={item.items_id}
-            {...{ ...item, requestDelete: handleDelete }}
-          />
-        ))}
-        <Link
-          className="h-[90%] place-content-center rounded-2xl border border-black text-center align-middle text-secondary shadow-xl hover:border-secondary hover:bg-secondary hover:text-background"
-          to={`items/add`}
-        >
+      {items && items.length > 0 ? (
+        <div className="mx-4 mt-4 grid h-3/4 flex-shrink grow grid-cols-4 flex-row gap-4">
+          {items.map((item) => (
+            <AdminItemCard
+              key={item.items_id}
+              {...{ ...item, requestDelete: handleDelete }}
+            />
+          ))}
           <AdminAddItemCard />
-        </Link>
-      </div>
+        </div>
+      ) : (
+        <div className="mx-4 mt-4 grid h-3/4 grid-cols-4 gap-4">
+          <AdminAddItemCard />
+        </div>
+      )}
     </div>
   )
 }

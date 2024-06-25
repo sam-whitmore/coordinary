@@ -1,5 +1,5 @@
-import { ItemData, ItemSnakeCase } from '../../models/item'
-import db from './connection'
+import { ItemData, ItemSnakeCase } from '../../../models/item'
+import db from '../connection'
 
 // Pre-define snake_case to camelCase select statements for gets??
 // TODO: Change SQLite Columns for Items from New to Used
@@ -10,8 +10,9 @@ const columns = [
   'used',
   'price_in_NZD as priceInNZD',
   'NZD_raised as NZDRaised',
-  'notes as notes',
-  'date as date',
+  'notes',
+  'date',
+  'description',
 ]
 
 // Function to get all items
@@ -57,6 +58,14 @@ export async function updateItem(id: number, data: ItemData) {
   }
   const result = await db('items').where({ id }).update(snakeCase)
   return result
+}
+
+//Seemed worth making its own function for laziness
+export async function donateTowardsItem(id: number, data: number) {
+  const item = (await getItemById(id)) as ItemData
+  // console.log(item)
+  item.NZDRaised += data
+  return await db('items').where({ id }).update({ NZD_raised: item.NZDRaised })
 }
 
 // Function to delete an item by ID

@@ -32,7 +32,7 @@ export default function CharityAdminEditRegister() {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <CharityAdminRegisterForm {...{ ...register, onSubmit: handleEdit }} />
     </div>
   )

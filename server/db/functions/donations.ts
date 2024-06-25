@@ -1,5 +1,5 @@
-import { DonationData, DonationSnakeCase } from '../../models/donation.ts'
-import db from './connection.ts'
+import { DonationData, DonationSnakeCase } from '../../../models/donation.ts'
+import db from '../connection.ts'
 
 //pre-define snakecase to 'actual' select statements for gets (saves duplication of work if there are changes)
 const columns = [

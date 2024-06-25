@@ -1,5 +1,5 @@
 import { CharityInfo } from '../../../../models/charityInfo'
-import CharityFormField from './AdminCharityForm'
+import CharityFormField from './AdminCharityFormField'
 import LargeFormField from './LargeFormField'
 
 interface Props {

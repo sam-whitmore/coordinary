@@ -1,5 +1,5 @@
-import { CharityData, CharitySnakeCase } from '../../models/charity.ts'
-import db from './connection.ts'
+import { CharityData, CharitySnakeCase } from '../../../models/charity.ts'
+import db from '../connection.ts'
 //pre-define snakecase to 'actual' select statements for gets (saves duplication of work if there are changes)
 const columns = [
   'id',
@@ -78,4 +78,17 @@ export async function addCharityByDonorFollowing(
     donor_id: donorId,
     charity_id: charityId,
   })
+}
+
+export async function editCharity(data: CharityData, id: number) {
+  const snakeCase: CharitySnakeCase = {
+    name: data.name,
+    category_id: data.categoryId,
+    phone: data.phone,
+    email: data.email,
+    location: data.location,
+    slug: data.slug,
+    default_register_id: data.defaultRegisterId,
+  }
+  return await db('charities').where({ id }).update(snakeCase)
 }

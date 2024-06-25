@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom'
 import useRegisters from '../../../hooks/useRegisters'
 import CharityAdminRegisterCard from './CharityAdminRegisterCard'
 import { RegisterData } from '../../../../models/register'
+import CharityAdminAddRegisterCard from './CharityAdminAddRegisterCard'
+import useCharities from '../../../hooks/useCharities'
+import { useAuth0 } from '@auth0/auth0-react'
 import Spinner from '../../Spinner'
 
 interface Props {
@@ -15,12 +17,25 @@ export default function CharityAdminViewRegisters(props: Props) {
     isError,
     error,
   } = useRegisters().allOfCharity(props.slug)
-
+  const { data: charity } = useCharities().get(props.slug)
+  const { getAccessTokenSilently } = useAuth0()
   const { edit } = useRegisters()
+  const { edit: editCharity } = useCharities()
 
   const handleRemove = async (data: RegisterData, id: number) => {
     data.active = false
     await edit.mutateAsync({ id, data })
+  }
+
+  const handleFavouriteRegistry = async (id: number) => {
+    if (charity && registers) {
+      const token = await getAccessTokenSilently()
+      charity.defaultRegisterId = id
+      //purely to avoid having to invalidate a different query but still give feedback to user (hacky):
+      registers.forEach((x) => (x.charityDefaultId = id))
+
+      await editCharity.mutateAsync({ token, id: charity.id, data: charity })
+    }
   }
 
   if (isPending) {
@@ -31,30 +46,27 @@ export default function CharityAdminViewRegisters(props: Props) {
     return <p>{error.message}</p>
   }
 
-  if (!registers) return <p>Error: no registers found</p>
   return (
     <div className="h-full w-full">
-      <div className="mt-4 grid h-3/4 grid-cols-4 gap-4">
-        {registers.map((register) => (
-          <CharityAdminRegisterCard
-            key={register.registerId}
-            {...{ ...register, requestRemove: handleRemove }}
-          />
-        ))}
-        <Link
-          className="h-[90%] place-content-center rounded-2xl border border-black text-center align-middle text-secondary shadow-xl hover:border-secondary hover:bg-secondary hover:text-background"
-          to={`add`}
-        >
-          <div>
-            <h1 className="select-none text-center text-3xl">
-              Add A New Register
-            </h1>
-            <div className="align-center mx-auto h-2/3 w-2/3 select-none text-center text-8xl">
-              +
-            </div>
-          </div>
-        </Link>
-      </div>
+      {registers && registers.length > 0 ? (
+        <div className="mx-4 mt-4 grid h-3/4 grid-cols-4 flex-col gap-4">
+          {registers.map((register) => (
+            <CharityAdminRegisterCard
+              key={register.registerId}
+              {...{
+                ...register,
+                requestRemove: handleRemove,
+                requestFavourite: handleFavouriteRegistry,
+              }}
+            />
+          ))}
+          <CharityAdminAddRegisterCard />
+        </div>
+      ) : (
+        <div className="mx-4 mt-4 grid h-3/4 grid-cols-4 flex-col gap-4">
+          <CharityAdminAddRegisterCard />
+        </div>
+      )}
     </div>
   )
 }

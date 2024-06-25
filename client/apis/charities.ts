@@ -1,6 +1,7 @@
 import request from 'superagent'
 import { Charity, CharityData } from '../../models/charity'
 import { CharityInfo } from '../../models/charityInfo'
+import { CharityPreferences } from '../../models/charityPreferences'
 
 const rootURL = new URL(`/api/v1`, document.baseURI).toString()
 
@@ -9,6 +10,11 @@ export async function getCharitiesByDonorFollowing(token: string, id: number) {
     .get(`${rootURL}/charities/donor/${id}`)
     .set('Authorization', `Bearer ${token}`)
   return res.body as Charity[]
+}
+
+export async function getCharityPreferences(slug: string) {
+  const res = await request.get(`${rootURL}/charities_preferences/${slug}`)
+  return res.body as CharityPreferences
 }
 
 export async function donorUnfollowCharity({
@@ -61,4 +67,30 @@ export async function addCharityInfo(
     .post(`${rootURL}/charities_info/${slug}`)
     .set('Authorization', `Bearer ${token}`)
     .send(info)
+}
+
+export async function editCharityInfo(
+  token: string,
+  slug: string,
+  info: CharityInfo,
+) {
+  await request
+    .patch(`${rootURL}/charities_info/${slug}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(info)
+}
+
+export async function editCharity({
+  token,
+  data,
+  id,
+}: {
+  token: string
+  data: CharityData
+  id: number
+}) {
+  return await request
+    .patch(`${rootURL}/charities/${id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(data)
 }

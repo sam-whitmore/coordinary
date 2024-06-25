@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import useFollowedCharities from '../../hooks/useFollowedCharities'
 import CharityListItem from './CharityListItem'
 import { Link } from 'react-router-dom'
+import Spinner from '../Spinner'
 
 interface Props {
   userId: number
@@ -19,7 +20,7 @@ export default function ManageCharities(props: Props) {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   if (isError || !data) {

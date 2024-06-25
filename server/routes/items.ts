@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0'
 import { StatusCodes } from 'http-status-codes'
-import * as db from '../db/items'
-import * as registerItemsDB from '../db/register_items'
+import * as db from '../db/functions/items'
+import * as registerItemsDB from '../db/functions/register_items'
 
 const router = Router()
 

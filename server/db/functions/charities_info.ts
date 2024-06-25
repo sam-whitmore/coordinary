@@ -1,5 +1,8 @@
-import db from './connection.ts'
-import { CharityInfo, CharityInfoSnakeCase } from '../../models/charityInfo.ts'
+import db from '../connection.ts'
+import {
+  CharityInfo,
+  CharityInfoSnakeCase,
+} from '../../../models/charityInfo.ts'
 //pre-define snakecase to 'actual' select statements for gets (saves duplication of work if there are changes)
 const joinColumns = [
   'charities.id as charityId',
@@ -18,12 +21,15 @@ const joinColumns = [
   'charities_info.emphatic as emphatic',
   'charities_info.cta_statement as ctaStatement',
   'charities_info.stakeholders as stakeholders',
+  'charities_info.image as image',
 ]
 
 export async function getCharityInfoBySlug(slug: string) {
   const result = await db('charities')
-    .join('charities_info', 'charities.id', 'charities_info.charity_id').where('charities.slug', slug)
-    .select(joinColumns).first()
+    .join('charities_info', 'charities.id', 'charities_info.charity_id')
+    .where('charities.slug', slug)
+    .select(joinColumns)
+    .first()
   return result
 }
 
@@ -45,9 +51,36 @@ export async function addCharityInfoBySlug(slug: string, info: CharityInfo) {
     emphatic: info.emphatic,
     cta_statement: info.ctaStatement,
     stakeholders: info.stakeholders,
+    image: info.image,
   }
 
   await db('charities_info').insert(newInfo)
+
+  return { success: true }
+}
+
+export async function editCharityInfoBySlug(slug: string, info: CharityInfo) {
+  const [charity] = await db('charities').where({ slug }).select('id')
+
+  const snakeCase: CharityInfoSnakeCase = {
+    charity_id: charity.id,
+    physical_address: info.physicalAddress,
+    postal_address: info.postalAddress,
+    opening_hours: info.openingHours,
+    phone: info.phone,
+    email: info.email,
+    vision: info.vision,
+    mission: info.mission,
+    values: info.values,
+    services: info.services,
+    story: info.story,
+    emphatic: info.emphatic,
+    cta_statement: info.ctaStatement,
+    stakeholders: info.stakeholders,
+    image: info.image,
+  }
+
+  await db('charities_info').where({ charity_id: charity.id }).update(snakeCase)
 
   return { success: true }
 }

@@ -20,6 +20,7 @@ export async function seed(knex) {
       cta_statement:
         "If you'd like to follow our story as it continues into the future, you should follow us on Coordinary and consider subscribing to our mailing list!",
       stakeholders: 'Dev Academy',
+      image: 'placeholder.png',
     },
     {
       id: 2,
@@ -42,6 +43,7 @@ export async function seed(knex) {
       cta_statement:
         "If you'd like to follow our story as it continues into the future, you should follow us on Coordinary and consider subscribing to our mailing list!",
       stakeholders: 'Ministry of Social Development',
+      image: 'w1920.jpg',
     },
     {
       id: 3,
@@ -65,6 +67,7 @@ export async function seed(knex) {
       cta_statement:
         "If you'd like to follow our story as it continues into the future, you should follow us on Coordinary and consider subscribing to our mailing list!",
       stakeholders: 'The Anglican Church',
+      image: 'mission.png',
     },
     {
       id: 4,
@@ -88,6 +91,7 @@ export async function seed(knex) {
       cta_statement:
         'DCM is the leading social service supporting the most marginalised in our city. We value your support because it enables us to carry out our life-changing mahi to enable the people we work with to make meaningful change in their lives. We know that we make a real difference and supporting us is an opportunity for you to make a difference too. If you are able too, please see our registries to see how you may be able to support. Alternatively, you can support us by following our work via Coordinary, or by signing up to our mailing list.',
       stakeholders: 'Te Aro Health Centre',
+      image: 'DCM.jpg',
     },
   ])
 }

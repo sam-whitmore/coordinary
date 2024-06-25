@@ -37,6 +37,6 @@ export async function addPayment(
     return { clientSecret }
   } catch (error) {
     console.error(error)
-    return { error: 'Failed to insert donation' }
+    return { error: 'Failed to create payment intent' }
   }
 }

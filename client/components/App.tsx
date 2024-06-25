@@ -3,8 +3,11 @@ import Nav from './Nav'
 
 export default function App() {
   return (
-    <div className="app bg-background w-screen h-screen">
-      <Nav />
+    <div className="app h-screen w-screen bg-background">
+      <nav className="sticky">
+        <Nav />
+      </nav>
+
       <Outlet />
     </div>
   )

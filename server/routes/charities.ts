@@ -1,7 +1,7 @@
 import { Router } from 'express'
 // import checkJwt, { JwtRequest } from '../auth0.ts'
 // import { StatusCodes } from 'http-status-codes'
-import * as db from '../db/charities.ts'
+import * as db from '../db/functions/charities.ts'
 import checkJwt, { JwtRequest } from '../auth0.ts'
 import { StatusCodes } from 'http-status-codes'
 
@@ -61,6 +61,7 @@ router.delete(
   },
 )
 
+//POST api/v1/charities - add new charity.
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -101,6 +102,34 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
       .sendStatus(StatusCodes.CREATED)
   } catch (err) {
     next(err)
+  }
+})
+
+//PATCH api/v1/charities/:id - edit charity
+router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
+  try {
+    const { id } = req.params
+    const {
+      name,
+      categoryId,
+      phone,
+      email,
+      location,
+      slug,
+      defaultRegisterId,
+    } = req.body
+
+    await db.editCharity(
+      { name, categoryId, phone, email, location, slug, defaultRegisterId },
+      Number(id),
+    )
+    res.sendStatus(StatusCodes.ACCEPTED)
+  } catch (e) {
+    next(e)
   }
 })
 

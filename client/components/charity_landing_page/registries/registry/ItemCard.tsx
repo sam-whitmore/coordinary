@@ -4,21 +4,30 @@ import dateMath from '../../../../timeHelper'
 import useDonationsByDonor from '../../../../hooks/useDonations'
 import { DonationData } from '../../../../../models/donation'
 import Spinner from '../../../Spinner'
-import { loadStripe } from '@stripe/stripe-js'
-import { Elements } from '@stripe/react-stripe-js'
-import CheckoutForm from './CheckoutForm'
 import { useAuth0 } from '@auth0/auth0-react'
-import { CustomCheckoutProvider } from '@stripe/react-stripe-js'
-import Stripe from 'stripe'
+import Checkout from './Checkout'
+import useDonations from '../../../../hooks/useDonations'
 
 export default function ItemCard(item: ItemFromRegister) {
   const progressBarWidth: string = `${((item.NZDRaised / item.priceInNZD) * 100).toFixed(2)}%`
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
-  const [customAmount, setCustomAmount] = useState<number | null>(null)
+  const [customAmount, setCustomAmount] = useState<number | null>(5)
+  const [paying, setPaying] = useState(false)
+
+  // const [clientSecret, setClientSecret] = useState('')
+  const { user, getAccessTokenSilently } = useAuth0()
+  const { add } = useDonations(0)
+  // const appearance = {
+  //   theme: 'stripe',
+  // }
+  // const options = {
+  //   clientSecret,
+  //   appearance,
+  // }
 
   const handleSelect = (option) => {
     setSelectedOption(option === selectedOption ? null : option)
-    setCustomAmount(null)
+    setCustomAmount(option)
   }
 
   const handleCustomAmountChange = (e) => {
@@ -31,6 +40,24 @@ export default function ItemCard(item: ItemFromRegister) {
 
   const getTotal = () => {
     return selectedOption !== null ? selectedOption : customAmount || 0
+  }
+
+  const handleBeginPayment = async () => {
+    const token = await getAccessTokenSilently()
+
+    //fire off mutation
+    await add.mutateAsync({
+      token,
+      donation: {
+        donorAuth0Id: user?.sub as string,
+        itemId: item.items_id,
+        registerId: item.register_id,
+        anonymous: false,
+        datetime: new Date(),
+        valueInNZD: customAmount as number,
+      },
+    })
+    setPaying(() => true)
   }
 
   const {
@@ -50,12 +77,18 @@ export default function ItemCard(item: ItemFromRegister) {
         className="modal h-3/4 w-1/2 rounded-xl border border-black p-4"
       >
         <div className="modal-box">
-          <img
-            className="mx-auto mb-4 mt-4 h-[125px] rounded-full border border-black"
-            src={`/uploads/${item.image}`}
-            width={'125px'}
-            alt={item.name}
-          ></img>
+          {item.image ? (
+            <img
+              className="mx-auto mb-4 mt-4 h-[125px] rounded-full border border-black"
+              src={`/uploads/${item.image}`}
+              width={'125px'}
+              alt={item.name}
+            ></img>
+          ) : (
+            <svg className="mx-auto mb-4 mt-4 h-[125px] w-[125px] rounded-full border border-black">
+              <circle r="75" cx="70" cy="70" className="fill-primary" />
+            </svg>
+          )}
           <h3 className="text-center text-lg font-bold">{item.name}</h3>
           <div className="grid grid-cols-2 gap-4 py-4">
             <div className="card bg-base-100 rounded-xl px-4">
@@ -106,10 +139,12 @@ export default function ItemCard(item: ItemFromRegister) {
                 <p className="mt-4">or Enter in an amount ($):</p>
                 <input
                   className="input ml-2 mt-2 h-[25px] w-1/2 border border-black px-2 py-4"
+                  step={1}
                   type="number"
-                  placeholder="1"
+                  min="0.5"
+                  placeholder="50"
                   onChange={handleCustomAmountChange}
-                  value={customAmount || ''}
+                  value={(customAmount as number) || ''}
                 ></input>
               </div>
               <div className="mt-4 font-bold">
@@ -117,9 +152,25 @@ export default function ItemCard(item: ItemFromRegister) {
               </div>
               <div className="mx-auto">
                 <div className="mx-auto font-bold">
-                  <button className="mt-2 rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
-                    Donate ${getTotal()}
-                  </button>
+                  {paying ? (
+                    <div>
+                      <Checkout
+                        {...{ amount: (customAmount as number) * 100 }}
+                      />
+                    </div>
+                  ) : (
+                    <button
+                      onClick={handleBeginPayment}
+                      className="mt-2 rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+                    >
+                      Donate ${getTotal()}
+                    </button>
+                  )}
+                  {/* {clientSecret && paying && (
+                    <Elements options={options} stripe={stripePromise}>
+                      <CheckoutForm />
+                    </Elements>
+                  )} */}
                 </div>
                 <div className="modal-action mt-4 font-bold">
                   <form method="dialog">
@@ -159,15 +210,19 @@ export default function ItemCard(item: ItemFromRegister) {
           </div>
         </div>
       </dialog>
-      <div className="h-[90%] rounded-2xl border border-black text-center shadow-xl">
-        <div className="box-border h-[125px]">
+      <div className="h-[500px] rounded-2xl border border-secondary bg-lightbackground text-center shadow-xl transition duration-1000 ease-in-out hover:bg-background">
+        {item.image ? (
           <img
             className="mx-auto mb-4 mt-4 h-[125px] rounded-full border border-black"
             src={`/uploads/${item.image}`}
             width={'125px'}
             alt={item.name}
           ></img>
-        </div>
+        ) : (
+          <svg className="mx-auto mb-4 mt-4 h-[125px] w-[125px] rounded-full border border-black">
+            <circle r="75" cx="70" cy="70" className="fill-primary" />
+          </svg>
+        )}
         <h1 className="text-2xl">
           {item.name}{' '}
           <span className="text-sm">{item.used ? '(Used)' : ''}</span>

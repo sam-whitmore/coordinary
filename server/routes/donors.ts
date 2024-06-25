@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0.ts'
 import { StatusCodes } from 'http-status-codes'
-import * as db from '../db/donors.ts'
+import * as db from '../db/functions/donors.ts'
 
 const router = Router()
 
@@ -10,6 +10,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
     return
   }
+
   try {
     const result = await db.getAllDonors()
     res.json(result)
@@ -25,6 +26,7 @@ router.get('/self', checkJwt, async (req: JwtRequest, res, next) => {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
     return
   }
+
   try {
     const result = await db.getDonorByAuthId(req.auth.sub)
     res.json(result)

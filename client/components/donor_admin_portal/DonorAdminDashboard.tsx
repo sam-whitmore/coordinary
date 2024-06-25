@@ -3,6 +3,7 @@ import { DonorData } from '../../../models/donor'
 import ManageDetails from './ManageDetails'
 import useActiveDonor from '../../hooks/useDonors'
 import { useState } from 'react'
+import Spinner from '../Spinner'
 
 const successMessage = {
   text: 'Submitted Successfully',
@@ -23,7 +24,7 @@ export default function DonorAdminDashboard() {
   })
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   if (isError || !data) {

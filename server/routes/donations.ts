@@ -1,7 +1,8 @@
 import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0.ts'
 import { StatusCodes } from 'http-status-codes'
-import * as db from '../db/donations.ts'
+import * as db from '../db/functions/donations.ts'
+import * as itemsDB from '../db/functions/items.ts'
 
 const router = Router()
 
@@ -68,7 +69,9 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
       datetime,
       valueInNZD,
     })
-    res
+    await itemsDB.donateTowardsItem(itemId, valueInNZD)
+
+    await res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)
   } catch (err) {

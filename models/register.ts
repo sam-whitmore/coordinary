@@ -3,6 +3,7 @@ export interface RegisterData {
   charityId: number
   description: string
   active: boolean
+  notes: string
 }
 
 export interface Register extends RegisterData {
@@ -24,4 +25,5 @@ export interface RegisterFromSlug {
   name: string
   description: string
   active: boolean
+  charityDefaultId: number
 }
