@@ -15,7 +15,7 @@ router.post(
     }
 
     try {
-      const { registerId, itemId, amount, isAnonymous } = req.body
+      const { donorAuth0Id, registerId, itemId, amount, isAnonymous } = req.body
       const id = await db.addPayment({
         donorAuth0Id,
         registerId,

@@ -9,12 +9,9 @@ import registers_itemsRoutes from './routes/register_items.ts'
 import donorRoutes from './routes/donors.ts'
 import uploadRoutes from './routes/upload.ts'
 import charitiesInfoRoutes from './routes/charitiesInfo.ts'
-import Stripe from 'stripe'
 import stripeRoutes from './routes/stripe.ts'
 
 const server = express()
-
-const stripe = new Stripe('sk_test_XIo4S8ykEARZgyJiA4EHLIgZ')
 
 server.use(express.json())
 server.use('/upload', express.static(Path.resolve('public/uploads')))
