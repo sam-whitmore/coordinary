@@ -3,8 +3,12 @@ import { Charity } from '../../../../models/charity'
 import useCharities from '../../../hooks/useCharitiesInformation'
 
 export default function CharitySummary(charity: Charity) {
-
-  const { data: charityInfo, isPending, isError, error } = useCharities().info(charity.slug)
+  const {
+    data: charityInfo,
+    isPending,
+    isError,
+    error,
+  } = useCharities().info(charity.slug)
 
   if (isPending) {
     return <p>Loading...</p>
@@ -19,16 +23,13 @@ export default function CharitySummary(charity: Charity) {
   }
 
   return (
-    <div className="my-4 mx-2 p-4 rounded-2xl border-2 border-secondary hover:border-primary">
-      <Link
-        to={`/${charity.slug}`}
-        className="font-display text-2xl font-medium text-secondary hover:text-primary"
-      >
-        {charity.name}
-      </Link>
-      <h3 className="text-sm italic mt-2">
-        {charityInfo.vision}
-      </h3>
-    </div>
+    <Link to={`/${charity.slug}`}>
+      <div className="mx-2 my-4 rounded-2xl border-2 border-secondary p-4 hover:border-primary">
+        <h2 className="font-display text-2xl font-medium text-secondary hover:text-primary">
+          {charity.name}
+        </h2>
+        <h3 className="mt-2 text-sm italic">{charityInfo.vision}</h3>
+      </div>
+    </Link>
   )
 }
