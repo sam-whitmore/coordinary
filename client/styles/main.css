@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.form-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 600ms,
+    transform 600ms;
+}
+.form-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.form-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition:
+    opacity 600ms,
+    transform 600ms;
+}
+
+.transition-container {
+  position: relative;
+}
+.transition-item {
+  position: absolute;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.charities-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .charities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .charities-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
