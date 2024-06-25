@@ -25,7 +25,7 @@ export default function CharitySummary(charity: Charity) {
   const donorId = 1 // Replace with actual donorId
 
   return (
-    <div className="relative mx-auto my-4 flex w-full max-w-xs flex-col justify-between overflow-hidden rounded-2xl border-2 border-secondary bg-white shadow-lg hover:border-primary">
+    <div className="relative mx-auto my-4 flex w-full max-w-xs flex-col justify-between overflow-hidden rounded-2xl border-2 border-secondary bg-white shadow-lg duration-300 hover:scale-105 hover:border-primary">
       <div className="relative">
         <img
           src={charityInfo.image || 'uploads/placeholder.png'}
