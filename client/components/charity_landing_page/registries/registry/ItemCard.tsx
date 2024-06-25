@@ -2,12 +2,54 @@ import { useEffect, useState } from 'react'
 import { ItemFromRegister } from '../../../../../models/item'
 import dateMath from '../../../../timeHelper'
 import useDonationsByDonor from '../../../../hooks/useDonations'
-import { Donation } from '../../../../../models/donation'
+import { DonationData } from '../../../../../models/donation'
+import Spinner from '../../../Spinner'
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
+import CheckoutForm from './CheckoutForm'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function ItemCard(item: ItemFromRegister) {
   const progressBarWidth: string = `${((item.NZDRaised / item.priceInNZD) * 100).toFixed(2)}%`
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
   const [customAmount, setCustomAmount] = useState<number | null>(null)
+
+  const stripePromise = loadStripe('pk_test_HgkvWfRGO4xlhZOgDUc8QDGx')
+
+  const [clientSecret, setClientSecret] = useState('')
+  const { getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    const fetchTokenAndCreatePaymentIntent = async () => {
+      const token = await getAccessTokenSilently()
+      // eslint-disable-next-line promise/catch-or-return
+      fetch('/api/v1/stripe/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ` + token,
+        },
+        body: JSON.stringify({
+          amount: customAmount,
+          registerId: item.register_id,
+          itemId: item.items_id,
+          isAnonymous: true,
+          donorAuth0Id: donor_auth0_id,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => setClientSecret(data.clientSecret))
+    }
+    fetchTokenAndCreatePaymentIntent()
+  }, [])
+
+  const appearance = {
+    theme: 'stripe',
+  }
+  const options = {
+    clientSecret,
+    appearance,
+  }
 
   const handleSelect = (option) => {
     setSelectedOption(option === selectedOption ? null : option)
@@ -26,33 +68,15 @@ export default function ItemCard(item: ItemFromRegister) {
     return selectedOption !== null ? selectedOption : customAmount || 0
   }
 
-  const [donations, setDonations] = useState<Donation[] | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [fetchError, setFetchError] = useState<Error | null>(null)
+  const {
+    data: donations,
+    isPending,
+    isError,
+    error,
+  } = useDonationsByDonor(item.items_id)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true)
-      setFetchError(null)
-
-      try {
-        const fetchedDonations = await useDonationsByDonor(item.items_id)
-        setDonations(fetchedDonations)
-      } catch (error) {
-        setFetchError(error)
-        console.error('Error fetching donations:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [item.items_id, useDonationsByDonor]) // Re-fetch on item ID change
-
-  const findMatchingDonation = (): Donation | null => {
-    // Find a donation matching the item ID (assuming donations are loaded)
-    return donations?.find((donation) => donation.itemId === item.items_id)
-  }
+  if (isPending) return <Spinner />
+  if (isError) console.error(error)
 
   return (
     <>
@@ -69,9 +93,7 @@ export default function ItemCard(item: ItemFromRegister) {
           ></img>
           <h3 className="text-center text-lg font-bold">{item.name}</h3>
           <div className="grid grid-cols-2 gap-4 py-4">
-            <div className="card bg-base-100 rounded-xl p-4">
-              <p>Info on Item:</p>
-              <p className="mt-4">{item.description}</p>
+            <div className="card bg-base-100 rounded-xl px-4">
               <p className="mt-4">Select an amount:</p>
               <div className="m-4 grid grid-cols-5 gap-2">
                 <button
@@ -130,6 +152,11 @@ export default function ItemCard(item: ItemFromRegister) {
               </div>
               <div className="mx-auto">
                 <div className="mx-auto font-bold">
+                  {clientSecret && (
+                    <Elements options={options} stripe={stripePromise}>
+                      <CheckoutForm />
+                    </Elements>
+                  )}
                   <button className="mt-2 rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
                     Donate ${getTotal()}
                   </button>
@@ -143,20 +170,24 @@ export default function ItemCard(item: ItemFromRegister) {
                 </div>
               </div>
             </div>
-            <div className="card bg-base-100 rounded-xl p-4 text-center">
-              Recent Donations:
-              {isLoading ? (
-                <div>Loading donations...</div>
-              ) : fetchError ? (
-                <div>Error fetching donations: {fetchError.message}</div>
-              ) : (
-                findMatchingDonation() && ( // Check if donations are loaded and a match exists
-                  <p>
-                    Someone donated ${findMatchingDonation().valueInNZD} for
-                    this item.
-                  </p>
-                )
-              )}
+            <div className="card bg-base-100 rounded-xl p-4">
+              <p>Info on Item:</p>
+              <p className="mb-4 mt-4">{item.description}</p>
+              <p>Recent Donations:</p>
+              <div className="mt-4">
+                {item.items_id && (
+                  <ul>
+                    {donations?.map(
+                      (donation) =>
+                        item.items_id === donation.itemID && (
+                          <li key={donation.itemID} className="list-none">
+                            Someone donated ${donation.valueInNZD}
+                          </li>
+                        ),
+                    )}
+                  </ul>
+                )}
+              </div>
             </div>
           </div>
           <div className="modal-action">
