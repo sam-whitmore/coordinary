@@ -32,3 +32,30 @@
   position: absolute;
   width: 100%;
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.charities-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .charities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .charities-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

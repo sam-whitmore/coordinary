@@ -8,18 +8,18 @@ export default function CharitiesList() {
   if (isError) return console.error(`Error: ${error.message}`)
   if (!charities) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="error-container">
         <p>Error: no charities found.</p>
       </div>
     )
   }
 
   return (
-    <div className="flex justify-center">
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {charities.map((charity) => {
-          return <CharitySummary key={charity.id} {...charity} />
-        })}
+    <div className="container">
+      <div className="charities-grid">
+        {charities.map((charity) => (
+          <CharitySummary key={charity.id} {...charity} />
+        ))}
       </div>
     </div>
   )
