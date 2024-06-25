@@ -11,6 +11,10 @@ export default {
         accent: '#ffe100',
         lightbackground: '#f9fcff',
       },
+      spacing: {
+        100: '25rem',
+        168: '42rem',
+      },
     },
     fontFamily: {
       sans: ['Wix Madefor Text', 'sans-serif'],

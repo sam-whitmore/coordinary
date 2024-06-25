@@ -10,17 +10,19 @@ export default function CharitiesList() {
 
   if (!charities) {
     return (
-      <div>
+      <div className="error-container">
         <p>Error: no charities found.</p>
       </div>
     )
   }
 
   return (
-    <div>
-      {charities.map((charity) => {
-        return <CharitySummary key={charity.id} {...charity} />
-      })}
+    <div className="container">
+      <div className="charities-grid">
+        {charities.map((charity) => (
+          <CharitySummary key={charity.id} {...charity} />
+        ))}
+      </div>
     </div>
   )
 }
