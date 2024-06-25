@@ -8,48 +8,13 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from './CheckoutForm'
 import { useAuth0 } from '@auth0/auth0-react'
+import { CustomCheckoutProvider } from '@stripe/react-stripe-js'
+import Stripe from 'stripe'
 
 export default function ItemCard(item: ItemFromRegister) {
   const progressBarWidth: string = `${((item.NZDRaised / item.priceInNZD) * 100).toFixed(2)}%`
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
   const [customAmount, setCustomAmount] = useState<number | null>(null)
-
-  const stripePromise = loadStripe('pk_test_HgkvWfRGO4xlhZOgDUc8QDGx')
-
-  const [clientSecret, setClientSecret] = useState('')
-  const { getAccessTokenSilently } = useAuth0()
-
-  useEffect(() => {
-    const fetchTokenAndCreatePaymentIntent = async () => {
-      const token = await getAccessTokenSilently()
-      // eslint-disable-next-line promise/catch-or-return
-      fetch('/api/v1/stripe/create-payment-intent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ` + token,
-        },
-        body: JSON.stringify({
-          amount: customAmount,
-          registerId: item.register_id,
-          itemId: item.items_id,
-          isAnonymous: true,
-          donorAuth0Id: donor_auth0_id,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => setClientSecret(data.clientSecret))
-    }
-    fetchTokenAndCreatePaymentIntent()
-  }, [])
-
-  const appearance = {
-    theme: 'stripe',
-  }
-  const options = {
-    clientSecret,
-    appearance,
-  }
 
   const handleSelect = (option) => {
     setSelectedOption(option === selectedOption ? null : option)
@@ -152,11 +117,6 @@ export default function ItemCard(item: ItemFromRegister) {
               </div>
               <div className="mx-auto">
                 <div className="mx-auto font-bold">
-                  {clientSecret && (
-                    <Elements options={options} stripe={stripePromise}>
-                      <CheckoutForm />
-                    </Elements>
-                  )}
                   <button className="mt-2 rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
                     Donate ${getTotal()}
                   </button>
