@@ -1,3 +1,4 @@
+import Spinner from '../components/Spinner'
 import useActiveDonor from '../hooks/useDonors'
 
 interface Props {
@@ -8,7 +9,7 @@ const DonorProvider: React.FC<Props> = ({ children }) => {
   const { data: donor, isPending, isError, error } = useActiveDonor()
 
   if (isPending) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   if (isError) {

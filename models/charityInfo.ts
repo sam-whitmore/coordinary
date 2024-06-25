@@ -15,7 +15,7 @@ export interface CharityInfo {
   emphatic: string
   ctaStatement: string
   stakeholders: string
-
+  image: string
 }
 
 export interface CharityInfoSnakeCase {
@@ -33,5 +33,5 @@ export interface CharityInfoSnakeCase {
   emphatic: string
   cta_statement: string
   stakeholders: string
-
+  image: string
 }

@@ -7,6 +7,7 @@ import VisionForm from './VisionForm'
 import StoryForm from './StoryForm'
 import PreviewForm from './RegistrationPreview'
 import ProgressBar from '../../../utility/ProgressBar'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const totalSteps = 5
 interface Props {
@@ -64,50 +65,56 @@ export default function AdminCharityForm(props: Props) {
 
   return (
     <>
-      {step === 1 && (
-        <BasicCharityForm
-          formData={basicFormData}
-          handleChange={handleBasicChange}
-          handleNext={handleNext}
-          error={error}
-        />
-      )}
-      {step === 2 && (
-        <BusinessOperationsForm
-          formData={expandedFormData}
-          handleChange={handleExpandedChange}
-          handleBack={handleBack}
-          handleNext={handleNext}
-          error={error}
-        />
-      )}
-      {step === 3 && (
-        <VisionForm
-          formData={expandedFormData}
-          handleChange={handleExpandedChange}
-          handleBack={handleBack}
-          handleNext={handleNext}
-          error={error}
-        />
-      )}
-      {step === 4 && (
-        <StoryForm
-          formData={expandedFormData}
-          handleChange={handleExpandedChange}
-          handleBack={handleBack}
-          handleNext={handleNext}
-          error={error}
-        />
-      )}
-      {step === 5 && (
-        <PreviewForm
-          basicFormData={basicFormData}
-          expandedFormData={expandedFormData}
-          handleBack={handleBack}
-          handleSubmit={handleSubmit}
-        />
-      )}
-      <ProgressBar step={step} totalSteps={totalSteps} />
+      <TransitionGroup className="transition-container">
+        <CSSTransition key={step} timeout={600} classNames="form">
+          <div className="transition-item">
+            {step === 1 && (
+              <BasicCharityForm
+                formData={basicFormData}
+                handleChange={handleBasicChange}
+                handleNext={handleNext}
+                error={error}
+              />
+            )}
+            {step === 2 && (
+              <BusinessOperationsForm
+                formData={expandedFormData}
+                handleChange={handleExpandedChange}
+                handleBack={handleBack}
+                handleNext={handleNext}
+                error={error}
+              />
+            )}
+            {step === 3 && (
+              <VisionForm
+                formData={expandedFormData}
+                handleChange={handleExpandedChange}
+                handleBack={handleBack}
+                handleNext={handleNext}
+                error={error}
+              />
+            )}
+            {step === 4 && (
+              <StoryForm
+                formData={expandedFormData}
+                handleChange={handleExpandedChange}
+                handleBack={handleBack}
+                handleNext={handleNext}
+                error={error}
+              />
+            )}
+            {step === 5 && (
+              <PreviewForm
+                basicFormData={basicFormData}
+                expandedFormData={expandedFormData}
+                handleBack={handleBack}
+                handleSubmit={handleSubmit}
+              />
+            )}
+            <ProgressBar step={step} totalSteps={totalSteps} />
+          </div>
+        </CSSTransition>
+      </TransitionGroup>
     </>
   )
 }

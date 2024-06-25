@@ -60,6 +60,14 @@ export async function updateItem(id: number, data: ItemData) {
   return result
 }
 
+//Seemed worth making its own function for laziness
+export async function donateTowardsItem(id: number, data: number) {
+  const item = (await getItemById(id)) as ItemData
+  // console.log(item)
+  item.NZDRaised += data
+  return await db('items').where({ id }).update({ NZD_raised: item.NZDRaised })
+}
+
 // Function to delete an item by ID
 export async function deleteItem(id: number) {
   console.log(id)

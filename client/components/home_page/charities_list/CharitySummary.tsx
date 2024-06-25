@@ -2,7 +2,11 @@ import { Link } from 'react-router-dom'
 import { Charity } from '../../../../models/charity'
 import useCharities from '../../../hooks/useCharitiesInformation'
 import FollowCharityButton from '../../../utility/FollowCharityButton'
-export default function CharitySummary(charity: Charity) {
+import Spinner from '../../Spinner'
+interface Props extends Charity {
+  donorId: number
+}
+export default function CharitySummary(charity: Props) {
   const {
     data: charityInfo,
     isPending,
@@ -11,7 +15,7 @@ export default function CharitySummary(charity: Charity) {
   } = useCharities().info(charity.slug)
 
   if (isPending) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   if (isError) {
@@ -22,18 +26,25 @@ export default function CharitySummary(charity: Charity) {
     return <p>Error: Charity not found.</p>
   }
 
-  const donorId = 1 // Replace with actual donorId
+  // const donorId = 1 // Replace with actual donorId
 
   return (
     <div className="relative mx-auto my-4 flex w-full max-w-xs flex-col justify-between overflow-hidden rounded-2xl border-2 border-secondary bg-white shadow-lg duration-300 hover:scale-105 hover:border-primary">
       <div className="relative">
         <img
-          src={charityInfo.image || 'uploads/placeholder.png'}
+          src={
+            charityInfo.image
+              ? `/uploads/${charityInfo.image}`
+              : 'uploads/placeholder.png'
+          }
           alt={charity.name}
           className="h-64 w-full rounded-t-2xl object-cover"
         />
         <div className="absolute right-2 top-2">
-          <FollowCharityButton donorId={donorId} charityId={charity.id} />
+          <FollowCharityButton
+            donorId={charity.donorId}
+            charityId={charity.id}
+          />
         </div>
         <div className="p-4">
           <Link

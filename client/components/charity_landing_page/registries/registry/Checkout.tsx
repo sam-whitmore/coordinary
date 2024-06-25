@@ -29,7 +29,7 @@ export default function Checkout(props: Props) {
       setClientSecret(() => vals.clientSecret)
       console.log(vals)
     }
-    if (clientSecret === '' || count === 0) {
+    if (clientSecret === '' && count === 0) {
       fetchdata()
       setCount(() => 1)
     }

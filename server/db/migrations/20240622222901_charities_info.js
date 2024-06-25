@@ -19,6 +19,7 @@ export async function up(knex) {
     table.string('emphatic')
     table.string('cta_statement')
     table.string('stakeholders')
+    table.string('image')
   })
 }
 

@@ -46,7 +46,7 @@ const Breadcrumbs = () => {
               ...
             </button>
             {dropdownOpen && (
-              <ul className="absolute left-0 top-full mt-2 w-48 rounded border border-gray-300 bg-white shadow-lg">
+              <ul className="absolute left-0 top-full z-50 mt-2 flex-grow rounded border border-gray-300 bg-white shadow-lg ">
                 {hiddenPathnames.map((value, index) => {
                   const to = `/${pathnames.slice(0, index + visiblePathnames.length + 1).join('/')}`
                   const name = value.charAt(0).toUpperCase() + value.slice(1)

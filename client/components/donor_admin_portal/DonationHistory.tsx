@@ -4,6 +4,7 @@ import useDonationsByDonor from '../../hooks/useDonations'
 import { useFilteredDonationsByDonor } from '../../hooks/useDonations'
 import DonationFilter from './DonationToPdf/FilterDonationsByPeriod'
 import DateFilter from './DonationToPdf/FilterDonationsByDate'
+import Spinner from '../Spinner'
 
 interface Props {
   id: number
@@ -20,7 +21,7 @@ export default function DonationHistory(props: Props) {
     period === 'all' && !date ? allTimeQuery : filteredQuery
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   if (isError || !data) {

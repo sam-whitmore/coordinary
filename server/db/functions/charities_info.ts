@@ -21,6 +21,7 @@ const joinColumns = [
   'charities_info.emphatic as emphatic',
   'charities_info.cta_statement as ctaStatement',
   'charities_info.stakeholders as stakeholders',
+  'charities_info.image as image',
 ]
 
 export async function getCharityInfoBySlug(slug: string) {
@@ -50,6 +51,7 @@ export async function addCharityInfoBySlug(slug: string, info: CharityInfo) {
     emphatic: info.emphatic,
     cta_statement: info.ctaStatement,
     stakeholders: info.stakeholders,
+    image: info.image,
   }
 
   await db('charities_info').insert(newInfo)
@@ -75,6 +77,7 @@ export async function editCharityInfoBySlug(slug: string, info: CharityInfo) {
     emphatic: info.emphatic,
     cta_statement: info.ctaStatement,
     stakeholders: info.stakeholders,
+    image: info.image,
   }
 
   await db('charities_info').where({ charity_id: charity.id }).update(snakeCase)

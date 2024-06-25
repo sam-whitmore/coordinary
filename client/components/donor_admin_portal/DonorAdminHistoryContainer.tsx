@@ -1,11 +1,12 @@
 import useActiveDonor from '../../hooks/useDonors'
+import Spinner from '../Spinner'
 import DonationHistory from './DonationHistory'
 
 export default function DonorAdminHistoryContainer() {
   const { isLoading, isError, data } = useActiveDonor()
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   if (isError || !data) {

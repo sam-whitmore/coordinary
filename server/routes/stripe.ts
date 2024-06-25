@@ -29,31 +29,4 @@ router.post(
   },
 )
 
-// router.post(
-//   '/create-payment-intent',
-//   checkJwt,
-//   async (req: JwtRequest, res, next) => {
-//     if (!req.auth?.sub) {
-//       res.sendStatus(StatusCodes.UNAUTHORIZED)
-//       return
-//     }
-
-//     try {
-//       const { registerId, itemId, amount, isAnonymous } = req.body
-//       const id = await db.addPayment(
-//         req.auth.sub,
-//         registerId,
-//         itemId,
-//         amount,
-//         isAnonymous,
-//       )
-//       res
-//         .setHeader('Location', `${req.baseUrl}/${id}`)
-//         .sendStatus(StatusCodes.CREATED)
-//     } catch (err) {
-//       next(err)
-//     }
-//   },
-// )
-
 export default router
