@@ -1,7 +1,7 @@
 export default function AdminHome() {
   return (
-    <div className="border-box h-full w-5/6 border-4 border-green-400">
-      <h1>Admin Home</h1>
+    <div className="flex">
+      <h1 className="mx-auto text-4xl">Welcome to your Admin Portal</h1>
     </div>
   )
 }

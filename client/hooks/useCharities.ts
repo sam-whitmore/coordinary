@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-query'
 import { Charity, CharityData } from '../../models/charity'
 import * as API from '../apis/charities'
+import { CharityPreferences } from '../../models/charityPreferences'
 
 const rootURL = '/api/v1/charities'
 
@@ -24,7 +25,7 @@ export default function useCharities() {
 
   function useGetCharityInformation(charitySlug: string) {
     return useQuery({
-      queryKey: ['charity'],
+      queryKey: ['charity', charitySlug],
       queryFn: async () => {
         const res = await request.get(`${rootURL}/${charitySlug}`)
         return res.body as Charity
@@ -59,10 +60,20 @@ export default function useCharities() {
     return useCharityMutation(API.editCharity)
   }
 
+  function useGetPreferences(slug: string) {
+    return useQuery({
+      queryKey: ['charity', slug],
+      queryFn: async () => {
+        return await API.getCharityPreferences(slug)
+      },
+    })
+  }
+
   return {
     all: useGetAllCharities,
     get: useGetCharityInformation,
     add: useAddCharity(),
     edit: useEditCharity(),
+    getPreferences: useGetPreferences,
   }
 }

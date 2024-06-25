@@ -1,4 +1,4 @@
-import db from './connection.ts'
+import db from '../connection.ts'
 
 const joinColumns = [
   'registers.id as register_id',

@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import * as db from '../db/register_items'
-import * as itemDB from '../db/items'
+import * as db from '../db/functions/register_items'
+import * as itemDB from '../db/functions/items'
 import checkJwt, { JwtRequest } from '../auth0'
 import { StatusCodes } from 'http-status-codes'
 

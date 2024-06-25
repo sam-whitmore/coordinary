@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes'
 // import * as db from '../db/registers.ts'
 import * as path from 'path'
 import * as fs from 'fs'
-import * as db from '../db/items.ts'
+import * as db from '../db/functions/items.ts'
 
 import multer from 'multer'
 import { Item } from '../../models/item.ts'

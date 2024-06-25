@@ -2,8 +2,8 @@ import {
   Register,
   RegisterData,
   RegisterSnakeCase,
-} from '../../models/register.ts'
-import db from './connection.ts'
+} from '../../../models/register.ts'
+import db from '../connection.ts'
 
 //pre-define snakecase to 'actual' select statements for gets (saves duplication of work if there are changes)
 const columns = [

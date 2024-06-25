@@ -1,7 +1,7 @@
 import { Router } from 'express'
 // import checkJwt, { JwtRequest } from '../auth0.ts'
 // import { StatusCodes } from 'http-status-codes'
-import * as db from '../db/charities.ts'
+import * as db from '../db/functions/charities.ts'
 import checkJwt, { JwtRequest } from '../auth0.ts'
 import { StatusCodes } from 'http-status-codes'
 

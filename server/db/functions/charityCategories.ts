@@ -1,8 +1,8 @@
 import {
   CharityCategoryData,
   CharityCategorySnakeCase,
-} from '../../models/charityCategory.ts'
-import db from './connection.ts'
+} from '../../../models/charityCategory.ts'
+import db from '../connection.ts'
 
 //pre-define snakecase to 'actual' select statements for gets (saves duplication of work if there are changes)
 const columns = ['id', 'category']
