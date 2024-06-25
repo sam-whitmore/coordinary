@@ -4,56 +4,30 @@ import dateMath from '../../../../timeHelper'
 import useDonationsByDonor from '../../../../hooks/useDonations'
 import { DonationData } from '../../../../../models/donation'
 import Spinner from '../../../Spinner'
-import { loadStripe } from '@stripe/stripe-js'
-import { Elements } from '@stripe/react-stripe-js'
-import CheckoutForm from './CheckoutForm'
 import { useAuth0 } from '@auth0/auth0-react'
+import Checkout from './Checkout'
+import useDonations from '../../../../hooks/useDonations'
 
 export default function ItemCard(item: ItemFromRegister) {
   const progressBarWidth: string = `${((item.NZDRaised / item.priceInNZD) * 100).toFixed(2)}%`
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
-  const [customAmount, setCustomAmount] = useState<number | null>(null)
+  const [customAmount, setCustomAmount] = useState<number | null>(5)
+  const [paying, setPaying] = useState(false)
 
-  const stripePromise = loadStripe('pk_test_HgkvWfRGO4xlhZOgDUc8QDGx')
-
-  const [clientSecret, setClientSecret] = useState('')
-  const { getAccessTokenSilently } = useAuth0()
-
-  useEffect(() => {
-    const fetchTokenAndCreatePaymentIntent = async () => {
-      const token = await getAccessTokenSilently()
-      // eslint-disable-next-line promise/catch-or-return
-      fetch('/api/v1/stripe/create-payment-intent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ` + token,
-        },
-        body: JSON.stringify({
-          amount: customAmount,
-          registerId: item.register_id,
-          itemId: item.items_id,
-          isAnonymous: true,
-          donorAuth0Id: donor_auth0_id,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => setClientSecret(data.clientSecret))
-    }
-    fetchTokenAndCreatePaymentIntent()
-  }, [])
-
-  const appearance = {
-    theme: 'stripe',
-  }
-  const options = {
-    clientSecret,
-    appearance,
-  }
+  // const [clientSecret, setClientSecret] = useState('')
+  const { user, getAccessTokenSilently } = useAuth0()
+  const { add } = useDonations(0)
+  // const appearance = {
+  //   theme: 'stripe',
+  // }
+  // const options = {
+  //   clientSecret,
+  //   appearance,
+  // }
 
   const handleSelect = (option) => {
     setSelectedOption(option === selectedOption ? null : option)
-    setCustomAmount(null)
+    setCustomAmount(option)
   }
 
   const handleCustomAmountChange = (e) => {
@@ -66,6 +40,24 @@ export default function ItemCard(item: ItemFromRegister) {
 
   const getTotal = () => {
     return selectedOption !== null ? selectedOption : customAmount || 0
+  }
+
+  const handleBeginPayment = async () => {
+    const token = await getAccessTokenSilently()
+
+    //fire off mutation
+    await add.mutateAsync({
+      token,
+      donation: {
+        donorAuth0Id: user?.sub as string,
+        itemId: item.items_id,
+        registerId: item.register_id,
+        anonymous: false,
+        datetime: new Date(),
+        valueInNZD: customAmount as number,
+      },
+    })
+    setPaying(() => true)
   }
 
   const {
@@ -141,10 +133,12 @@ export default function ItemCard(item: ItemFromRegister) {
                 <p className="mt-4">or Enter in an amount ($):</p>
                 <input
                   className="input ml-2 mt-2 h-[25px] w-1/2 border border-black px-2 py-4"
+                  step={1}
                   type="number"
-                  placeholder="1"
+                  min="0.5"
+                  placeholder="50"
                   onChange={handleCustomAmountChange}
-                  value={customAmount || ''}
+                  value={(customAmount as number) || ''}
                 ></input>
               </div>
               <div className="mt-4 font-bold">
@@ -152,14 +146,25 @@ export default function ItemCard(item: ItemFromRegister) {
               </div>
               <div className="mx-auto">
                 <div className="mx-auto font-bold">
-                  {clientSecret && (
+                  {paying ? (
+                    <div>
+                      <Checkout
+                        {...{ amount: (customAmount as number) * 100 }}
+                      />
+                    </div>
+                  ) : (
+                    <button
+                      onClick={handleBeginPayment}
+                      className="mt-2 rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+                    >
+                      Donate ${getTotal()}
+                    </button>
+                  )}
+                  {/* {clientSecret && paying && (
                     <Elements options={options} stripe={stripePromise}>
                       <CheckoutForm />
                     </Elements>
-                  )}
-                  <button className="mt-2 rounded border border-transparent bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
-                    Donate ${getTotal()}
-                  </button>
+                  )} */}
                 </div>
                 <div className="modal-action mt-4 font-bold">
                   <form method="dialog">

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 
 export default function CheckoutForm() {
   const stripe = useStripe()
   const elements = useElements()
-
+  const stripePromise = loadStripe('pk_test_HgkvWfRGO4xlhZOgDUc8QDGx')
   const [message, setMessage] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -21,7 +22,6 @@ export default function CheckoutForm() {
       return
     }
 
-    // eslint-disable-next-line promise/catch-or-return
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case 'succeeded':
@@ -55,7 +55,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:5173',
+        return_url: `http://localhost:5173/donor/donation-history`,
       },
     })
 
